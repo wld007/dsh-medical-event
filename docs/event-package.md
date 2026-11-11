@@ -1,7 +1,7 @@
 # 事件包格式（草案 v0）
 
 > `dsh-medical-event` 的交付物，`dsh-medical-ontology`、`dsh-medical-eval` 及其他下游读取。
-> 状态：**草案，待定稿**。字段来自工序 1–4 设计文档的“输出字段”，补上了稳定编号、版本与复核状态。
+> 状态：**v0 已实现**（`lib/package/write.js`）。字段来自工序 1–4 设计文档的“输出字段”，补上了稳定编号、版本与复核状态。实现与本文有出入时以实现为准，并回写本文。
 > 定稿后遵守：字段只增不改；改动升 `format` 版本；消费者声明支持的版本。
 
 ## 目录结构（每位病人一个）
@@ -14,7 +14,8 @@
   mentions.jsonl
   events.jsonl
   findings.jsonl
-  reviews.jsonl          # 人工裁定（也在 _records 的裁定表里）
+  clues.jsonl            # S04 交 S05 的线索
+  stage-changes.json     # 病情变化（分期分级）
   exports/               # 便于复用的视图，可再生
     结果-工序1..4.xlsx
     drug_exposure.csv
@@ -116,9 +117,13 @@
 
 “病情变化”不进矛盾表，单独记在 `findings` 里 `verdict = 病情变化`。
 
+## 已定
+
+- 交付位置：`<outputRoot>/<输入名>/<病人相对路径>/`；单个病人输入时直接是 `<outputRoot>/<输入名>/`。
+- 片段全文放进包里（下游不回读病历）。
+- 人工裁定不写进事件包，放 `_records/decisions.json`（按稳定编号）；读取时合并到 `findings[].review`。
+- as-of：以批次参数 `asOf` 产出整包（manifest.asOf 记录），引擎内 `runStages(raw, pack, { asOf })` 可按需重算。
+
 ## 待定
 
-- 交付位置：每病人一个目录，还是每批一个目录内分病人。
-- 是否把片段全文放进包里（可追溯性 vs 体积/隐私）；建议放，因为下游不该回读病历。
-- as-of 查询是否也以文件形式交付（按决策日的快照），还是只提供 API。
 - 未匿名化输入时，事件包是否禁止离开本机。
