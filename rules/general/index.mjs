@@ -58,12 +58,85 @@ export default {
     ACT_START: /^予|^给予|^予以|^行|开始|启用|^加用/,
   },
 
+  /*
+   * 工序3 概念归一词表（通用部分）。nature：写法变体／同义归一／全称简称／检验别名／同名／
+   * 商品名→通用名（需药师复核）……  只在同值时合并的检验别名标 sameValueOnly。
+   */
+  concepts: [
+    // 症状
+    { group: '症状', name: '气急', aliases: ['气急', '气促', '呼吸困难', '端坐呼吸', '不能平卧'], nature: '同义归一' },
+    { group: '症状', name: '胸闷', aliases: ['胸闷'], nature: '同名' },
+    { group: '症状', name: '水肿', aliases: ['浮肿', '水肿'], nature: '写法变体' },
+    { group: '症状', name: '发热', aliases: ['发热', '高热', '体温偏高', '热度'], nature: '同义归一' },
+    { group: '症状', name: '畏寒', aliases: ['畏寒'], nature: '同名' },
+    { group: '症状', name: '咳嗽', aliases: ['咳嗽', '干咳'], nature: '同义归一' },
+    { group: '症状', name: '咳痰', aliases: ['咳痰', '咯痰'], nature: '写法变体' },
+    { group: '症状', name: '黑便', aliases: ['黑便'], nature: '同名' },
+    { group: '症状', name: '泡沫尿', aliases: ['泡沫尿', '尿中泡沫'], nature: '写法变体' },
+    { group: '症状', name: '夜尿增多', aliases: ['夜尿增多'], nature: '同名' },
+    { group: '症状', name: '心悸', aliases: ['心悸'], nature: '同名' },
+    { group: '症状', name: '乏力', aliases: ['乏力'], nature: '同名' },
+    { group: '症状', name: '纳差', aliases: ['纳差', '胃纳差', '胃纳查'], nature: '写法变体（含笔误）' },
+    { group: '症状', name: '恶心呕吐', aliases: ['恶心', '呕吐'], nature: '同义归一' },
+    { group: '症状', name: '头晕', aliases: ['头晕'], nature: '同名' },
+    { group: '症状', name: '头痛', aliases: ['头痛'], nature: '同名' },
+    { group: '症状', name: '胸痛', aliases: ['胸痛'], nature: '同名' },
+    { group: '症状', name: '腹痛', aliases: ['腹痛'], nature: '同名' },
+    { group: '症状', name: '腹泻', aliases: ['腹泻'], nature: '同名' },
+    { group: '症状', name: '低血压', aliases: ['低血压', '血压低下'], nature: '同义归一' },
+    { group: '症状', name: '肢体麻木', aliases: ['麻木'], nature: '同义归一' },
+    { group: '症状', name: '睡眠差', aliases: ['睡眠差', '睡眠不佳', '失眠'], nature: '同义归一' },
+    { group: '症状', name: '鼻塞', aliases: ['鼻塞'], nature: '同名' },
+    { group: '症状', name: '流涕', aliases: ['流涕'], nature: '同名' },
+    { group: '症状', name: '咽痛', aliases: ['咽痛'], nature: '同名' },
+    { group: '症状', name: '尿量减少', aliases: ['尿量减少', '尿量较前减少', '尿少', '小便量减少'], nature: '同义归一' },
+    { group: '症状', name: '无尿', aliases: ['无尿'], nature: '同名' },
+    // 检验
+    { group: '检验结果', name: '血红蛋白', aliases: ['血红蛋白量', '血红蛋白', 'HB', 'Hb'], nature: '检验别名' },
+    { group: '检验结果', name: '血钾', aliases: ['钾离子浓度', '钾'], nature: '检验别名' },
+    { group: '检验结果', name: '肌酐', aliases: ['肌酐'], nature: '同名' },
+    { group: '检验结果', name: '尿素', aliases: ['尿素氮', '尿素'], nature: '检验别名', sameValueOnly: true },
+    { group: '检验结果', name: '尿酸', aliases: ['尿酸'], nature: '同名' },
+    { group: '检验结果', name: '白蛋白', aliases: ['白蛋白'], nature: '同名' },
+    { group: '检验结果', name: '总蛋白', aliases: ['总蛋白'], nature: '同名' },
+    { group: '检验结果', name: 'eGFR', aliases: ['eGFR', '肾小球滤过率（计算法）', '肾小球滤过率'], nature: '检验别名' },
+    { group: '检验结果', name: 'INR', aliases: ['PT 国际标准化比值', 'PT-INR', 'INR'], nature: '检验别名' },
+    { group: '检验结果', name: 'BNP', aliases: ['B型钠尿肽', 'B型尿钠肽(CMIA法)', 'B型尿钠肽', 'BNP'], nature: '检验别名' },
+    { group: '检验结果', name: '肌钙蛋白', aliases: ['肌钙蛋白T', '超敏肌钙蛋白', '肌钙蛋白-I'], nature: '检验别名（不同方法学）', sameValueOnly: true },
+    { group: '检验结果', name: 'CRP', aliases: ['C反应蛋白（超敏）', '超敏CRP', 'CRP'], nature: '检验别名' },
+    { group: '检验结果', name: '白细胞计数', aliases: ['白细胞计数', 'WBC'], nature: '检验别名' },
+    { group: '检验结果', name: '血小板计数', aliases: ['血小板计数', '血小板', 'PLT'], nature: '检验别名' },
+    { group: '检验结果', name: '红细胞计数', aliases: ['红细胞计数', 'RBC', 'HBC'], nature: '检验别名（含疑似笔误）' },
+    { group: '检验结果', name: '血钠', aliases: ['钠离子浓度', '钠'], nature: '检验别名' },
+    { group: '检验结果', name: '血氯', aliases: ['氯离子浓度', '氯'], nature: '检验别名' },
+    { group: '检验结果', name: '血钙', aliases: ['钙离子浓度', '钙'], nature: '检验别名' },
+    { group: '检验结果', name: '血磷', aliases: ['磷'], nature: '检验别名' },
+    { group: '检验结果', name: 'PTH', aliases: ['甲状旁腺素', '甲状旁腺激素', 'PTH'], nature: '检验别名' },
+    { group: '检验结果', name: 'D-二聚体', aliases: ['D-二聚体', 'D二聚体(FEU)', 'D二聚体'], nature: '检验别名' },
+    { group: '检验结果', name: '葡萄糖', aliases: ['葡萄糖'], nature: '同名' },
+    { group: '检验结果', name: '凝血酶原时间', aliases: ['凝血酶原时间'], nature: '同名' },
+    // 诊断
+    { group: '诊断', name: '脑梗死', aliases: ['脑梗死', '脑梗塞'], nature: '写法变体' },
+    { group: '诊断', name: '心房颤动', aliases: ['心房颤动[心房纤颤]', '心房颤动', '房颤'], nature: '全称简称' },
+    { group: '诊断', name: '冠状动脉粥样硬化性心脏病', aliases: ['冠状动脉粥样硬化性心脏病', '冠状动脉性心脏病', '冠心病'], nature: '全称简称' },
+    { group: '诊断', name: '高血压病', aliases: ['高血压病', '原发性高血压', '高血压'], nature: '全称简称' },
+    { group: '诊断', name: '糖尿病', aliases: ['2型糖尿病', '糖尿病'], nature: '全称简称（2型与未分型合并，需医生复核）' },
+    { group: '诊断', name: '甲状腺功能减退症', aliases: ['甲状腺功能减退症', '甲减'], nature: '全称简称' },
+    // 一次性概念
+    { group: '背景', name: '初潮', aliases: ['初潮'], once: true },
+    { group: '背景', name: '绝经', aliases: ['绝经'], once: true },
+    { group: '背景', name: '结婚', aliases: ['结婚'], once: true },
+  ],
+
   params: {
     templateNegationDocs: 3,  // 同一否认在 ≥3 份同类文书重复 → 模板化否认
     templateOrderDocs: 5,     // 门诊处理意见在 ≥5 份重复 → 宣教/医嘱模板
     verbatimReuseDocs: 3,     // 同一句在 ≥3 份同类文书出现且不是首次 → 逐字复用
     lateRecordDays: 14,       // 写成晚于事件 14 天以上 → 同次补记
     fallbackAlarm: 0.03,      // 兜底（Z2、Z9）命中率阈值
+    labDayTolerance: 2,       // 检验、检查同一事件的日期容差
+    careDayTolerance: 0,      // 就医经过按同一天
+    drugGapDays: 180,         // 用药在用片段断段
   },
 
   /*
