@@ -174,6 +174,10 @@ export function apply(ctx, config = {}) {
           case 'decide': return service.decide(r.runId, r)
           case 'rulepack': return service.rulepack(r.specialty)
           case 'calls': return service.calls(r.runId)
+          case 'timeline': return service.timeline(r.runId, r.patient)
+          case 'event': return service.eventDetail(r.runId, r.patient, r.eventId)
+          case 'finding': return service.findingDetail(r.runId, r.patient, r.findingId)
+          case 'reviewQueue': return service.reviewQueue(r.runId)
           case 'pickFolder': {
             const ws = ctx.get('uiWorkspace')
             return { path: ws?.pickDirectory ? await ws.pickDirectory() : null }
