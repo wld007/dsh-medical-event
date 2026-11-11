@@ -151,7 +151,7 @@ export function apply(ctx, config = {}) {
     try { entry = entries.find((item) => item.fiber === ctx.fiber) } catch { /* fall back */ }
     entry ??= entries.find((item) => item.options?.id === ENTRY_ID)
     if (!entry) throw new Error(`找不到插件配置行 ${ENTRY_ID}`)
-    const allowed = ['outputRoot', 'specialty', 'baseURL', 'model', 'apiKey', 'verifyBaseURL', 'verifyModel', 'disableThinking', 'timeoutMs', 'modelConcurrency', 'modelEnabled', 'modelLimit', 'showSidebarEntry']
+    const allowed = ['outputRoot', 'specialty', 'baseURL', 'model', 'apiKey', 'verifyBaseURL', 'verifyModel', 'disableThinking', 'timeoutMs', 'modelConcurrency', 'modelEnabled', 'modelLimit', 'showSidebarEntry', 'compress', 'xlsx']
     const clean = Object.fromEntries(Object.entries(patch ?? {}).filter(([k]) => allowed.includes(k)))
     await editor.edit(entry, (current) => ({ ...current, ...clean }))
     return { saved: true }

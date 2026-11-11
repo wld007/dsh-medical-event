@@ -44,7 +44,7 @@ test('批次：两位病人、交付布局、源文件只读、报告、裁定�
   const before = await stat(join(input, '病人A', '人口信息学/病史/190001/p_doc_dwd_psn_rcd.json'))
 
   const svc = createService({
-    config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state'),
+    config: { outputRoot: join(base, 'out'), xlsx: true }, defaultDirectory: base, stateDir: join(base, 'state'),
     chatImpl: { suggest: mockModel('mock-a', { badQuote: true }), verify: mockModel('mock-b', { findingVerdict: () => '证据不足' }) },
   })
   const { runId } = await svc.start({ inputDir: input })
@@ -53,11 +53,17 @@ test('批次：两位病人、交付布局、源文件只读、报告、裁定�
   assert.equal(run.totals.patients, 2)
   assert.equal(run.output, join(base, 'out', 'cohort'))
   const delivered = await readdir(run.output)
-  assert.deepEqual(delivered.sort(), ['病人A', '病人B'])
+  assert.deepEqual(delivered.sort(), ['_cohort', '病人A', '病人B'])
+  for (const f of ['patients.csv', 'drug_exposure.csv', 'labs_long.csv', 'findings.csv']) await stat(join(run.output, '_cohort', f))
+  const pcsv = (await readFile(join(run.output, '_cohort', 'patients.csv'), 'utf8')).trim().split('\n')
+  assert.equal(pcsv.length, 3)
+  const XLSX = await import('../vendor/xlsx.mjs')
+  const wb = XLSX.read(await readFile(join(run.output, '病人A', 'exports', '结果.xlsx')))
+  assert.deepEqual(wb.SheetNames, ['汇总', '提及明细', '事件表', '发现表', '各方提及', '病情变化', '交矛盾判断线索'])
   const manifest = JSON.parse(await readFile(join(run.output, '病人A', 'manifest.json'), 'utf8'))
   assert.equal(manifest.format, 'event-package/0')
   for (const g of ['①', '②', '③', '④']) assert.equal(manifest.gates[g].pass, true)
-  for (const f of ['exports/drug_exposure.csv', 'exports/labs_long.csv', 'exports/extraction_samples.jsonl', 'events.jsonl', 'findings.jsonl']) await stat(join(run.output, '病人A', f))
+  for (const f of ['exports/drug_exposure.csv', 'exports/labs_long.csv', 'exports/extraction_samples.jsonl.gz', 'events.jsonl.gz', 'mentions.jsonl.gz', 'findings.jsonl']) await stat(join(run.output, '病人A', f))
   assert.equal(run.sourceCheck.changed, 0)
   const after = await stat(join(input, '病人A', '人口信息学/病史/190001/p_doc_dwd_psn_rcd.json'))
   assert.equal(after.mtimeMs, before.mtimeMs)

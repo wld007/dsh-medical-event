@@ -162,3 +162,17 @@
 - `plugin_manager install_bundle link:…/dist/0.1.0-dev.1` 后，Agent 工具 event_start/status/report/runs/cancel 出现在宿主工具列表。
 - 用 `event_start` 跑匿名化后的 HD-0001（仅规则）：0.8 秒，四道验收门通过，24 条发现，源文件 515 个运行前后一致，交付在输出根目录、记录在 `_records`。
 - 页面用 `scripts/preview-page.mjs` 在浏览器外以同一份 client.js 和真实服务数据验证（产线、时间线、原文标注、复核截图在仓库外 `_medical-event-data/shots/`）。
+
+## 批量（阶段 5）
+
+规模测试：把匿名化后的 HD-0001 硬链接成 100 位“病人”（每位 515 个文件、约 2.6 万条提及），仅规则：
+
+| 配置 | 用时 | 每人 | 峰值内存 | 输出 |
+|---|---:|---:|---:|---:|
+| 压缩、不出 xlsx（默认） | 81 秒 | 0.8 秒 | 836 MB | 436 MB（约 4.4 MB/人） |
+| 压缩、出 结果.xlsx | 250 秒 | 2.5 秒 | 1.2 GB | 1.8 GB（xlsx 约 15 MB/人） |
+| 不压缩（早期） | — | 0.6 秒 | — | 约 39 MB/人 |
+
+据此：302 人仅规则约 4 分钟、约 1.3 GB；结果.xlsx 改为可选（默认关）；大表默认 gzip。本机磁盘只剩约 25 GB（95% 已用），批次开始前会按人数估算所需空间，不够时在报告里告警。复核队列 100 人 1,612 项，读取 42 毫秒（不再读事件表）。
+
+队列级导出 `<交付>/_cohort/`：patients.csv（每人验收门、兜底率、各计数）、drug_exposure.csv、labs_long.csv、findings.csv。

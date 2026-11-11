@@ -22,3 +22,7 @@
         # 每位病人每类候选最多送模型的条数
         modelLimit: 200
         showSidebarEntry: true
+        # 事件包的大表（片段、提及、事件、抽取样本）gzip 压缩：每位病人约 5MB，不压缩约 40MB
+        compress: true
+        # 每位病人另导出一份 结果.xlsx（提及明细、事件表、发现表…）；约 15MB/人、每人多 2 秒，默认关
+        xlsx: false
