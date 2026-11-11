@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh"><meta charset="utf-8"><title>时间线</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.main { display: grid; grid-template-columns: 196px 1fr 372px; gap: 8px; min-height: 0; }
+.plist { padding: 10px 8px; overflow: hidden; }
+.search { border: 1px solid var(--line2); border-radius: 5px; padding: 5px 8px; color: var(--ink3); margin-bottom: 8px; }
+.pf { display: flex; gap: 4px; margin-bottom: 8px; }
+.pi { padding: 6px 8px; border-radius: 5px; margin-bottom: 2px; display: grid; grid-template-columns: 1fr auto; gap: 1px 6px; }
+.pi b { font-family: var(--mono); font-size: 12px; font-weight: 600; }
+.pi span { font-size: 10.5px; color: var(--ink3); }
+.pi.on { background: var(--panel3); box-shadow: inset 3px 0 0 var(--teal); }
+.center { display: grid; grid-template-rows: auto 1fr; min-height: 0; }
+.ph { padding: 10px 14px 8px; border-bottom: 1px solid var(--line); }
+.ph .t { display: flex; align-items: baseline; gap: 10px; }
+.ph .t b { font-family: var(--mono); font-size: 17px; }
+.stats { display: flex; gap: 16px; margin-top: 6px; font-size: 11.5px; color: var(--ink2); }
+.stats .num { color: var(--ink); font-weight: 600; }
+.tools { display: flex; gap: 6px; margin-top: 8px; align-items: center; }
+.det { padding: 12px 14px; overflow: hidden; }
+.mrow { border-top: 1px solid var(--line); padding: 6px 0; display: grid; grid-template-columns: 74px 1fr; gap: 2px 8px; font-size: 11.5px; }
+.mrow .src { color: var(--ink3); font-size: 10.5px; }
+.mrow q { quotes: none; color: var(--ink); }
+.mrow q mark { background: rgba(47,214,160,.16); color: #8ff0cf; }
+.mrow .tm { grid-column: 2; display: flex; gap: 6px; align-items: center; font-size: 10.5px; color: var(--ink2); }
+.op { border: 1px solid var(--line2); border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 11.5px; line-height: 1.6; }
+</style>
+<body><div class="app">
+
+<div class="frame top">
+  <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04201f" stroke-width="2.4" stroke-linecap="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></div>
+  <div class="brand"><b>病历事件还原</b><span>MEDICAL EVENT RECONSTRUCTION <em class="ver">v0.1.0</em></span></div>
+  <div class="runbox"><b><span class="dot" style="background:var(--warn)"></span>待复核 · 214 项</b><div class="num">20261111214502-302pt · 规则包 r2026.11-3</div></div>
+  <div class="sp"></div>
+  <div class="clock"><div class="cap">用时</div><div class="num">01:12:44</div></div>
+  <div class="btn pri">＋ 新批次 ▾</div><div class="btn">批次记录 6</div><div class="btn">⚙</div>
+</div>
+
+<div class="frame tabs">
+  <div class="tab">◈ 产线</div><div class="sep"></div>
+  <div class="tab">患者 <i class="n">302</i></div><div class="tab on">时间线</div><div class="tab">原文标注</div>
+  <div class="tab">复核 <i>214</i></div><div class="tab">模型调用</div><div class="tab">规则包</div><div class="tab">规则对比</div><div class="tab">日志</div><div class="tab">报告</div>
+</div>
+
+<div class="main">
+ <div class="frame plist">
+   <div class="search">⌕ 患者编号 / 概念…</div>
+   <div class="pf"><span class="chip ok">全部</span><span class="chip">有矛盾</span><span class="chip">测试集</span></div>
+   <div class="pi on"><b>HD-0001</b><span class="warn num">25</span><span>女 · 2016–2026 · 测试</span><span></span></div>
+   <div class="pi"><b>HD-0002</b><span class="num">11</span><span>男 · 2018–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0003</b><span class="num">7</span><span>男 · 2020–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0004</b><span class="bad num">42</span><span>女 · 2015–2026 · 验证</span><span></span></div>
+   <div class="pi"><b>HD-0005</b><span class="num">9</span><span>男 · 2019–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0006</b><span class="num">14</span><span>女 · 2017–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0007</b><span class="num">3</span><span>男 · 2022–2026 · 测试</span><span></span></div>
+   <div class="pi"><b>HD-0008</b><span class="warn num">19</span><span>男 · 2016–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0009</b><span class="num">6</span><span>女 · 2021–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0010</b><span class="num">12</span><span>男 · 2018–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0011</b><span class="num">8</span><span>女 · 2019–2026 · 验证</span><span></span></div>
+   <div class="pi"><b>HD-0012</b><span class="warn num">23</span><span>男 · 2014–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0013</b><span class="num">5</span><span>女 · 2023–2026 · 训练</span><span></span></div>
+   <div class="pi"><b>HD-0014</b><span class="num">10</span><span>男 · 2017–2026 · 测试</span><span></span></div>
+   <div class="faint" style="font-size:10.5px;padding:6px 8px">右侧数字为发现数 · 共 302 人</div>
+ </div>
+
+ <div class="frame center">
+   <div class="ph">
+     <div class="t"><b>HD-0001</b><span class="muted">女 · 1960 年生 · 维持性血透 · 测试集</span><span class="sp"></span><span class="chip ok">四道验收全部通过</span></div>
+     <div class="stats"><span>文书 <span class="num">412</span></span><span>结构化行 <span class="num">18,906</span></span><span>提及 <span class="num">25,410</span></span><span>事件 <span class="num">14,759</span></span><span>就诊 <span class="num">9 住院 · 301 门诊</span></span><span>发现 <span class="num warn">25</span></span></div>
+     <div class="tools">
+       <span class="chip f">● 事实</span><span class="chip j">● 判断</span><span class="chip d">● 决策</span>
+       <span class="chip">隐藏模板化</span><span class="chip">只看有发现的</span>
+       <span class="sp"></span>
+       <span class="chip w">┆ 可见截断 2024-10-12 ▾</span>
+       <span class="btn sm">－</span><span class="btn sm">2016 – 2026</span><span class="btn sm">＋</span>
+     </div>
+   </div>
+   <svg id="tl" width="984" height="672"></svg>
+ </div>
+
+ <div class="frame det">
+   <div class="h"><b>事件详情</b><span class="cap">EVENT</span><span class="sp"></span><span class="faint num" style="font-size:11px">E00214</span></div>
+   <div style="font-size:16px;font-weight:700">开始维持性透析</div>
+   <div style="display:flex;gap:5px;margin-top:6px;flex-wrap:wrap"><span class="chip d">决策 › 治疗干预 › 透析</span><span class="chip">一次性</span><span class="chip">启动 · 转述</span></div>
+   <div class="kv" style="margin-top:10px;font-size:11.5px">
+     <span class="faint">共识时间</span><span class="bad">无交集 · 并集 2019-10-01 ～ 2019-11-24</span>
+     <span class="faint">提及 / 文书</span><span>9 条 / 9 份 · 首见 2019-11-24 · 末见 2026-09-03</span>
+     <span class="faint">归并依据</span><span>一次性概念（不看时间直接合并）</span>
+   </div>
+
+   <div class="sec"><b>各方提及</b><span class="cap">MENTIONS · 按写成时间</span></div>
+   <div class="mrow"><span class="num">2019-11-24<div class="src">入院记录</div></span><q>今日<mark>行血液透析治疗</mark>，过程顺利</q>
+     <div class="tm"><span class="chip ok">同期 · 等级 2</span>→ 2019-11-24 · 本句自带</div></div>
+   <div class="mrow"><span class="num">2020-03-02<div class="src">入院记录</div></span><q>（2019.10）<mark>开始透析</mark>，每周3次</q>
+     <div class="tm"><span class="chip">回顾转述 · 4</span>→ 2019-10-01～10-31 · 年月</div></div>
+   <div class="mrow"><span class="num">2021-06-08<div class="src">入院记录</div></span><q>2019年10月<mark>开始血透</mark>治疗</q>
+     <div class="tm"><span class="chip">回顾转述 · 4</span>→ 2019-10 · 逐字复制 ×6</div></div>
+   <div class="faint" style="font-size:11px;padding:4px 0 0 82px">… 另 6 条，同为 “2019年10月开始血透” ›</div>
+
+   <div class="sec" style="border-color:var(--bad);background:linear-gradient(90deg,rgba(240,82,82,.14),transparent 70%)"><b>发现 F003</b><span class="cap">FINDING</span></div>
+   <div style="display:flex;gap:5px"><span class="chip b">矛盾 · 时间矛盾</span><span class="chip w">记录质量 · 转述误差</span><span class="chip">R3</span></div>
+   <div style="font-size:11.5px;margin-top:6px;line-height:1.6">建议采信 <b>2019-11-24 入院记录</b>（同期文书，等级 2 优于回顾转述 4）。<span class="faint">影响：时间线、透析龄、评测题 C08</span></div>
+   <div class="op"><span style="color:var(--violet)">◇ 建议模型</span> 同意规则判定：后续文书统一写“2019年10月”，最可能是首次转述时的误差被逐字复制。<span class="faint">引用 M04411 · M06120 ✓ 原文核对通过</span><br>
+     <span style="color:var(--violet)">◇ 核验模型</span> 同意。</div>
+   <div style="display:flex;gap:6px;margin-top:10px"><span class="btn pri">打开原文</span><span class="btn">去复核</span><span class="btn">导出此事件</span></div>
+ </div>
+</div>
+</div>
+<script>
+const svg = document.getElementById('tl'), NS = 'http://www.w3.org/2000/svg';
+const L = 118, R = 966, T0 = 2016, T1 = 2027;
+const X = t => L + (t - T0) / (T1 - T0) * (R - L);
+const d = s => { const [y, m = 1, dd = 15] = s.split('-').map(Number); return y + (m - 1) / 12 + (dd - 1) / 365; };
+let out = '';
+const add = s => out += s;
+const C = { fact: '#4fb3ff', judge: '#c48bff', decide: '#2fd6a0', bad: '#f05252', warn: '#f5a524', violet: '#a58bff', line: '#1a2c34', line2: '#26404a', ink2: '#8ba5ad', ink3: '#58717a', ok: '#46d17f' };
+// axis
+for (let y = T0; y <= T1; y++) {
+  add(`<line x1="${X(y)}" y1="22" x2="${X(y)}" y2="664" stroke="${C.line}" />`);
+  if (y < T1) add(`<text x="${X(y) + 4}" y="15" fill="${C.ink3}" font-size="10.5" font-family="SF Mono,Menlo">${y}</text>`);
+}
+const lanes = []; let y = 26;
+function lane(name, h, color) { add(`<rect x="0" y="${y}" width="${R}" height="${h}" fill="${lanes.length % 2 ? 'rgba(255,255,255,.012)' : 'none'}"/><line x1="0" y1="${y}" x2="${R}" y2="${y}" stroke="${C.line2}"/>`);
+  add(`<rect x="0" y="${y+1}" width="3" height="${h-2}" fill="${color || '#6d8790'}" opacity=".8"/>`);
+  [...name].forEach((ch, i) => add(`<text x="16" y="${y + 17 + i * 14}" fill="${color || '#e2eef0'}" font-size="11.5" font-weight="700" text-anchor="middle" font-family="PingFang SC">${ch}</text>`)); lanes.push(name); const top = y; y += h; return top; }
+function label(x, yy, s, c = C.ink2, sz = 10.5) { add(`<text x="${x}" y="${yy}" fill="${c}" font-size="${sz}" font-family="PingFang SC">${s}</text>`); }
+function seg(a, b, yy, c, h = 8, op = .85, extra = '') { add(`<rect x="${X(d(a))}" y="${yy}" width="${Math.max(2, X(d(b)) - X(d(a)))}" height="${h}" rx="2" fill="${c}" opacity="${op}" ${extra}/>`); }
+function sub(yy, s) { label(34, yy + 8, s, C.ink2, 10.5); }
+function flag(x, yy, c, txt) { add(`<circle cx="${x}" cy="${yy}" r="6.5" fill="${c}" opacity=".95"/><text x="${x}" y="${yy + 3.5}" fill="#081116" font-size="9" font-weight="800" text-anchor="middle" font-family="SF Mono,Menlo">${txt}</text>`); }
+
+// 就诊
+let t = lane('就诊', 46);
+sub(t + 20, '住院 9 · 门诊 301');
+const adm = [['2017-01-11','2017-01-20'],['2017-11-25','2017-12-03'],['2019-11-20','2019-12-05'],['2020-03-02','2020-03-12'],['2021-06-08','2021-06-18'],['2023-02-14','2023-02-24'],['2024-03-04','2024-03-09'],['2024-10-12','2024-10-25'],['2026-09-03','2026-09-14']];
+adm.forEach(([a, b]) => { add(`<rect x="${X(d(a)) - 1}" y="${t + 6}" width="${Math.max(5, X(d(b)) - X(d(a)) + 2)}" height="14" rx="2" fill="#6d8790"/>`); });
+for (let m = 0; m < 128; m++) { const tt = 2016.3 + m * 0.081 + (m % 3) * 0.01; if (tt > 2026.8) break; add(`<line x1="${X(tt)}" y1="${t + 27}" x2="${X(tt)}" y2="${t + 38}" stroke="#4d6770" stroke-width="1"/>`); }
+
+// 诊断
+t = lane('诊断', 126, C.judge);
+let r = t + 8;
+sub(r, '慢性肾脏病'); seg('2017-01-11', '2017-11-25', r, C.judge, 8, .55); seg('2017-11-25', '2026-09-14', r, C.judge, 8, .9);
+label(X(d('2017-01-11')) + 3, r - 1, '4期', '#d9b8ff', 9.5); label(X(d('2018-02-01')), r - 1, '5期', '#d9b8ff', 9.5);
+add(`<path d="M${X(d('2017-11-25'))} ${r - 4} l4 -6 l4 6z" fill="${C.violet}"/>`);
+r += 20; sub(r, '高血压病'); seg('2017-01-11', '2026-09-14', r, C.judge, 8, .9);
+r += 20; sub(r, '心房颤动'); seg('2020-03-02', '2026-09-14', r, C.judge, 8, .9);
+r += 20; sub(r, '2型糖尿病'); seg('2021-06-08', '2026-09-14', r, C.judge, 8, .9);
+[2017.05, 2017.9, 2019.9, 2020.2, 2021.45].forEach(x => add(`<line x1="${X(x)}" y1="${r - 1}" x2="${X(x)}" y2="${r + 9}" stroke="${C.warn}" stroke-width="2"/>`));
+label(X(2017.05) - 2, r + 20, '否认糖尿病 ×5（模板）', C.warn, 9.5);
+flag(X(2021.45) + 10, r + 4, C.warn, '5');
+r += 32; sub(r, '尿毒症'); seg('2017-11-25', '2026-09-14', r, C.judge, 8, .35, `stroke="${C.judge}" stroke-dasharray="3 3"`);
+label(X(2018.0), r + 21, '候选同义：与“慢性肾脏病5期”不合并 → 命名不一致', C.ink3, 9.5);
+
+// 透析
+t = lane('透析', 62, C.decide);
+r = t + 10; sub(r, '维持性血透'); seg('2019-11-24', '2026-09-14', r, C.decide, 8, .9);
+label(X(d('2021-01-01')), r + 8 + 0, '', C.ink3);
+const sx = X(d('2019-11-24')), gx = X(d('2019-10-15'));
+add(`<rect x="${gx - 4}" y="${r - 4}" width="${sx - gx + 8}" height="16" rx="3" fill="rgba(240,82,82,.14)" stroke="${C.bad}" stroke-dasharray="3 2"/>`);
+add(`<path d="M${gx} ${r - 2} l6 6 l-6 6 l-6 -6z" fill="none" stroke="${C.decide}" stroke-width="1.4"/>`);
+add(`<path d="M${sx} ${r - 3} l7 7 l-7 7 l-7 -7z" fill="${C.decide}" stroke="#e2eef0" stroke-width="1.6"/>`);
+add(`<circle cx="${sx}" cy="${r + 4}" r="15" fill="none" stroke="#e2eef0" stroke-width="1.2" stroke-dasharray="2 3"/>`);
+flag(sx + 20, r - 6, C.bad, '3');
+r += 24; sub(r, '干体重调整');
+['2020-07-10','2021-06-12','2022-01-20','2023-02-18','2024-03-06','2024-10-20','2025-05-12'].forEach(s => add(`<path d="M${X(d(s))} ${r} l4 4 l-4 4 l-4 -4z" fill="${C.decide}"/>`));
+
+// 用药
+t = lane('用药', 128, C.decide);
+r = t + 8; sub(r, '华法林'); seg('2020-03-04', '2022-06-01', r, C.decide); seg('2023-02-10', '2024-01-15', r, C.decide);
+add(`<path d="M${X(d('2022-06-01')) + 3} ${r - 2} v12" stroke="#e2eef0" stroke-width="2"/>`); label(X(d('2022-06-01')) + 7, r + 8, '停', C.ink2, 9.5);
+r += 20; sub(r, '利伐沙班'); seg('2022-05-20', '2023-04-28', r, C.decide);
+const ox1 = X(d('2023-02-10')), ox2 = X(d('2023-04-28'));
+add(`<defs><pattern id="hz" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="${C.bad}" stroke-width="2"/></pattern></defs>`);
+add(`<rect x="${ox1}" y="${r - 24}" width="${ox2 - ox1}" height="36" fill="url(#hz)" opacity=".55" stroke="${C.bad}"/>`);
+flag(ox2 + 10, r + 4, C.bad, '7'); label(ox2 + 20, r + 8, '互斥用药并存 78 天 ＞ 换药窗口 14 天', '#ff8a8a', 9.5);
+r += 20; sub(r, '硝苯地平'); seg('2017-01-11', '2021-03-01', r, C.decide); add(`<path d="M${X(d('2021-03-01')) + 3} ${r - 2} v12" stroke="#e2eef0" stroke-width="2"/>`);
+r += 20; sub(r, '骨化三醇'); seg('2018-03-01', '2020-11-01', r, C.decide); seg('2021-08-01', '2026-09-14', r, C.decide);
+label(X(d('2020-11-25')), r + 8, '断段', C.ink3, 9.5);
+r += 20; sub(r, '米多君'); seg('2024-10-15', '2026-09-14', r, C.decide);
+r += 20; sub(r, '+ 31 种'); label(X(2016.2), r + 8, '展开全部用药 ›', '#22c7c0', 10);
+
+// 手术操作
+t = lane('手术', 50, C.decide);
+r = t + 12;
+add(`<path d="M${L + 2} ${r + 4} l8 -6 v12z" fill="${C.decide}"/>`); label(L + 14, r + 8, '子宫切除术 · 2006–2007（10年前 ×12）', C.ink2, 9.5);
+flag(L + 214, r + 4, C.warn, '1');
+[['2019-09-16', '内瘘成形'], ['2023-05-08', '球囊扩张+支架'], ['2024-10-14', '胸腔穿刺'], ['2025-09-11', '球囊扩张']].forEach(([s, n], i) => {
+  const x = X(d(s)); add(`<rect x="${x - 4}" y="${r}" width="8" height="8" fill="${C.decide}" transform="rotate(45 ${x} ${r + 4})"/>`); label(x - 18, r + 26, n, C.ink2, 9.5); });
+
+// 症状
+t = lane('症状', 46, C.fact);
+r = t + 10; sub(r, '气急');
+[['2017-01-08','2017-01-18'],['2019-11-10','2019-11-30'],['2020-02-25','2020-03-08'],['2023-02-08','2023-02-22'],['2024-10-06','2024-10-22']].forEach(([a, b]) => seg(a, b, r, C.fact, 8, .9));
+r += 18; sub(r, '水肿'); [['2017-01-01','2017-01-20'],['2017-11-15','2017-12-03'],['2019-10-20','2019-12-01'],['2024-09-20','2024-10-25'],['2026-08-20','2026-09-10']].forEach(([a, b]) => seg(a, b, r, C.fact, 8, .6));
+
+// 检验
+t = lane('检验', 92, C.fact);
+function spark(name, top, h, vals, lo, hi, vmin, vmax, unit) {
+  sub(top + 4, name); label(34, top + 26, unit, C.ink3, 9);
+  const Y = v => top + h - (v - vmin) / (vmax - vmin) * h;
+  add(`<rect x="${L}" y="${Y(hi)}" width="${R - L}" height="${Y(lo) - Y(hi)}" fill="rgba(79,179,255,.06)"/>`);
+  let p = ''; vals.forEach(([tt, v], i) => p += (i ? 'L' : 'M') + X(tt) + ' ' + Y(v));
+  add(`<path d="${p}" stroke="${C.fact}" stroke-width="1.2" fill="none" opacity=".8"/>`);
+  vals.forEach(([tt, v]) => { const ab = v > hi || v < lo; add(`<circle cx="${X(tt)}" cy="${Y(v)}" r="${ab ? 2.6 : 1.6}" fill="${ab ? C.bad : C.fact}"/>`); });
+}
+const K = [], Hb = []; let s = 7;
+for (let i = 0; i < 110; i++) { s = (s * 9301 + 49297) % 233280; const tt = 2016.4 + i * 0.094; const rnd = s / 233280;
+  K.push([tt, (tt > 2019.9 ? 4.6 : 4.9) + (rnd - .5) * 1.6 + (i % 17 === 0 ? .9 : 0)]); Hb.push([tt, (tt > 2019.9 ? 112 : 98) + (rnd - .5) * 22]); }
+spark('血钾', t + 6, 34, K, 3.5, 5.5, 3, 6.6, 'mmol/L');
+spark('血红蛋白', t + 50, 34, Hb, 100, 130, 70, 140, 'g/L');
+
+// 发现
+t = lane('发现', 40, C.warn);
+[[2017.05, C.warn], [2017.9, C.ok], [2019.9, C.bad], [2020.2, C.ok], [2021.2, C.warn], [2021.45, C.warn], [2022.4, C.ok], [2023.15, C.bad], [2023.5, C.violet], [2024.18, C.bad], [2024.8, C.ok], [2024.85, C.warn], [2025.1, C.violet], [2026.7, C.warn]].forEach(([x, c]) => add(`<rect x="${X(x) - 3}" y="${t + 9}" width="6" height="14" rx="1.5" fill="${c}"/>`));
+label(L + 2, t + 36, '', C.ink3);
+
+// cutoff
+const cx = X(d('2024-10-12'));
+add(`<rect x="${cx}" y="22" width="${R - cx}" height="642" fill="rgba(8,17,22,.55)"/>`);
+add(`<line x1="${cx}" y1="22" x2="${cx}" y2="664" stroke="${C.warn}" stroke-dasharray="4 3" stroke-width="1.3"/>`);
+add(`<text x="${cx + 5}" y="34" fill="${C.warn}" font-size="10" font-family="PingFang SC">可见截断：之后写成的不可见</text>`);
+// legend bottom
+const ly = 650; let lx = L;
+[['rect', '#6d8790', '住院'], ['bar', C.judge, '诊断状态'], ['bar', C.decide, '用药/透析片段'], ['dia', C.decide, '点事件/一次性'], ['bar', C.fact, '症状片段'], ['dot', C.bad, '异常值'], ['f', C.bad, '矛盾'], ['f', C.warn, '记录质量'], ['f', C.violet, '改判/病情变化'], ['f', C.ok, '调整']].forEach(([k, c, n]) => {
+  if (k === 'dia') add(`<path d="M${lx + 5} ${ly - 8} l5 5 l-5 5 l-5 -5z" fill="${c}"/>`);
+  else if (k === 'dot') add(`<circle cx="${lx + 5}" cy="${ly - 3}" r="3" fill="${c}"/>`);
+  else if (k === 'f') add(`<rect x="${lx + 2}" y="${ly - 9}" width="6" height="12" rx="1.5" fill="${c}"/>`);
+  else add(`<rect x="${lx}" y="${ly - 7}" width="14" height="8" rx="2" fill="${c}"/>`);
+  label(lx + 18, ly, n, C.ink2, 10); lx += 26 + n.length * 10.5; });
+svg.innerHTML = out;
+</script>
+</body></html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh"><meta charset="utf-8"><title>产线</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.main { display: grid; grid-template-columns: 1fr 392px; gap: 8px; min-height: 0; }
+.left { display: grid; grid-template-rows: 1fr 196px; gap: 8px; min-height: 0; }
+.pipe { position: relative; padding: 12px 16px; overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #10262d 0%, var(--panel) 70%); }
+.legend span { margin-right: 12px; color: var(--ink2); }
+.stations { position: absolute; left: 16px; right: 16px; top: 64px; height: 230px; }
+.st { position: absolute; top: 40px; width: 132px; height: 150px; border: 1px solid var(--line2); border-radius: 8px;
+  background: linear-gradient(180deg, #13262d, #0c191e); padding: 10px 10px; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+.st .no { font-family: var(--mono); font-size: 9.5px; color: var(--ink3); letter-spacing: 1px; }
+.st .nm { font-size: 14px; font-weight: 700; margin: 2px 0 1px; }
+.st .sub { font-size: 10.5px; color: var(--ink3); height: 28px; line-height: 14px; }
+.st .big { font-family: var(--mono); font-size: 19px; font-weight: 700; margin-top: 6px; }
+.st .big small { font-size: 10px; color: var(--ink3); font-weight: 400; margin-left: 3px; }
+.st .gate { position: absolute; left: 10px; right: 10px; bottom: 9px; display: flex; justify-content: space-between; font-size: 10.5px; }
+.st .prog { position: absolute; left: 0; right: 0; top: -1px; height: 3px; border-radius: 8px 8px 0 0; overflow: hidden; background: var(--line2); }
+.st .prog span { display: block; height: 100%; background: var(--ok); }
+.st.run { border-color: var(--teal); box-shadow: 0 0 0 1px rgba(34,199,192,.25), 0 0 28px rgba(34,199,192,.22); }
+.st.run .prog span { background: var(--teal); }
+.st.hold { border-color: rgba(245,165,36,.7); box-shadow: 0 0 26px rgba(245,165,36,.18); }
+.st.hold .prog span { background: var(--warn); }
+.st.idle { opacity: .55; }
+.lamp { width: 7px; height: 7px; border-radius: 50%; position: absolute; right: 10px; top: 12px; }
+.model { position: absolute; left: 330px; width: 626px; top: 300px; height: 74px; border: 1px dashed rgba(165,139,255,.55); border-radius: 8px;
+  background: rgba(165,139,255,.06); padding: 8px 12px; }
+.model b { color: var(--violet); font-size: 12.5px; }
+.model .row { display: flex; gap: 18px; margin-top: 6px; font-size: 11px; color: var(--ink2); }
+.model .row .num { color: var(--ink); }
+.belt { position: absolute; left: 16px; right: 16px; bottom: 12px; }
+.cells { display: grid; grid-template-columns: repeat(76, 1fr); gap: 2px; margin-top: 5px; }
+.cells i { height: 9px; border-radius: 1.5px; background: var(--line2); }
+.cells i.o { background: #2f9e62; } .cells i.r { background: var(--teal); } .cells i.w { background: var(--warn); } .cells i.x { background: var(--bad); }
+.recent { position: absolute; left: 16px; bottom: 74px; width: 300px; border: 1px solid var(--line2); border-radius: 6px; background: rgba(8,17,22,.85); padding: 8px 10px; }
+.recent td { border: 0; padding: 2px 4px; font-size: 11.5px; }
+.alerts { border: 1px solid var(--line2); border-radius: 6px; background: rgba(8,17,22,.85); padding: 8px 10px; }
+.alert { border-left: 3px solid var(--warn); padding: 4px 8px; margin-top: 6px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.alert p { margin: 1px 0 0; font-size: 10.5px; color: var(--ink3); }
+.bottom { display: grid; grid-template-columns: 1.05fr 1.25fr 1fr; gap: 8px; }
+.bottom > div { padding: 12px 14px; }
+.bigs { display: flex; gap: 22px; margin: 6px 0 8px; }
+.bigs div small { display: block; color: var(--ink3); font-size: 11px; }
+.bigs div .num { font-size: 26px; font-weight: 700; }
+.side { padding: 12px 14px; overflow: hidden; }
+.mt td { padding: 4px 6px; font-size: 11.5px; } .mt td.num { text-align: right; }
+.stack { display: flex; height: 10px; border-radius: 3px; overflow: hidden; margin: 6px 0 4px; }
+.stack span { display: block; height: 100%; }
+</style>
+<body><div class="app">
+
+<div class="frame top">
+  <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04201f" stroke-width="2.4" stroke-linecap="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></div>
+  <div class="brand"><b>病历事件还原</b><span>MEDICAL EVENT RECONSTRUCTION <em class="ver">v0.1.0</em></span></div>
+  <div class="runbox"><b><span class="dot" style="background:var(--teal)"></span>运行中 · 第 2 组 / 共 4 组</b><div class="num">20261111214502-302pt · 规则包 r2026.11-3</div></div>
+  <div class="sp"></div>
+  <div class="clock"><div class="cap">用时</div><div class="num">00:41:07</div></div>
+  <div class="btn pri">＋ 新批次 ▾</div><div class="btn">批次记录 6</div><div class="btn">⚙</div>
+</div>
+
+<div class="frame tabs">
+  <div class="tab on">◈ 产线</div><div class="sep"></div>
+  <div class="tab">患者 <i class="n">302</i></div><div class="tab">时间线</div><div class="tab">原文标注</div>
+  <div class="tab">复核 <i>214</i></div><div class="tab">模型调用</div><div class="tab">规则包</div><div class="tab">规则对比</div><div class="tab">日志</div><div class="tab">报告</div>
+</div>
+
+<div class="main">
+ <div class="left">
+  <div class="frame pipe">
+   <div class="legend"><b style="font-size:13px;margin-right:14px">处理流程</b>
+     <span><span class="dot" style="background:var(--teal)"></span>处理中</span><span><span class="dot" style="background:var(--ok)"></span>已通过验收</span><span><span class="dot" style="background:var(--warn)"></span>待复核</span><span><span class="dot" style="background:var(--line2)"></span>未开始</span></div>
+
+   <svg width="1150" height="330" style="position:absolute;left:16px;top:64px" fill="none">
+     <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3a5e69"/></marker>
+     <marker id="av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a58bff"/></marker></defs>
+     <g stroke="#3a5e69" stroke-width="1.6" marker-end="url(#ah)">
+       <path d="M134 115H150"/><path d="M286 115H302"/><path d="M438 115H454"/><path d="M590 115H606"/><path d="M742 115H758"/><path d="M894 115H910"/>
+     </g>
+     <g stroke="#a58bff" stroke-width="1.2" stroke-dasharray="4 4" opacity=".8">
+       <path d="M370 192V236" marker-end="url(#av)"/><path d="M522 192V236" marker-end="url(#av)"/><path d="M674 192V236" marker-end="url(#av)"/><path d="M826 192V236" marker-end="url(#av)"/>
+     </g>
+     <path d="M960 40 C 860 0, 700 0, 620 30" stroke="#22c7c0" stroke-dasharray="5 5" stroke-width="1.3" marker-end="url(#ah)"/>
+     <text x="680" y="10" fill="#22c7c0" font-size="11.5" font-family="PingFang SC">人工裁定写入裁定表 · 只重跑受影响的工序</text>
+   </svg>
+
+   <div class="stations">
+     <div class="st" style="left:0"><div class="prog"><span style="width:100%"></span></div><span class="lamp" style="background:var(--ok)"></span>
+       <div class="no">S01</div><div class="nm">读入·片段</div><div class="sub">按记录切片段，挂可见时间；剔除作废记录</div>
+       <div class="big">412k<small>片段</small></div><div class="gate"><span class="faint">302 / 302</span><span class="ok">✓ 验收</span></div></div>
+     <div class="st" style="left:152px"><div class="prog"><span style="width:100%"></span></div><span class="lamp" style="background:var(--warn)"></span>
+       <div class="no">S02 · 工序1</div><div class="nm">提及抽取</div><div class="sub">栏目→句→分句→顿号；挂写成/发生时间</div>
+       <div class="big">7.61M<small>提及</small></div><div class="gate"><span class="faint">301 / 302</span><span class="warn">① 1 人未过</span></div></div>
+     <div class="st run" style="left:304px"><div class="prog"><span style="width:63%"></span></div><span class="lamp" style="background:var(--teal)"></span>
+       <div class="no">S03 · 工序2</div><div class="nm">类型切分</div><div class="sub">事实/判断/决策 → 细分 → 细项，43 条规则</div>
+       <div class="big">191<small>/ 302 人</small></div><div class="gate"><span class="faint">兜底 4.1%</span><span class="tl">● 处理中</span></div></div>
+     <div class="st run" style="left:456px"><div class="prog"><span style="width:58%"></span></div><span class="lamp" style="background:var(--teal)"></span>
+       <div class="no">S04 · 工序3</div><div class="nm">事件归并</div><div class="sub">同概念＋时间相容＋同就诊；生成线索</div>
+       <div class="big">176<small>/ 302 人</small></div><div class="gate"><span class="faint">未归一 2.3%</span><span class="tl">● 处理中</span></div></div>
+     <div class="st run" style="left:608px"><div class="prog"><span style="width:55%"></span></div><span class="lamp" style="background:var(--teal)"></span>
+       <div class="no">S05 · 工序4</div><div class="nm">矛盾判断</div><div class="sub">R1–R10；七类判定，给建议采信</div>
+       <div class="big">4,912<small>发现</small></div><div class="gate"><span class="faint">166 人</span><span class="tl">● 处理中</span></div></div>
+     <div class="st hold" style="left:760px"><div class="prog"><span style="width:30%"></span></div><span class="lamp" style="background:var(--warn)"></span>
+       <div class="no">S06</div><div class="nm">人工复核</div><div class="sub">需人工确认的发现、药名映射、待定时间</div>
+       <div class="big" style="color:var(--warn)">214<small>项待办</small></div><div class="gate"><span class="faint">已裁定 91</span><span class="warn">■ 待复核</span></div></div>
+     <div class="st idle" style="left:912px"><div class="prog"><span style="width:0"></span></div><span class="lamp" style="background:var(--line2)"></span>
+       <div class="no">S07</div><div class="nm">交付</div><div class="sub">每人一份时间线、事件表、发现表</div>
+       <div class="big">—<small></small></div><div class="gate"><span class="faint">0 / 302</span><span class="faint">未开始</span></div></div>
+   </div>
+
+   <div class="model">
+     <b>◇ 模型旁路</b> <span class="faint" style="font-size:11px;margin-left:6px">只处理规则判不了的项；结论必须引用提及编号、并通过原文核对；只出建议，不改规则结果</span>
+     <div class="row"><span>类型建议 <span class="num">812</span></span><span>归一建议 <span class="num">1,204</span></span><span>时间复判 <span class="num">3,960</span></span><span>发现复判 <span class="num">588</span></span>
+       <span>引用核对失败 <span class="num bad">17</span></span><span>两模型一致 <span class="num ok">91%</span></span></div>
+   </div>
+
+   <div class="recent">
+     <div style="display:flex;justify-content:space-between"><span class="cap" style="letter-spacing:.5px">最近完成 · 共 166</span><span class="cap" style="letter-spacing:.5px">事件 · 发现 · 用时</span></div>
+     <table>
+       <tr><td><span class="dot" style="background:var(--ok)"></span>HD-0166</td><td class="num muted">9,812</td><td class="num muted">14</td><td class="num">38s</td></tr>
+       <tr><td><span class="dot" style="background:var(--warn)"></span>HD-0165</td><td class="num muted">22,410</td><td class="num warn">31</td><td class="num">71s</td></tr>
+       <tr><td><span class="dot" style="background:var(--ok)"></span>HD-0164</td><td class="num muted">6,027</td><td class="num muted">8</td><td class="num">29s</td></tr>
+       <tr><td><span class="dot" style="background:var(--ok)"></span>HD-0163</td><td class="num muted">11,388</td><td class="num muted">17</td><td class="num">44s</td></tr>
+     </table>
+   </div>
+
+   <div class="belt">
+     <div style="display:flex;justify-content:space-between"><span class="faint" style="font-size:11px">患者带 · 每格 1 位患者 · 按切分：训练 232 / 验证 30 / 测试 40</span><span class="tl" style="font-size:11px">◆ 点格子打开该患者时间线</span></div>
+     <div class="cells" id="cells"></div>
+   </div>
+  </div>
+
+  <div class="bottom">
+   <div class="frame"><div class="h"><b>运行进度</b><span class="cap">PROGRESS</span></div>
+     <div class="bigs"><div><small>完成</small><span class="num">55</span><span class="faint">%</span></div><div><small>速率</small><span class="num">4.0</span><span class="faint"> 人/分</span></div><div><small>预计剩余</small><span class="num">34</span><span class="faint"> 分</span></div></div>
+     <div class="muted num" style="font-size:11.5px">166 / 302 人 · 文书 41,207 · 结构化行 1.92M</div>
+     <svg width="100%" height="56" viewBox="0 0 400 56" preserveAspectRatio="none" style="margin-top:8px"><path d="M0 50 L30 40 L60 36 L90 30 L120 33 L150 26 L180 24 L210 27 L240 22 L270 25 L300 20 L330 23 L360 21 L400 22 L400 56 L0 56Z" fill="rgba(34,199,192,.12)"/><path d="M0 50 L30 40 L60 36 L90 30 L120 33 L150 26 L180 24 L210 27 L240 22 L270 25 L300 20 L330 23 L360 21 L400 22" stroke="#22c7c0" stroke-width="1.4" fill="none"/></svg>
+   </div>
+   <div class="frame"><div class="h"><b>还原结果</b><span class="cap">RESULTS</span><span class="sp"></span></div>
+     <div class="bigs"><div><small>提及</small><span class="num">4.18M</span></div><div><small>事件</small><span class="num">2.43M</span></div><div><small>压缩比</small><span class="num">1.72</span></div><div><small>发现</small><span class="num warn">4,912</span></div></div>
+     <div class="faint" style="font-size:11px">事件类型</div>
+     <div class="stack"><span style="width:61%;background:var(--fact)"></span><span style="width:14%;background:var(--judge)"></span><span style="width:25%;background:var(--decide)"></span></div>
+     <div style="font-size:11px" class="muted"><span style="color:var(--fact)">■</span> 事实 61% &nbsp; <span style="color:var(--judge)">■</span> 判断 14% &nbsp; <span style="color:var(--decide)">■</span> 决策 25%</div>
+     <div style="font-size:11px;margin-top:6px" class="muted">发现：矛盾 <b class="bad">612</b> · 记录质量 <b class="warn">2,140</b> · 改判 184 · 调整 903 · 命名不一致 377 · 证据不足 696</div>
+   </div>
+   <div class="frame"><div class="h"><b>验收门</b><span class="cap">GATES</span></div>
+     <table class="mt">
+       <tr><td>① 原文逐字一致</td><td class="num warn">3 失败</td><td class="faint">HD-0117</td></tr>
+       <tr><td>① 区间不倒置 · 不晚于写成</td><td class="num ok">0 失败</td><td></td></tr>
+       <tr><td>② 兜底命中 ≤ 3%</td><td class="num warn">4.1%</td><td class="faint">Z2 现病史</td></tr>
+       <tr><td>③ 每条提及恰属一个事件</td><td class="num ok">通过</td><td></td></tr>
+       <tr><td>④ 每条发现可回溯原文</td><td class="num ok">通过</td><td></td></tr>
+       <tr><td>源文件只读核对</td><td class="num ok">一致</td><td></td></tr>
+     </table>
+   </div>
+  </div>
+ </div>
+
+ <div class="frame side">
+  <div class="h"><b>批次概览</b><span class="cap">BATCH OVERVIEW</span></div>
+  <div class="kv" style="font-size:11.5px"><span class="faint">输入</span><span>_medical-anonymizer/透析队列_302/</span><span class="faint">上游</span><span><span class="chip ok">已匿名化</span> 映射库未读取</span><span class="faint">规则包</span><span>r2026.11-3 · 工序1 v1.2 · 2 v2.2 · 3 v1.5 · 4 v1.0</span></div>
+
+   <div class="alerts" style="margin-top:10px">
+     <div style="display:flex;justify-content:space-between"><b><span class="dot" style="background:var(--warn)"></span>待办告警</b><span class="cap">3</span></div>
+     <div class="alert"><div><b>HD-0117 验收①未通过</b><p>3 条提及原文与片段不一致，已停在 S02，不往下游</p></div><span class="chip w">查看</span></div>
+     <div class="alert" style="border-color:var(--violet)"><div><b>兜底命中率 4.1%</b><p>Z2/Z9 超阈值 3%，模型已给 812 条类型建议</p></div><span class="chip v">改进</span></div>
+     <div class="alert" style="border-color:var(--bad)"><div><b>矛盾 37 条需人工确认</b><p>互斥用药 9 · 数值 14 · 存在矛盾 14</p></div><span class="chip b">复核</span></div>
+   </div>
+
+  <div class="sec"><b>模型分工</b><span class="cap">MODELS</span></div>
+  <table class="mt">
+    <tr><th></th><th>建议</th><th>核验</th></tr>
+    <tr><td class="faint">模型</td><td>qwen3.6-35b-a3b</td><td>gemma-4-26b</td></tr>
+    <tr><td class="faint">调用</td><td class="num">6,564</td><td class="num">6,310</td></tr>
+    <tr><td class="faint">失败率</td><td class="num">0.2%</td><td class="num">0%</td></tr>
+    <tr><td class="faint">每次 输出/耗时</td><td class="num">142 / 2.1s</td><td class="num">31 / 0.6s</td></tr>
+    <tr><td class="faint">Token</td><td class="num">8.12M</td><td class="num">5.40M</td></tr>
+  </table>
+
+  <div class="sec"><b>模型建议去向</b><span class="cap">SUGGESTIONS</span></div>
+  <div style="font-size:11.5px">
+    <div style="display:flex;justify-content:space-between"><span>采纳为规则候选</span><span class="num ok">1,906</span></div>
+    <div style="display:flex;justify-content:space-between;margin-top:3px"><span>进人工复核</span><span class="num warn">214</span></div>
+    <div style="display:flex;justify-content:space-between;margin-top:3px"><span>两模型分歧 · 维持规则</span><span class="num">2,447</span></div>
+    <div style="display:flex;justify-content:space-between;margin-top:3px"><span>引用核对失败 · 丢弃</span><span class="num bad">17</span></div>
+    <div class="stack" style="margin-top:8px"><span style="width:42%;background:var(--ok)"></span><span style="width:5%;background:var(--warn)"></span><span style="width:52%;background:var(--line2)"></span><span style="width:1%;background:var(--bad)"></span></div>
+  </div>
+
+  <div class="sec"><b>规则改进</b><span class="cap">ADVICE</span></div>
+  <div style="font-size:11.5px;line-height:1.75">
+    <div><span class="chip d">工序2</span> “透后血压”42 人反复落入 Z2 → 建议并入 K6 生命体征</div>
+    <div><span class="chip f">工序3</span> 新别名“立普妥→阿托伐他汀”（商品名，需药师复核）</div>
+    <div><span class="chip j">工序1</span> “透析后第3天”未识别为相对时间（118 处）</div>
+    <div class="tl" style="margin-top:4px">去规则包逐条采纳 → 升版本 → 对比重跑 ›</div>
+  </div>
+
+ </div>
+</div>
+</div>
+<script>
+const c = document.getElementById('cells'); let h = '';
+const warn = new Set([12,37,58,91,117,140,155,165]);
+for (let i = 1; i <= 302; i++) { let k = i <= 166 ? 'o' : i <= 191 ? 'r' : ''; if (warn.has(i)) k = 'w'; if (i === 117) k = 'x'; h += `<i class="${k}"></i>`; }
+c.innerHTML = h;
+</script>
+</body></html>

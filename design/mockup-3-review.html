@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh"><meta charset="utf-8"><title>复核</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.main { display: grid; grid-template-columns: 300px 1fr 360px; gap: 8px; min-height: 0; }
+.fl { padding: 10px 8px; overflow: hidden; }
+.grp { display: flex; justify-content: space-between; padding: 7px 8px 4px; font-size: 11.5px; color: var(--ink2); }
+.fi { padding: 6px 8px; border-radius: 5px; margin-bottom: 1px; font-size: 11.5px; }
+.fi .a { display: flex; justify-content: space-between; gap: 6px; }
+.fi .a b { font-weight: 600; } .fi .s { color: var(--ink3); font-size: 10.5px; margin-top: 1px; }
+.fi.on { background: var(--panel3); box-shadow: inset 3px 0 0 var(--bad); }
+.fi.done { opacity: .5; }
+.c { padding: 12px 16px; overflow: hidden; }
+.trace { display: flex; gap: 6px; align-items: center; margin: 8px 0 4px; font-size: 11.5px; }
+.trace .stp { border: 1px solid var(--line2); border-radius: 5px; padding: 4px 8px; background: var(--panel2); }
+.trace .stp.hit { border-color: var(--bad); color: #ff9a9a; background: rgba(240,82,82,.08); }
+.trace .ar { color: var(--ink3); }
+.sides { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.side { border: 1px solid var(--line2); border-radius: 6px; overflow: hidden; }
+.side .hd { padding: 6px 10px; background: var(--panel2); display: flex; justify-content: space-between; font-size: 12px; }
+.side table td { font-size: 11.5px; padding: 5px 10px; }
+.side q { quotes: none; }
+.side mark.d { background: rgba(47,214,160,.18); color: #8ff0cf; }
+.side mark.s { background: rgba(240,82,82,.18); color: #ffadad; }
+.r { padding: 12px 14px; overflow: hidden; }
+.opt { border: 1px solid var(--line2); border-radius: 6px; padding: 7px 10px; margin-bottom: 6px; font-size: 12px; display: flex; gap: 8px; align-items: flex-start; }
+.opt .rd { width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid var(--ink3); margin-top: 2px; flex: none; }
+.opt.on { border-color: var(--bad); background: rgba(240,82,82,.07); } .opt.on .rd { border-color: var(--bad); box-shadow: inset 0 0 0 3px #0d1a20; background: var(--bad); }
+.opt small { display: block; color: var(--ink3); font-size: 10.5px; margin-top: 1px; }
+.mo { border: 1px solid rgba(165,139,255,.35); background: rgba(165,139,255,.05); border-radius: 6px; padding: 8px 10px; font-size: 11.5px; line-height: 1.6; margin-bottom: 6px; }
+.note { border: 1px solid var(--line2); border-radius: 5px; padding: 6px 8px; color: var(--ink3); font-size: 11.5px; height: 46px; }
+</style>
+<body><div class="app">
+
+<div class="frame top">
+  <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04201f" stroke-width="2.4" stroke-linecap="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></div>
+  <div class="brand"><b>病历事件还原</b><span>MEDICAL EVENT RECONSTRUCTION <em class="ver">v0.1.0</em></span></div>
+  <div class="runbox"><b><span class="dot" style="background:var(--warn)"></span>待复核 · 214 项</b><div class="num">20261111214502-302pt · 规则包 r2026.11-3</div></div>
+  <div class="sp"></div>
+  <div class="clock"><div class="cap">用时</div><div class="num">01:12:44</div></div>
+  <div class="btn pri">＋ 新批次 ▾</div><div class="btn">批次记录 6</div><div class="btn">⚙</div>
+</div>
+
+<div class="frame tabs">
+  <div class="tab">◈ 产线</div><div class="sep"></div>
+  <div class="tab">患者 <i class="n">302</i></div><div class="tab">时间线</div><div class="tab">原文标注</div>
+  <div class="tab on">复核 <i>214</i></div><div class="tab">模型调用</div><div class="tab">规则包</div><div class="tab">规则对比</div><div class="tab">日志</div><div class="tab">报告</div>
+</div>
+
+<div class="main">
+ <div class="frame fl">
+   <div class="pf" style="display:flex;gap:4px;margin:0 0 6px 4px;flex-wrap:wrap"><span class="chip ok">全部 214</span><span class="chip">发现 124</span><span class="chip">药名映射 38</span><span class="chip">待定时间 52</span></div>
+   <div class="pf" style="display:flex;gap:4px;margin:0 0 4px 4px"><span class="chip">本患者 HD-0001</span><span class="chip">两模型分歧</span></div>
+   <div class="grp"><span><span class="dot" style="background:var(--bad)"></span>矛盾 · 需人工确认</span><span class="num">37</span></div>
+   <div class="fi on"><div class="a"><b>用药矛盾 · 华法林×利伐沙班</b><span class="num faint">F007</span></div><div class="s">HD-0001 · 重叠 78 天 · 模型分歧</div></div>
+   <div class="fi"><div class="a"><b>数值矛盾 · 血钾 5.3 / 5.8</b><span class="num faint">F012</span></div><div class="s">HD-0001 · 2023-02-14 · 同日两次采样？</div></div>
+   <div class="fi"><div class="a"><b>存在矛盾 · 心房颤动</b><span class="num faint">F019</span></div><div class="s">HD-0004 · 同期“无房颤”非模板</div></div>
+   <div class="fi"><div class="a"><b>时间矛盾 · 动静脉内瘘成形术</b><span class="num faint">F004</span></div><div class="s">HD-0012 · 2018-03 / 2018-09</div></div>
+   <div class="grp"><span><span class="dot" style="background:var(--warn)"></span>记录质量</span><span class="num">41</span></div>
+   <div class="fi"><div class="a"><b>模板化否认 · 糖尿病</b><span class="num faint">F005</span></div><div class="s">HD-0001 · 否认×5 与诊断并存</div></div>
+   <div class="fi done"><div class="a"><b>复制漂移 · 子宫切除术</b><span class="num faint">F001</span></div><div class="s">HD-0001 · 已裁定：采信最早成文 ✓</div></div>
+   <div class="grp"><span><span class="dot" style="background:var(--violet)"></span>改判候选</span><span class="num">12</span></div>
+   <div class="fi"><div class="a"><b>肺动脉 · 血栓？→ 钙化可能</b><span class="num faint">F016</span></div><div class="s">HD-0001 · 2021 CT / 2024 CT</div></div>
+   <div class="grp"><span><span class="dot" style="background:var(--ink3)"></span>证据不足</span><span class="num">34</span></div>
+   <div class="fi"><div class="a"><b>停用后仍记在用 · 硝苯地平</b><span class="num faint">F021</span></div><div class="s">HD-0008 · 无恢复记载</div></div>
+   <div class="grp"><span><span class="dot" style="background:var(--teal)"></span>药名映射 · 需药师复核</span><span class="num">38</span></div>
+   <div class="fi"><div class="a"><b>泰嘉 → 氯吡格雷</b><span class="num faint">57 人</span></div><div class="s">商品名→通用名 · 模型同意</div></div>
+   <div class="fi"><div class="a"><b>爱倍 → ？</b><span class="num faint">12 人</span></div><div class="s">通用名未确认 · 模型给出 2 个候选</div></div>
+ </div>
+
+ <div class="frame c">
+   <div class="h"><b style="font-size:15px">F007 · 华法林与利伐沙班同期在用</b><span class="sp"></span><span class="faint num" style="font-size:11px">HD-0001 · 事件 E03120 × E05877</span></div>
+   <div style="display:flex;gap:5px"><span class="chip b">矛盾 · 用药矛盾</span><span class="chip">规则判定</span><span class="chip w">需人工确认</span><span class="chip v">两模型分歧</span></div>
+
+   <div class="sec"><b>判定路径</b><span class="cap">RULE TRACE · 工序4 v1.0</span></div>
+   <div class="trace">
+     <span class="stp">R1 时间先行 · 区间重叠 ✓</span><span class="ar">→</span>
+     <span class="stp">R2 决策×决策 → 调整候选</span><span class="ar">→</span>
+     <span class="stp hit">R5 互斥组 口服抗凝药 · 重叠 78 天 ＞ 14 天 · 无停用/改用记载</span>
+   </div>
+
+   <div class="sec"><b>时间关系</b><span class="cap">OVERLAP</span></div>
+   <svg width="100%" height="104" viewBox="-10 0 870 104">
+     <g font-family="SF Mono,Menlo" font-size="10" fill="#58717a">
+       <text x="40" y="12">2022-05</text><text x="250" y="12">2022-11</text><text x="460" y="12">2023-02</text><text x="610" y="12">2023-05</text><text x="760" y="12">2023-08</text></g>
+     <g stroke="#1a2c34"><line x1="40" y1="18" x2="40" y2="100"/><line x1="250" y1="18" x2="250" y2="100"/><line x1="460" y1="18" x2="460" y2="100"/><line x1="610" y1="18" x2="610" y2="100"/><line x1="760" y1="18" x2="760" y2="100"/></g>
+     <defs><pattern id="hz" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="#f05252" stroke-width="2"/></pattern></defs>
+     <rect x="460" y="22" width="140" height="70" fill="url(#hz)" opacity=".45" stroke="#f05252"/>
+     <text x="466" y="88" fill="#ff8a8a" font-size="10.5" font-family="PingFang SC">重叠 78 天</text>
+     <rect x="460" y="22" width="12" height="70" fill="rgba(70,209,127,.25)"/>
+     <text x="0" y="40" fill="#8ba5ad" font-size="11" font-family="PingFang SC">华法林</text>
+     <rect x="40" y="31" width="90" height="10" rx="2" fill="#2fd6a0" opacity=".9"/><path d="M131 28v16" stroke="#e2eef0" stroke-width="2"/><text x="136" y="40" fill="#8ba5ad" font-size="10" font-family="PingFang SC">停 2022-06-01</text>
+     <rect x="460" y="31" width="320" height="10" rx="2" fill="#2fd6a0" opacity=".9"/>
+     <text x="-6" y="68" fill="#8ba5ad" font-size="10.5" font-family="PingFang SC">利伐沙班</text>
+     <rect x="40" y="59" width="560" height="10" rx="2" fill="#2fd6a0" opacity=".9"/>
+     <g fill="#e2eef0"><circle cx="46" cy="36" r="3"/><circle cx="470" cy="36" r="3"/><circle cx="520" cy="36" r="3"/><circle cx="640" cy="36" r="3"/><circle cx="770" cy="36" r="3"/>
+       <circle cx="44" cy="64" r="3"/><circle cx="180" cy="64" r="3"/><circle cx="330" cy="64" r="3"/><circle cx="466" cy="64" r="3"/><circle cx="596" cy="64" r="3"/></g>
+     <text x="480" y="104" fill="#46d17f" font-size="10" font-family="PingFang SC">绿色＝换药窗口 14 天</text>
+   </svg>
+
+   <div class="sides">
+     <div class="side"><div class="hd"><b>华法林方 · 5 条提及</b><span class="faint">事件 E03120</span></div>
+       <table>
+         <tr><td class="num faint">2023-02-14<br>入院记录</td><td><q>入院后<mark class="d">予华法林</mark>抗凝，监测INR</q><div class="faint" style="font-size:10.5px">同期 · 等级 2 · 启动</div></td></tr>
+         <tr><td class="num faint">2023-02-24<br>出院记录</td><td><q>出院带药：<mark class="d">华法林</mark> 2.5mg qd</q><div class="faint" style="font-size:10.5px">同期 · 等级 2 · 在用</div></td></tr>
+         <tr><td class="num faint">2023-03-21<br>门诊病历</td><td><q><mark class="d">华法林</mark>2.5mg，复查INR 2.1</q><div class="faint" style="font-size:10.5px">同期 · 等级 2 · 在用</div></td></tr>
+       </table></div>
+     <div class="side"><div class="hd"><b>利伐沙班方 · 5 条提及</b><span class="faint">事件 E05877</span></div>
+       <table>
+         <tr><td class="num faint">2023-02-07<br>门诊病历</td><td><q>继续<mark class="s">利伐沙班</mark> 10mg qd</q><div class="faint" style="font-size:10.5px">同期 · 等级 2 · 在用</div></td></tr>
+         <tr><td class="num faint">2023-03-21<br>门诊病历</td><td><q>目前口服<mark class="s">利伐沙班</mark>、米多君</q><div class="faint" style="font-size:10.5px">同期 · 等级 2 · 在用 · 时间副词“目前”</div></td></tr>
+         <tr><td class="num faint">2023-04-28<br>门诊病历</td><td><q>平素口服<mark class="s">利伐沙班</mark></q><div class="faint" style="font-size:10.5px">回顾转述 · 等级 4 · 平素</div></td></tr>
+       </table></div>
+   </div>
+   <div class="faint" style="font-size:11px;margin-top:8px">同一份 2023-03-21 门诊病历里两药都记为在用 · 期间无“停用／改用”记载 · <span class="tl">在原文标注中打开这份病历 ›</span></div>
+   <div class="sec"><b>同类发现</b><span class="cap">SIMILAR · 口服抗凝药互斥 · 9 条</span><span class="sp"></span></div>
+   <table style="font-size:11.5px">
+     <tr><th>发现</th><th>患者</th><th>重叠</th><th>同份文书两药在用</th><th>模型</th><th>状态</th></tr>
+     <tr><td class="num">F007</td><td class="num">HD-0001</td><td class="num">78 天</td><td>是</td><td><span class="chip v">分歧</span></td><td class="warn">复核中</td></tr>
+     <tr><td class="num">F014</td><td class="num">HD-0012</td><td class="num">21 天</td><td>否</td><td><span class="chip ok">都判调整</span></td><td class="faint">待复核</td></tr>
+     <tr><td class="num">F009</td><td class="num">HD-0040</td><td class="num">203 天</td><td>是</td><td><span class="chip b">都判矛盾</span></td><td class="faint">待复核</td></tr>
+     <tr><td class="num">F031</td><td class="num">HD-0117</td><td class="num">16 天</td><td>否</td><td><span class="chip ok">都判调整</span></td><td class="ok">已裁定 · 调整</td></tr>
+   </table>
+   <div class="faint" style="font-size:11px;margin-top:6px">如果多条都裁成“调整”且重叠都短，<span class="tl">建议把换药窗口从 14 天改为 30 天 → 去规则包 ›</span></div>
+ </div>
+
+ <div class="frame r">
+   <div class="h"><b>模型意见</b><span class="cap">MODELS</span></div>
+   <div class="mo"><span style="color:var(--violet)">◇ 建议模型</span> · qwen3.6-35b-a3b<br>倾向 <b>矛盾·用药矛盾</b>：2023-03-21 同一份门诊记录同时写两药在用，不像换药过渡。<br><span class="faint">引用 M11804 · M11807 ✓ 原文核对通过</span></div>
+   <div class="mo"><span style="color:var(--violet)">◇ 核验模型</span> · gemma-4-26b<br>倾向 <b>证据不足</b>：“目前口服利伐沙班”可能是沿用旧模板，住院期间已改用华法林。<br><span class="faint">引用 M11807 · M10233 ✓ 原文核对通过</span></div>
+
+   <div class="sec"><b>你的裁定</b><span class="cap">DECISION</span></div>
+   <div class="opt on"><span class="rd"></span><div>矛盾 · 用药矛盾<small>维持规则判定，两种说法都保留</small></div></div>
+   <div class="opt"><span class="rd"></span><div>调整（换药）<small>补一个“利伐沙班停止”点事件，标人工补记</small></div></div>
+   <div class="opt"><span class="rd"></span><div>记录质量 · 模板沿用<small>利伐沙班后段降为模板化内容，等级 6</small></div></div>
+   <div class="opt"><span class="rd"></span><div>证据不足</div></div>
+   <div class="note">备注（可选）：门诊医生未更新用药栏…</div>
+   <div style="font-size:11px;margin-top:8px;line-height:1.6" class="muted">裁定写入裁定表，下次重跑沿用；只重算 <b style="color:var(--ink)">HD-0001 工序4</b>。<br>影响：用药片段 · 时间线 · 评测题 D-DP014</div>
+   <div style="display:flex;gap:6px;margin-top:10px"><span class="btn pri">保存并下一条</span><span class="btn">同类 9 条一起看</span></div>
+   <div class="faint" style="font-size:10.5px;margin-top:8px">↑↓ 切换 · 1–4 选择 · Enter 保存</div>
+ </div>
+</div>
+</div>
+</body></html>
