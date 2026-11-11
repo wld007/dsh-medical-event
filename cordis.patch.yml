@@ -1,0 +1,24 @@
+- insert:
+    - id: medical-event
+      name: 'dsh-medical-event'
+      config:
+        # 输出根目录；空 = 输入目录旁的 _medical-event
+        outputRoot: ''
+        # 专科层规则包（rules/specialty/<名>），可多个；不装专科包也能跑
+        specialty:
+          - hemodialysis
+        # 模型补充（可选）：只处理规则判不了的项，只出建议，不改规则结果。
+        # 病历内容只发往这里配置的端点（通常为本机或内网）。
+        modelEnabled: true
+        baseURL: ''
+        model: ''
+        # 独立核验模型；空 = 不核验（建议一律进人工复核）
+        verifyBaseURL: ''
+        verifyModel: ''
+        disableThinking: true
+        timeoutMs: 120000
+        # 每个模型同时处理的请求数
+        modelConcurrency: 4
+        # 每位病人每类候选最多送模型的条数
+        modelLimit: 200
+        showSidebarEntry: true
