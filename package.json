@@ -33,6 +33,8 @@
     "client.js",
     "lib/**/*.js",
     "rules/**/*.mjs",
+    "vendor/xlsx.mjs",
+    "vendor/SheetJS-LICENSE.txt",
     "cordis.patch.yml",
     "icon.svg",
     "README.md"
