@@ -15,6 +15,8 @@ export default {
   version: '0.1.0',
   basedOn: { '工序1': 'v1.2' },
   timezoneOffsetMinutes: 480,
+  // 导出里有 HTML 实体（如出院记录的 &#215; 即 ×）
+  decodeEntities: true,
   invalid: { field: 'INVLD_FLG', values: ['1'] },
 
   tables: [
@@ -120,4 +122,66 @@ export default {
 
   // 血液净化中心按月计费周期登记成“住院”，不是真实住院
   pseudoInpatient: { dept: /血液净化|血透/ },
+
+  /*
+   * 工序1 栏目与时间策略。键：recordType 或 `recordType/field`。
+   * time 策略：
+   *   narrative   本句自带 → 时间副词 → 同句继承 → 前句继承（待复核）
+   *   outpatient  本句自带 → 时间副词 → 同句继承；新句无时间取就诊当时
+   *   selfOnly    只认本句自带，否则无时间（lineInherit：同一行行首日期可继承）
+   *   written     无自带时间时取写成当时（label 写明“查体在写成当时”等）
+   *   occur       无自带时间时取检查时间（片段 occurAt）
+   *   admitDay    无自带时间时取入院日（按住院号对到就诊容器）
+   * template: true 按换行、制表符、两个以上空格切（查体模板）
+   * lines: true 每行一条（诊断列表）
+   */
+  sections: {
+    '入院记录/正文': {
+      skipPreamble: true,
+      list: [
+        { name: '主诉', re: /主\s*诉\s*[:：]/, time: 'narrative', duration: true },
+        { name: '现病史', re: /现病史\s*[:：]/, time: 'narrative' },
+        { name: '既往史', re: /既往史\s*[:：]/, time: 'selfOnly' },
+        { name: '个人史', re: /个人史\s*[:：]/, time: 'selfOnly' },
+        { name: '月经史', re: /月经史\s*[:：]/, time: 'selfOnly' },
+        { name: '婚育史', re: /婚育史\s*[:：]/, time: 'selfOnly' },
+        { name: '家族史', re: /家族史\s*[:：]/, time: 'selfOnly' },
+        { name: '体格检查', re: /\n\s*体格检查\s*\n/, time: 'written', label: '查体在写成当时', template: true },
+        { name: '专科情况', re: /补充及专科情况\s*[:：]?/, time: 'written', label: '查体在写成当时' },
+        { name: '辅助检查', re: /\n\s*辅助检查\s*[:：]?\s*\n?/, time: 'selfOnly', lineInherit: true },
+        { name: '初步诊断', re: /初步诊断\s*[:：]/, time: 'written', label: '诊断在写成当时', lines: true },
+      ],
+    },
+    '入院记录/补充诊断': { whole: '补充诊断', time: 'written', label: '诊断在签名当日', lines: true },
+    '入院记录/出院诊断': { whole: '出院诊断', time: 'written', label: '诊断在签名当日', lines: true },
+    '入院记录/修正诊断': { whole: '修正诊断', time: 'written', label: '诊断在签名当日', lines: true },
+    '入院记录/最后诊断': { whole: '最后诊断', time: 'written', label: '诊断在签名当日', lines: true },
+    门诊病历: {
+      list: [
+        { name: '主诉', re: /(?:^|\n)主诉：/, time: 'outpatient', duration: true },
+        { name: '现病史', re: /(?:^|\n)现病史：/, time: 'outpatient' },
+        { name: '既往史', re: /(?:^|\n)既往史：/, time: 'selfOnly' },
+        { name: '过敏史', re: /(?:^|\n)过敏史：/, time: 'selfOnly' },
+        { name: '个人史', re: /(?:^|\n)个人史：/, time: 'selfOnly' },
+        { name: '体格检查', re: /(?:^|\n)体格检查：/, time: 'written', label: '查体在就诊当时' },
+        { name: '辅助检查', re: /(?:^|\n)辅助检查：/, time: 'selfOnly', lineInherit: true },
+        { name: '处理意见', re: /(?:^|\n)处理意见：/, time: 'written', label: '处理在就诊当时' },
+      ],
+    },
+    检查报告: {
+      list: [
+        { name: '检查项目', re: /(?:^|\n)检查项目：/, time: 'occur', label: '检查时间' },
+        { name: '所见', re: /(?:^|\n)所见：/, time: 'occur', label: '检查时间', cells: true, clause: 'semicolon' },
+        { name: '结论', re: /(?:^|\n)结论：/, time: 'occur', label: '检查时间' },
+      ],
+    },
+    '出院记录/入院情况': { whole: '入院情况', time: 'admitDay', label: '入院时', lineInherit: true },
+    '出院记录/出院情况': { whole: '出院情况', time: 'written', label: '出院时（写成当时）', lineInherit: true },
+  },
+
+  // 不算提及的系统残片与签名行（工序1 第5步“过滤”）
+  noise: [
+    /^\{[^}]*\}?$/, /^\{门/, /^检查\s*[:：]\s*\{[^}]*\}$/, /^健康教育\s*[:：]?$/, /^及?健康指导\s*[:：]?$/,
+    /^医生签名\s*[:：]/, /^\d{4}-\d{2}-\d{2}$/, /^门诊$/, /^名\s*称/, /^测量值/, /^(?:补充诊断|出院诊断|修正诊断|最后诊断)\s*[:：]?$/,
+  ],
 }

@@ -70,13 +70,15 @@ test('时长 only when enabled; 3000年 typo is dropped', () => {
   const r = one('反复浮肿8年余', { anchor: '2020-06-01', durationEnabled: true })
   assert.deepEqual([r.a, r.b], ['2008-06-01', '2012-06-01'])
   assert.equal(findTimePhrases('尿毒症3000年', { anchor: '2020-06-01', durationEnabled: true }).length, 0)
+  const d = one('血透2年', { anchor: '2020-01-27', durationEnabled: true })
+  assert.deepEqual([d.a, d.b], ['2017-01-27', '2018-01-27'])
   const s = one('尿毒症数年', { anchor: '2020-06-01', durationEnabled: true })
   assert.deepEqual([s.a, s.b], ['2011-06-01', '2018-06-01'])
 })
 
 test('年龄 needs birth date', () => {
   const r = one('14岁初潮', { anchor: '2020-01-01', birth: '1960-03-01' })
-  assert.deepEqual([r.a, r.b], ['1974-01-01', '1974-12-31'])
+  assert.deepEqual([r.a, r.b], ['1974-03-01', '1975-02-28'])
   assert.equal(findTimePhrases('14岁初潮', { anchor: '2020-01-01' }).length, 0)
 })
 
@@ -85,6 +87,14 @@ test('adverbs', () => {
   assert.equal(resolveAdverb('今日行血透', { written: '2021-06-10' }), null)
   assert.deepEqual(resolveAdverb('出院后长期口服某药', { written: '2021-06-10', prev: { a: '2021-03-04', b: '2021-03-09' } }).a, '2021-03-09')
   assert.equal(resolveAdverb('既往口服阿司匹林', { written: '2021-06-10' }).prec, '无具体')
+})
+
+test('频次不是病程；同句多个短语取最精确的', async () => {
+  const { bestPhrase } = await import('../lib/engine/time.js')
+  assert.equal(findTimePhrases('一周三次', { anchor: '2020-06-01', durationEnabled: true }).length, 0)
+  assert.equal(findTimePhrases('每周3次', { anchor: '2020-06-01', durationEnabled: true }).length, 0)
+  const b = bestPhrase(findTimePhrases('患者2年余前（2017.10）因浮肿', { anchor: '2020-01-27' }))
+  assert.deepEqual([b.kind, b.a, b.b], ['年月', '2017-10-01', '2017-10-31'])
 })
 
 test('relativeBack rejects absurd durations', () => {
