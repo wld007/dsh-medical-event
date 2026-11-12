@@ -33,11 +33,13 @@ window.__ModuleLoader__.load({
 
     /* ---------------------------------------------------------------- style */
     const CSS = `
-.me{--bg:#081116;--panel:#0d1a20;--panel2:#112128;--panel3:#16282f;--line:#1a2c34;--line2:#26404a;--ink:#e2eef0;--ink2:#8ba5ad;--ink3:#58717a;--teal:#22c7c0;--teal2:#7fe9e2;--tealdim:rgba(34,199,192,.14);--ok:#46d17f;--warn:#f5a524;--bad:#f05252;--vio:#a58bff;--fact:#4fb3ff;--judge:#c48bff;--decide:#2fd6a0;--mono:"SF Mono","JetBrains Mono",Menlo,monospace;
+.me{--mono:"SF Mono","JetBrains Mono",Menlo,monospace;
   height:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);font:12.5px -apple-system,"PingFang SC","Helvetica Neue",sans-serif;display:flex;flex-direction:column;gap:8px;padding:8px 10px 10px;color-scheme:dark;overflow:hidden}
+.me.me-dark{--bg:#081116;--panel:#0d1a20;--panel2:#112128;--panel3:#16282f;--line:#1a2c34;--line2:#26404a;--ink:#e2eef0;--ink2:#8ba5ad;--ink3:#58717a;--teal:#22c7c0;--teal2:#7fe9e2;--tealdim:rgba(34,199,192,.14);--ok:#46d17f;--warn:#f5a524;--bad:#f05252;--badink:#ff9a9a;--vio:#a58bff;--fact:#4fb3ff;--judge:#c48bff;--decide:#2fd6a0;--visit:#6d8790;--tick:#4d6770;--arrow:#3a5e69;--cell-ok:#2f9e62;--top:#0f2329;--st1:#13262d;--st2:#0c191e;--shade:rgba(8,17,22,.6);--sel:#e2eef0;color-scheme:dark}
+.me.me-light{--bg:color-mix(in srgb,var(--dsw-alias-bg-base,#eef2f3) 84%,#0e9f98);--panel:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 92%,#0e9f98);--panel2:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 85%,#0e9f98);--panel3:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 76%,#0e9f98);--line:color-mix(in srgb,var(--dsw-alias-border-l1,#d9e2e4) 82%,#0e9f98);--line2:color-mix(in srgb,var(--dsw-alias-border-l2,#c3d1d4) 80%,#0e9f98);--ink:var(--dsw-alias-label-primary,#16303c);--ink2:var(--dsw-alias-label-secondary,#4e6873);--ink3:var(--dsw-alias-label-tertiary,#7d9298);--teal:#0e9f98;--teal2:#08776f;--tealdim:rgba(14,159,152,.12);--ok:#1f9d55;--warn:#c27a00;--bad:#d23c3c;--badink:#c03030;--vio:#7b5cf0;--fact:#1f7fd0;--judge:#8b4fd6;--decide:#0f9d78;--visit:#7f98a0;--tick:#9db3b9;--arrow:#8fb0b6;--cell-ok:#3fb27a;--top:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 80%,#0e9f98);--st1:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 88%,#0e9f98);--st2:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 80%,#0e9f98);--shade:rgba(220,232,234,.7);--sel:#16303c;color-scheme:light}
 .me *{box-sizing:border-box}
 .me-frame{border:1px solid var(--line);background:var(--panel);border-radius:6px}
-.me-top{display:flex;align-items:center;gap:14px;padding:8px 14px;background:linear-gradient(90deg,#0f2329,var(--panel) 40%)}
+.me-top{display:flex;align-items:center;gap:14px;padding:8px 14px;background:linear-gradient(90deg,var(--top),var(--panel) 40%)}
 .me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#2fd6cd,#138a96);display:grid;place-items:center;flex:none}
 .me-brand b{display:block;font-size:14px;letter-spacing:2px}.me-brand span{font-family:var(--mono);font-size:9.5px;color:var(--ink2);letter-spacing:1px}
 .me-runbox{border:1px solid var(--line2);border-radius:6px;padding:3px 10px;line-height:1.35;min-width:220px}
@@ -61,14 +63,14 @@ window.__ModuleLoader__.load({
 .me-num{font-family:var(--mono)}
 .me-muted{color:var(--ink2)}.me-faint{color:var(--ink3)}.me-ok{color:var(--ok)}.me-warn{color:var(--warn)}.me-bad{color:var(--bad)}.me-tl{color:var(--teal)}
 .me-chip{display:inline-block;border-radius:3px;padding:0 6px;font-size:10.5px;line-height:17px;border:1px solid var(--line2);color:var(--ink2);white-space:nowrap;margin-right:4px}
-.me-chip.f{color:var(--fact);border-color:rgba(79,179,255,.45);background:rgba(79,179,255,.08)}
-.me-chip.j{color:var(--judge);border-color:rgba(196,139,255,.45);background:rgba(196,139,255,.08)}
-.me-chip.d{color:var(--decide);border-color:rgba(47,214,160,.45);background:rgba(47,214,160,.08)}
-.me-chip.w{color:var(--warn);border-color:rgba(245,165,36,.5);background:rgba(245,165,36,.08)}
-.me-chip.b{color:#ff8a8a;border-color:rgba(240,82,82,.5);background:rgba(240,82,82,.08)}
-.me-chip.ok{color:var(--ok);border-color:rgba(70,209,127,.45);background:rgba(70,209,127,.08)}
-.me-chip.v{color:var(--vio);border-color:rgba(165,139,255,.45);background:rgba(165,139,255,.08)}
-.me-sec{border-left:3px solid var(--teal);background:linear-gradient(90deg,rgba(34,199,192,.16),transparent 70%);padding:4px 10px;margin:10px 0 8px;display:flex;gap:8px;align-items:baseline}
+.me-chip.f{color:var(--fact);border-color:color-mix(in srgb,var(--fact) 45%,transparent);background:color-mix(in srgb,var(--fact) 8%,transparent)}
+.me-chip.j{color:var(--judge);border-color:color-mix(in srgb,var(--judge) 45%,transparent);background:color-mix(in srgb,var(--judge) 8%,transparent)}
+.me-chip.d{color:var(--decide);border-color:color-mix(in srgb,var(--decide) 45%,transparent);background:color-mix(in srgb,var(--decide) 8%,transparent)}
+.me-chip.w{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent);background:color-mix(in srgb,var(--warn) 8%,transparent)}
+.me-chip.b{color:var(--badink);border-color:color-mix(in srgb,var(--bad) 50%,transparent);background:color-mix(in srgb,var(--bad) 8%,transparent)}
+.me-chip.ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 45%,transparent);background:color-mix(in srgb,var(--ok) 8%,transparent)}
+.me-chip.v{color:var(--vio);border-color:color-mix(in srgb,var(--vio) 45%,transparent);background:color-mix(in srgb,var(--vio) 8%,transparent)}
+.me-sec{border-left:3px solid var(--teal);background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 16%,transparent),transparent 70%);padding:4px 10px;margin:10px 0 8px;display:flex;gap:8px;align-items:baseline}
 .me-sec b{font-size:12.5px}
 .me table{border-collapse:collapse;width:100%}
 .me td,.me th{padding:5px 8px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
@@ -78,21 +80,21 @@ window.__ModuleLoader__.load({
 .me-input{background:var(--panel2);border:1px solid var(--line2);border-radius:5px;color:var(--ink);padding:5px 8px;font-size:12px;min-width:0}
 .me-input:focus{outline:none;border-color:var(--teal)}
 .me-field{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--ink2)}
-.me-err{color:#ff9a9a;border:1px solid rgba(240,82,82,.4);background:rgba(240,82,82,.08);padding:6px 10px;border-radius:5px}
+.me-err{color:var(--badink);border:1px solid color-mix(in srgb,var(--bad) 40%,transparent);background:color-mix(in srgb,var(--bad) 8%,transparent);padding:6px 10px;border-radius:5px}
 .me-empty{color:var(--ink3);padding:30px;text-align:center}
-.me-st{position:relative;flex:1;min-width:120px;border:1px solid var(--line2);border-radius:8px;background:linear-gradient(180deg,#13262d,#0c191e);padding:10px;min-height:128px}
+.me-st{position:relative;flex:1;min-width:120px;border:1px solid var(--line2);border-radius:8px;background:linear-gradient(180deg,var(--st1),var(--st2));padding:10px;min-height:128px}
 .me-st .no{font-family:var(--mono);font-size:9.5px;color:var(--ink3);letter-spacing:1px}.me-st .nm{font-size:14px;font-weight:700;margin:2px 0}
 .me-st .sub{font-size:10.5px;color:var(--ink3);line-height:14px;min-height:28px}.me-st .big{font-family:var(--mono);font-size:19px;font-weight:700;margin-top:6px}
 .me-st .big small{font-size:10px;color:var(--ink3);font-weight:400;margin-left:3px}
 .me-st .gate{display:flex;justify-content:space-between;font-size:10.5px;margin-top:6px}
 .me-st .bar{position:absolute;left:0;right:0;top:-1px;height:3px;border-radius:8px 8px 0 0;background:var(--line2);overflow:hidden}.me-st .bar span{display:block;height:100%;background:var(--ok)}
-.me-st.run{border-color:var(--teal);box-shadow:0 0 0 1px rgba(34,199,192,.25),0 0 24px rgba(34,199,192,.2)}.me-st.run .bar span{background:var(--teal)}
-.me-st.hold{border-color:rgba(245,165,36,.7)}.me-st.hold .bar span{background:var(--warn)}
+.me-st.run{border-color:var(--teal);box-shadow:0 0 0 1px color-mix(in srgb,var(--teal) 25%,transparent),0 0 24px color-mix(in srgb,var(--teal) 20%,transparent)}.me-st.run .bar span{background:var(--teal)}
+.me-st.hold{border-color:color-mix(in srgb,var(--warn) 70%,transparent)}.me-st.hold .bar span{background:var(--warn)}
 .me-st.idle{opacity:.55}
-.me-arrow{align-self:center;color:#3a5e69}
+.me-arrow{align-self:center;color:var(--arrow)}
 .me-cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(12px,1fr));gap:2px}
 .me-cells i{height:10px;border-radius:1.5px;background:var(--line2);cursor:pointer}
-.me-cells i.o{background:#2f9e62}.me-cells i.r{background:var(--teal)}.me-cells i.w{background:var(--warn)}.me-cells i.x{background:var(--bad)}
+.me-cells i.o{background:var(--cell-ok)}.me-cells i.r{background:var(--teal)}.me-cells i.w{background:var(--warn)}.me-cells i.x{background:var(--bad)}
 .me-bigs{display:flex;gap:22px;margin:4px 0 8px;flex-wrap:wrap}.me-bigs div small{display:block;color:var(--ink3);font-size:11px}.me-bigs div .me-num{font-size:24px;font-weight:700}
 .me-stack{display:flex;height:9px;border-radius:3px;overflow:hidden;margin:6px 0 4px;background:var(--line2)}.me-stack span{display:block;height:100%}
 .me-pi{padding:6px 8px;border-radius:5px;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:1px 6px}
@@ -100,15 +102,15 @@ window.__ModuleLoader__.load({
 .me-pi b{font-family:var(--mono);font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.me-pi span{font-size:10.5px;color:var(--ink3)}
 .me-doc{font-size:13.5px;line-height:2.3;white-space:pre-wrap;word-break:break-all}
 .me-m{border-bottom:2px solid;padding:1px 1px;border-radius:2px;cursor:pointer}
-.me-m.f{border-color:var(--fact);background:rgba(79,179,255,.10)}.me-m.j{border-color:var(--judge);background:rgba(196,139,255,.11)}.me-m.d{border-color:var(--decide);background:rgba(47,214,160,.11)}
-.me-m.n{border-bottom-style:dashed}.me-m.t{opacity:.55}.me-m.sel{outline:1.5px solid #e2eef0;outline-offset:1px}
-.me-tm{font-family:var(--mono);font-size:9.5px;color:var(--warn);border:1px solid rgba(245,165,36,.4);border-radius:3px;padding:0 3px;margin:0 2px;vertical-align:1px}
-.me-tm.inh{color:var(--ink3);border-color:var(--line2)}.me-tm.q{color:#ff9a9a;border-color:rgba(240,82,82,.5)}
+.me-m.f{border-color:var(--fact);background:color-mix(in srgb,var(--fact) 10%,transparent)}.me-m.j{border-color:var(--judge);background:color-mix(in srgb,var(--judge) 11%,transparent)}.me-m.d{border-color:var(--decide);background:color-mix(in srgb,var(--decide) 11%,transparent)}
+.me-m.n{border-bottom-style:dashed}.me-m.t{opacity:.55}.me-m.sel{outline:1.5px solid var(--sel);outline-offset:1px}
+.me-tm{font-family:var(--mono);font-size:9.5px;color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);border-radius:3px;padding:0 3px;margin:0 2px;vertical-align:1px}
+.me-tm.inh{color:var(--ink3);border-color:var(--line2)}.me-tm.q{color:var(--badink);border-color:color-mix(in srgb,var(--bad) 50%,transparent)}
 .me-kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:11.5px}
 .me-mrow{border-top:1px solid var(--line);padding:6px 0;font-size:11.5px}
 .me-opt{border:1px solid var(--line2);border-radius:6px;padding:6px 10px;margin-bottom:5px;cursor:pointer;display:flex;gap:8px;align-items:center}
 .me-opt.on{border-color:var(--teal);background:var(--tealdim)}
-.me-mo{border:1px solid rgba(165,139,255,.35);background:rgba(165,139,255,.05);border-radius:6px;padding:7px 10px;font-size:11.5px;line-height:1.6;margin-bottom:6px}
+.me-mo{border:1px solid color-mix(in srgb,var(--vio) 35%,transparent);background:color-mix(in srgb,var(--vio) 5%,transparent);border-radius:6px;padding:7px 10px;font-size:11.5px;line-height:1.6;margin-bottom:6px}
 .me-md{white-space:pre-wrap;font-family:var(--mono);font-size:12px;line-height:1.6}
 .me-settings{max-width:820px;display:flex;flex-direction:column;gap:12px;color:var(--dsw-alias-label-primary)}
 .me-settings .me-input{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-border-l2)}
@@ -120,7 +122,48 @@ window.__ModuleLoader__.load({
     /* -------------------------------------------------------------- helpers */
     const TYPE_CLS = { 事实: 'f', 判断: 'j', 决策: 'd' }
     const VERDICT_CLS = { 矛盾: 'b', 记录质量: 'w', 改判: 'v', 病情变化: 'v', 调整: 'ok', 命名不一致: '', 证据不足: '' }
-    const VERDICT_COLOR = { 矛盾: '#f05252', 记录质量: '#f5a524', 改判: '#a58bff', 病情变化: '#a58bff', 调整: '#46d17f', 命名不一致: '#8ba5ad', 证据不足: '#58717a' }
+    // SVG 用的调色板（与 CSS 的 .me-dark / .me-light 对应）
+    const PAL = {
+      dark: { fact: '#4fb3ff', judge: '#c48bff', decide: '#2fd6a0', visit: '#6d8790', grid: '#1a2c34', lane: '#26404a', ink: '#e2eef0', ink2: '#8ba5ad', ink3: '#58717a', tick: '#4d6770', bad: '#f05252', warn: '#f5a524', vio: '#a58bff', ok: '#46d17f', shade: 'rgba(8,17,22,.6)' },
+      light: { fact: '#1f7fd0', judge: '#8b4fd6', decide: '#0f9d78', visit: '#7f98a0', grid: '#cfdcdf', lane: '#b7cbcf', ink: '#16303c', ink2: '#4e6873', ink3: '#7d9298', tick: '#9db3b9', bad: '#d23c3c', warn: '#c27a00', vio: '#7b5cf0', ok: '#1f9d55', shade: 'rgba(214,228,231,.72)' },
+    }
+    const verdictColor = (pal) => ({ 矛盾: pal.bad, 记录质量: pal.warn, 改判: pal.vio, 病情变化: pal.vio, 调整: pal.ok, 命名不一致: pal.ink2, 证据不足: pal.ink3 })
+    const VERDICT_COLOR = verdictColor(PAL.dark)
+
+    /** 跟随 DSH 主题：读宿主的背景色亮度；读不到时看系统偏好。 */
+    function hostIsDark() {
+      try {
+        let color = getComputedStyle(document.documentElement).getPropertyValue('--dsw-alias-bg-base').trim()
+        if (!color) color = getComputedStyle(document.body).backgroundColor
+        const probe = document.createElement('span')
+        probe.style.color = color
+        document.body.appendChild(probe)
+        const rgb = getComputedStyle(probe).color
+        probe.remove()
+        const parts = (rgb.match(/[\d.]+/g) ?? []).map(Number)
+        if (parts.length < 3) throw new Error('no colour')
+        const scale = rgb.startsWith('color(') ? 255 : 1
+        const [r, g, b] = parts
+        if (/rgba\(0, 0, 0, 0\)|transparent/.test(rgb)) throw new Error('transparent')
+        return (0.2126 * r + 0.7152 * g + 0.0722 * b) * scale / 255 < 0.5
+      } catch {
+        return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? true
+      }
+    }
+    function useHostDark() {
+      const [dark, setDark] = useState(() => hostIsDark())
+      useEffect(() => {
+        const check = () => setDark(hostIsDark())
+        const obs = new MutationObserver(check)
+        obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style', 'data-theme', 'data-color-scheme'] })
+        if (document.body) obs.observe(document.body, { attributes: true, attributeFilter: ['class', 'style', 'data-theme'] })
+        const media = window.matchMedia?.('(prefers-color-scheme: dark)')
+        media?.addEventListener?.('change', check)
+        return () => { obs.disconnect(); media?.removeEventListener?.('change', check) }
+      }, [])
+      return dark
+    }
+    const ThemeCtx = React.createContext(PAL.dark)
     const fmt = (n) => (n == null ? '—' : Number(n).toLocaleString())
     const fmtTime = (s) => { if (!s) return '—'; try { return new Date(s).toLocaleString() } catch { return String(s) } }
     const pct = (x) => (x == null ? '—' : `${(x * 100).toFixed(1)}%`)
@@ -173,8 +216,9 @@ window.__ModuleLoader__.load({
 
       const openPatient = (p, next = 'timeline', f = null) => { setPatient(p); setFocus(f); setTab(next) }
       const review = run?.totals?.review ?? 0
+      const dark = useHostDark()
       const tabs = [['line', '◈ 产线'], ['patients', '患者', run?.totals?.patients], ['timeline', '时间线'], ['source', '原文标注'], ['review', '复核', review], ['improve', '规则改进'], ['calls', '模型调用'], ['rules', '规则包'], ['report', '报告']]
-      return h('div', { className: 'me' },
+      return h(ThemeCtx.Provider, { value: dark ? PAL.dark : PAL.light }, h('div', { className: `me ${dark ? 'me-dark' : 'me-light'}` },
         h('style', {}, CSS),
         h('div', { className: 'me-frame me-top' },
           h('div', { className: 'me-logo' }, h('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: 'none', stroke: '#04201f', strokeWidth: 2.4, strokeLinecap: 'round' }, h('path', { d: 'M3 12h4l2-6 4 12 2-6h6' }))),
@@ -200,7 +244,7 @@ window.__ModuleLoader__.load({
                       : tab === 'improve' ? h(Improve, { run })
                         : tab === 'calls' ? h(Calls, { run })
                           : tab === 'rules' ? h(Rules, { run })
-                            : h(Report, { run })))
+                            : h(Report, { run }))))
     }
 
     /* --------------------------------------------------------------- new run */
@@ -347,6 +391,8 @@ window.__ModuleLoader__.load({
     }
 
     function TimelineSvg({ tl, cutoff, sel, onSelect }) {
+      const P = React.useContext(ThemeCtx)
+      const VC = verdictColor(P)
       const W = 980; const L = 150; const R = W - 14
       const a0 = toT(tl.range.a); const b0 = toT(tl.range.b)
       const y0 = new Date(a0).getUTCFullYear(); const y1 = new Date(b0).getUTCFullYear() + 1
@@ -354,21 +400,21 @@ window.__ModuleLoader__.load({
       const X = (d) => L + (toT(d) - A) / (B - A) * (R - L)
       const els = []
       let y = 22
-      const C = { fact: '#4fb3ff', judge: '#c48bff', decide: '#2fd6a0', visit: '#6d8790' }
+      const C = { fact: P.fact, judge: P.judge, decide: P.decide, visit: P.visit }
       for (let yr = y0; yr <= y1; yr++) {
         const x = L + (Date.UTC(yr, 0, 1) - A) / (B - A) * (R - L)
-        els.push(h('line', { key: `g${yr}`, x1: x, x2: x, y1: 16, y2: 2000, stroke: '#1a2c34' }))
-        if (yr < y1) els.push(h('text', { key: `t${yr}`, x: x + 4, y: 12, fill: '#58717a', fontSize: 10.5, fontFamily: 'SF Mono,Menlo' }, String(yr)))
+        els.push(h('line', { key: `g${yr}`, x1: x, x2: x, y1: 16, y2: 2000, stroke: P.grid }))
+        if (yr < y1) els.push(h('text', { key: `t${yr}`, x: x + 4, y: 12, fill: P.ink3, fontSize: 10.5, fontFamily: 'SF Mono,Menlo' }, String(yr)))
       }
       const isSel = (kind, id) => sel && sel.kind === kind && sel.id === id
       for (const lane of tl.lanes) {
         if (!lane.rows.length) continue
-        const color = C[lane.kind] ?? '#8ba5ad'
+        const color = C[lane.kind] ?? P.ink2
         const top = y
-        els.push(h('line', { key: `ln${lane.id}`, x1: 0, x2: W, y1: y, y2: y, stroke: '#26404a' }))
+        els.push(h('line', { key: `ln${lane.id}`, x1: 0, x2: W, y1: y, y2: y, stroke: P.lane }))
         lane.rows.forEach((row, ri) => {
           const ry = y + 8 + ri * 20
-          els.push(h('text', { key: `rl${lane.id}${ri}`, x: 34, y: ry + 9, fill: '#8ba5ad', fontSize: 10.5 }, row.label.length > 9 ? `${row.label.slice(0, 9)}…` : row.label))
+          els.push(h('text', { key: `rl${lane.id}${ri}`, x: 34, y: ry + 9, fill: P.ink2, fontSize: 10.5 }, row.label.length > 9 ? `${row.label.slice(0, 9)}…` : row.label))
           row.items.forEach((it, ii) => {
             if (!it.a) return
             const k = `${lane.id}${ri}-${ii}`
@@ -377,54 +423,54 @@ window.__ModuleLoader__.load({
             if (before) els.push(h('path', { key: `${k}<`, d: `M${L - 2} ${ry + 4} l7 -5 v10z`, fill: color, opacity: 0.8 }, h('title', {}, `${row.label}：${it.a} 起（早于时间轴）`)))
             if (before && toT(it.b ?? it.a) < A) return
             const click = it.event ? { onClick: () => onSelect({ kind: 'event', id: it.event }), style: { cursor: 'pointer' } } : {}
-            const strokeSel = it.event && isSel('event', it.event) ? { stroke: '#e2eef0', strokeWidth: 1.6 } : {}
-            if (it.kind === 'tick') els.push(h('line', { key: k, x1, x2: x1, y1: ry, y2: ry + 10, stroke: '#4d6770' }))
-            else if (it.kind === 'stay') els.push(h('rect', { key: k, x: x1 - 1, y: ry - 1, width: Math.max(5, x2 - x1 + 2), height: 12, rx: 2, fill: '#6d8790' }, h('title', {}, `住院 ${it.a}～${it.b} ${it.label ?? ''}`)))
+            const strokeSel = it.event && isSel('event', it.event) ? { stroke: P.ink, strokeWidth: 1.6 } : {}
+            if (it.kind === 'tick') els.push(h('line', { key: k, x1, x2: x1, y1: ry, y2: ry + 10, stroke: P.tick }))
+            else if (it.kind === 'stay') els.push(h('rect', { key: k, x: x1 - 1, y: ry - 1, width: Math.max(5, x2 - x1 + 2), height: 12, rx: 2, fill: P.visit }, h('title', {}, `住院 ${it.a}～${it.b} ${it.label ?? ''}`)))
             else if (it.kind === 'bar') els.push(h('rect', { key: k, x: x1, y: ry, width: x2 - x1, height: 9, rx: 2, fill: color, opacity: it.faint ? 0.35 : 0.85, ...click, ...strokeSel }, h('title', {}, `${row.label} ${it.a}～${it.b}${it.n ? ` · ${it.n} 条提及` : ''}`)))
-            else if (it.kind === 'stop') els.push(h('rect', { key: k, x: x1 - 1, y: ry - 2, width: 3, height: 13, fill: '#e2eef0', ...click }, h('title', {}, `${row.label} 停用 ${it.a}`)))
+            else if (it.kind === 'stop') els.push(h('rect', { key: k, x: x1 - 1, y: ry - 2, width: 3, height: 13, fill: P.ink, ...click }, h('title', {}, `${row.label} 停用 ${it.a}`)))
             else {
               const d = `M${x1} ${ry - 1} l5.5 5.5 l-5.5 5.5 l-5.5 -5.5z`
-              els.push(h('path', { key: k, d, fill: color, stroke: it.conflict ? '#f05252' : (strokeSel.stroke ?? 'none'), strokeWidth: it.conflict ? 1.8 : 1.4, ...click }, h('title', {}, `${row.label}${it.label ? ` ${it.label}` : ''} ${it.a}${it.b && it.b !== it.a ? `～${it.b}` : ''}${it.conflict ? ' · 时间不一致' : ''}`)))
+              els.push(h('path', { key: k, d, fill: color, stroke: it.conflict ? P.bad : (strokeSel.stroke ?? 'none'), strokeWidth: it.conflict ? 1.8 : 1.4, ...click }, h('title', {}, `${row.label}${it.label ? ` ${it.label}` : ''} ${it.a}${it.b && it.b !== it.a ? `～${it.b}` : ''}${it.conflict ? ' · 时间不一致' : ''}`)))
             }
           })
         })
         const hgt = lane.rows.length * 20 + 12
         els.push(h('rect', { key: `lb${lane.id}`, x: 0, y: top + 1, width: 3, height: hgt - 2, fill: color, opacity: 0.8 }))
-        ;[...lane.name].forEach((ch, i) => els.push(h('text', { key: `lc${lane.id}${i}`, x: 16, y: top + 17 + i * 14, fill: color === '#6d8790' ? '#e2eef0' : color, fontSize: 11.5, fontWeight: 700, textAnchor: 'middle' }, ch)))
+        ;[...lane.name].forEach((ch, i) => els.push(h('text', { key: `lc${lane.id}${i}`, x: 16, y: top + 17 + i * 14, fill: color === P.visit ? P.ink : color, fontSize: 11.5, fontWeight: 700, textAnchor: 'middle' }, ch)))
         y += hgt
       }
       // labs
       if (tl.series.length) {
-        els.push(h('line', { key: 'lnlab', x1: 0, x2: W, y1: y, y2: y, stroke: '#26404a' }))
+        els.push(h('line', { key: 'lnlab', x1: 0, x2: W, y1: y, y2: y, stroke: P.lane }))
         const top = y
         tl.series.forEach((s, si) => {
           const sy = y + 6 + si * 40; const hh = 30
           const vs = s.points.map((p) => p.v); const lo = Math.min(...vs); const hi = Math.max(...vs)
           const Y = (v) => sy + hh - (hi === lo ? hh / 2 : (v - lo) / (hi - lo) * hh)
-          els.push(h('text', { key: `sl${si}`, x: 34, y: sy + 12, fill: '#8ba5ad', fontSize: 10.5 }, s.name))
-          els.push(h('text', { key: `sr${si}`, x: 34, y: sy + 25, fill: '#58717a', fontSize: 9 }, `${lo}–${hi}`))
-          els.push(h('path', { key: `sp${si}`, d: s.points.map((p, i) => `${i ? 'L' : 'M'}${X(p.d)} ${Y(p.v)}`).join(''), stroke: '#4fb3ff', strokeWidth: 1.1, fill: 'none', opacity: 0.8 }))
-          s.points.forEach((p, i) => els.push(h('circle', { key: `sc${si}-${i}`, cx: X(p.d), cy: Y(p.v), r: 1.8, fill: '#4fb3ff', style: { cursor: 'pointer' }, onClick: () => onSelect({ kind: 'event', id: p.event }) }, h('title', {}, `${s.name} ${p.v} · ${p.d}`))))
+          els.push(h('text', { key: `sl${si}`, x: 34, y: sy + 12, fill: P.ink2, fontSize: 10.5 }, s.name))
+          els.push(h('text', { key: `sr${si}`, x: 34, y: sy + 25, fill: P.ink3, fontSize: 9 }, `${lo}–${hi}`))
+          els.push(h('path', { key: `sp${si}`, d: s.points.map((p, i) => `${i ? 'L' : 'M'}${X(p.d)} ${Y(p.v)}`).join(''), stroke: P.fact, strokeWidth: 1.1, fill: 'none', opacity: 0.8 }))
+          s.points.forEach((p, i) => els.push(h('circle', { key: `sc${si}-${i}`, cx: X(p.d), cy: Y(p.v), r: 1.8, fill: P.fact, style: { cursor: 'pointer' }, onClick: () => onSelect({ kind: 'event', id: p.event }) }, h('title', {}, `${s.name} ${p.v} · ${p.d}`))))
         })
         const hgt = tl.series.length * 40 + 8
-        els.push(h('rect', { key: 'lblab', x: 0, y: top + 1, width: 3, height: hgt - 2, fill: '#4fb3ff', opacity: 0.8 }))
-        ;['检', '验'].forEach((ch, i) => els.push(h('text', { key: `lcl${i}`, x: 16, y: top + 17 + i * 14, fill: '#4fb3ff', fontSize: 11.5, fontWeight: 700, textAnchor: 'middle' }, ch)))
+        els.push(h('rect', { key: 'lblab', x: 0, y: top + 1, width: 3, height: hgt - 2, fill: P.fact, opacity: 0.8 }))
+        ;['检', '验'].forEach((ch, i) => els.push(h('text', { key: `lcl${i}`, x: 16, y: top + 17 + i * 14, fill: P.fact, fontSize: 11.5, fontWeight: 700, textAnchor: 'middle' }, ch)))
         y += hgt
       }
       // findings
-      els.push(h('line', { key: 'lnf', x1: 0, x2: W, y1: y, y2: y, stroke: '#26404a' }))
-      ;['发', '现'].forEach((ch, i) => els.push(h('text', { key: `lcf${i}`, x: 16, y: y + 17 + i * 14, fill: '#f5a524', fontSize: 11.5, fontWeight: 700, textAnchor: 'middle' }, ch)))
+      els.push(h('line', { key: 'lnf', x1: 0, x2: W, y1: y, y2: y, stroke: P.lane }))
+      ;['发', '现'].forEach((ch, i) => els.push(h('text', { key: `lcf${i}`, x: 16, y: y + 17 + i * 14, fill: P.warn, fontSize: 11.5, fontWeight: 700, textAnchor: 'middle' }, ch)))
       tl.findings.forEach((f, i) => {
         if (!f.at) return
         const x = X(f.at)
-        els.push(h('rect', { key: `f${i}`, x: x - 3, y: y + 8 + (i % 2) * 14, width: 6, height: 12, rx: 1.5, fill: VERDICT_COLOR[f.verdict] ?? '#8ba5ad', stroke: isSel('finding', f.id) ? '#e2eef0' : 'none', style: { cursor: 'pointer' }, onClick: () => onSelect({ kind: 'finding', id: f.id }) }, h('title', {}, `${f.verdict}·${f.subclass}：${f.why}`)))
+        els.push(h('rect', { key: `f${i}`, x: x - 3, y: y + 8 + (i % 2) * 14, width: 6, height: 12, rx: 1.5, fill: VC[f.verdict] ?? P.ink2, stroke: isSel('finding', f.id) ? P.ink : 'none', style: { cursor: 'pointer' }, onClick: () => onSelect({ kind: 'finding', id: f.id }) }, h('title', {}, `${f.verdict}·${f.subclass}：${f.why}`)))
       })
       y += 42
       if (cutoff) {
         const cx = X(cutoff)
-        els.push(h('rect', { key: 'cut', x: cx, y: 16, width: Math.max(0, R - cx), height: y - 16, fill: 'rgba(8,17,22,.6)', pointerEvents: 'none' }))
-        els.push(h('line', { key: 'cutl', x1: cx, x2: cx, y1: 16, y2: y, stroke: '#f5a524', strokeDasharray: '4 3', strokeWidth: 1.3 }))
-        els.push(h('text', { key: 'cutt', x: cx + 5, y: 28, fill: '#f5a524', fontSize: 10 }, '可见截断：之后写成的不可见（按 as-of 重跑可重算）'))
+        els.push(h('rect', { key: 'cut', x: cx, y: 16, width: Math.max(0, R - cx), height: y - 16, fill: P.shade, pointerEvents: 'none' }))
+        els.push(h('line', { key: 'cutl', x1: cx, x2: cx, y1: 16, y2: y, stroke: P.warn, strokeDasharray: '4 3', strokeWidth: 1.3 }))
+        els.push(h('text', { key: 'cutt', x: cx + 5, y: 28, fill: P.warn, fontSize: 10 }, '可见截断：之后写成的不可见（按 as-of 重跑可重算）'))
       }
       return h('svg', { width: W, height: y, style: { display: 'block' } }, els)
     }
@@ -592,7 +638,7 @@ window.__ModuleLoader__.load({
             const sub = g ? list.filter((x) => x.verdict === g) : list
             if (!sub.length) return null
             return h(React.Fragment, { key: g ?? 'all' },
-              g ? h('div', { className: 'me-faint', style: { padding: '8px 8px 3px', display: 'flex', justifyContent: 'space-between' } }, h('span', {}, h('span', { style: { color: VERDICT_COLOR[g] } }, '● '), g), h('span', { className: 'me-num' }, sub.length)) : null,
+              g ? h('div', { className: 'me-faint', style: { padding: '8px 8px 3px', display: 'flex', justifyContent: 'space-between' } }, h('span', {}, h('span', { style: { color: `var(--${{ 矛盾: 'bad', 记录质量: 'warn', 改判: 'vio', 病情变化: 'vio', 调整: 'ok' }[g] ?? 'ink3'})` } }, '● '), g), h('span', { className: 'me-num' }, sub.length)) : null,
               sub.map((x) => h('div', { key: `${x.patient}${x.id}`, className: `me-pi${sel?.id === x.id ? ' on' : ''}`, style: { opacity: x.review ? 0.55 : 1 }, onClick: () => setSel(x) },
                 h('b', { style: { fontFamily: 'inherit', whiteSpace: 'normal' } }, x.kind === 'finding' ? `${x.subclass ?? x.verdict}` : x.title), h('span', {}, x.review ? '✓' : ''),
                 h('span', { style: { gridColumn: '1 / 3' } }, `${x.patient.split('/').pop()} · ${x.kind === 'finding' ? x.title.slice(0, 40) : x.kind === 'mapping' ? x.nature : `${x.suggest ? JSON.stringify(x.suggest.type ?? x.suggest.concept ?? x.suggest.answer) : '—'} / ${x.verify ? JSON.stringify(x.verify.type ?? x.verify.concept ?? x.verify.answer) : '—'}`}`))))

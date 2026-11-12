@@ -2,6 +2,7 @@
 
 > 本文件在 `dsh-medical-event`、`dsh-medical-ontology`、`dsh-medical-eval` 三个仓库里内容相同。
 > 改动时三处同步（以 `dsh-medical-event/docs/family.md` 为准）。
+> 文中 `../<目录>` 指与本仓库同级的目录（各仓库放在同一个父目录下）。
 > 整理于 2026-11-11，来源是与用户的设计讨论；尚未写任何插件代码。
 
 ## 1. 要做的事
@@ -18,7 +19,7 @@
 
 ```
 病历原始导出
-  → 医疗数据匿名化  dsh-medical-anonymizer   （已有，/Users/wanglidong/VibeCoding/dsh-medical-anonymizer）
+  → 医疗数据匿名化  dsh-medical-anonymizer   （已有，../dsh-medical-anonymizer）
   → 病历事件还原    dsh-medical-event        工序 1–4：提及 → 类型 → 事件 → 矛盾
   → 临床本体构建    dsh-medical-ontology     工序 5–6 ＋ 本体组装：问题线 → 决策节点 → 闭环/伴发/归因/疾病关系
   → 长病程临床推理评测 dsh-medical-eval       工序 7–8 ＋ T01–T10：截断与防泄漏 → 出题 → 计分 → 跑模型
@@ -59,7 +60,7 @@
 
 ### 4.1 继承自匿名化插件的做法（以它为模板）
 
-参考 `/Users/wanglidong/VibeCoding/dsh-medical-anonymizer`：`README.md`、`docs/guide.md`、`AGENTS.md`、`lib/`、`client.js`、`cordis.patch.yml`、`design/`、`assets/dashboard.png`、`assets/review.png`。
+参考 `../dsh-medical-anonymizer`：`README.md`、`docs/guide.md`、`AGENTS.md`、`lib/`、`client.js`、`cordis.patch.yml`、`design/`、`assets/dashboard.png`、`assets/review.png`。
 
 - 绝不修改输入；写入前解析软链接，目标必须在本批输出内。运行前后核对源文件大小与修改时间。
 - 输出根目录：交付数据直接放在根下，报告、批次记录、映射、缓存放 `_records/`（`runs/<runId>/report.md`、`report.json`、`calls.json` 等）。批次完成后交付数据才出现在根目录。
@@ -106,7 +107,7 @@
 | 复核状态 | 未复核／已确认／已改判／驳回，复核人与时间 |
 
 评测里“加工判断，需医生复核”的任务（T08、T09、T10）只能用已确认的条目出题。
-这与因果链标注项目的口径一致：`basis_records`、`confidence`、`confirmed_by`（见 `/Users/wanglidong/VibeCoding/因果链标注/README.md`、`contracts/`）。
+这与因果链标注项目的口径一致：`basis_records`、`confidence`、`confirmed_by`（见 `../因果链标注/README.md`、`contracts/`）。
 
 ### 4.6 规则包分层
 
@@ -124,11 +125,11 @@
 |---|---|
 | 八道工序的设计（v1.x，含规则、词表、修订记录） | 各仓库 `docs/reference/工序N_*/设计.html|.txt`（从 iCloud 复制） |
 | 八道工序总结 | 各仓库 `docs/reference/八道工序总结.html|.txt` |
-| G-MPAS 临床本体页、评测页（文本） | `dsh-medical-ontology/docs/reference/`、`dsh-medical-eval/docs/reference/`；站点源码 `/Users/wanglidong/VibeCoding/www.g-mpas.com/ontology.html`、`eval.html` |
-| 原始工序目录（含 结果.xlsx / 结果.html 实例、工序8 的脚本与模型结果） | `/Users/wanglidong/Library/Mobile Documents/com~apple~CloudDocs/未命名文件夹/工序1_事件提取/` … `工序8_使用/` |
-| 匿名化插件（模板） | `/Users/wanglidong/VibeCoding/dsh-medical-anonymizer` |
-| 通用模型评测插件 | `/Users/wanglidong/VibeCoding/dsh-model-eval` |
-| 因果链标注项目（装配/标注，医生复核口径） | `/Users/wanglidong/VibeCoding/因果链标注` |
+| G-MPAS 临床本体页、评测页（文本） | `dsh-medical-ontology/docs/reference/`、`dsh-medical-eval/docs/reference/`；站点源码 `../www.g-mpas.com/ontology.html`、`eval.html` |
+| 原始工序目录（含 结果.xlsx / 结果.html 实例、工序8 的脚本与模型结果） | `~/Library/Mobile Documents/com~apple~CloudDocs/未命名文件夹/工序1_事件提取/` … `工序8_使用/` |
+| 匿名化插件（模板） | `../dsh-medical-anonymizer` |
+| 通用模型评测插件 | `../dsh-model-eval` |
+| 因果链标注项目（装配/标注，医生复核口径） | `../因果链标注` |
 
 读 iCloud 目录的注意事项：macOS 隐私保护会拦“列目录”（`ls`、glob 都报 Operation not permitted），但**直接读已知路径的文件可以**。
 要列文件用 Spotlight：`mdfind -onlyin "<目录>" "kMDItemFSName == '*'"` 或 `mdfind "kMDItemFSName == '*.xlsx'" | grep 未命名文件夹`。

@@ -19,7 +19,11 @@ if (!stateDir || !umd) { console.error('usage: REACT_UMD_DIR=<node_modules> node
 const service = createService({ stateDir })
 
 const page = `<!doctype html><meta charset="utf-8"><title>preview</title>
-<style>html,body,#root{margin:0;height:100%}body{background:#081116}</style>
+<style>html,body,#root{margin:0;height:100%}
+:root{--dsw-alias-bg-base:#0b1418;--dsw-alias-bg-layer-1:#111b20;--dsw-alias-bg-layer-2:#18242a;--dsw-alias-label-primary:#e6edef;--dsw-alias-label-secondary:#93a4a9;--dsw-alias-label-tertiary:#647479;--dsw-alias-border-l1:#1d2a30;--dsw-alias-border-l2:#2a3a41}
+:root.light{--dsw-alias-bg-base:#f4f6f7;--dsw-alias-bg-layer-1:#ffffff;--dsw-alias-bg-layer-2:#eef2f3;--dsw-alias-label-primary:#1b2a2f;--dsw-alias-label-secondary:#5d6e73;--dsw-alias-label-tertiary:#8a989c;--dsw-alias-border-l1:#e3e9eb;--dsw-alias-border-l2:#d2dcdf}
+body{background:var(--dsw-alias-bg-base)}</style>
+<script>if (new URLSearchParams(location.search).get('theme') === 'light') document.documentElement.classList.add('light')</script>
 <div id="root"></div>
 <script src="/react.js"></script><script src="/react-dom.js"></script>
 <script>let def = null; window.__ModuleLoader__ = { load(d) { def = d } }</script>
