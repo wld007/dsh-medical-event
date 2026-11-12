@@ -40,12 +40,12 @@ DeepSeek Harness 插件。把一位患者的病历变成**可计算的事件**�
 
 ## 文档
 
-- [docs/family.md](docs/family.md)：插件家族、拆分理由、共同约定
-- [docs/brief.md](docs/brief.md)：交接说明
-- [docs/architecture.md](docs/architecture.md)：引擎架构、规则包格式、稳定编号
-- [docs/event-package.md](docs/event-package.md)：交付格式
-- [docs/validation.md](docs/validation.md)：HD-0001 真实数据验证与老结果对照
-- [docs/reference/](docs/reference/)：工序 1–4 设计文档
+- [docs/family.md](https://github.com/wld007/dsh-medical-event/blob/main/docs/family.md)：插件家族、拆分理由、共同约定
+- [docs/brief.md](https://github.com/wld007/dsh-medical-event/blob/main/docs/brief.md)：交接说明
+- [docs/architecture.md](https://github.com/wld007/dsh-medical-event/blob/main/docs/architecture.md)：引擎架构、规则包格式、稳定编号
+- [docs/event-package.md](https://github.com/wld007/dsh-medical-event/blob/main/docs/event-package.md)：交付格式
+- [docs/validation.md](https://github.com/wld007/dsh-medical-event/blob/main/docs/validation.md)：HD-0001 真实数据验证与老结果对照
+- [docs/reference/](https://github.com/wld007/dsh-medical-event/tree/main/docs/reference)：工序 1–4 设计文档
 
 ## 开发
 
