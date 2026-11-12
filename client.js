@@ -386,7 +386,7 @@ window.__ModuleLoader__.load({
               h('div', { className: 'me-scroll', style: { flex: 1 } }, h(TimelineSvg, { tl, cutoff, sel, onSelect: (x) => { setSel(x); setFocus(x) } })))),
         h('div', { className: 'me-frame me-scroll me-pad', style: { width: 380, flex: 'none' } },
           !sel ? h('div', { className: 'me-faint' }, '点时间线上的条、点或发现标记查看详情。')
-            : sel.kind === 'event' ? h(EventDetail, { run, patient, eventId: sel.id, gotoSource, onFinding: (id) => setSel({ kind: 'finding', id }) })
+            : sel.kind === 'event' ? h(EventDetail, { run, patient, eventId: sel.id, gotoSource, onFinding: (id) => setSel({ kind: 'finding', id }), onEvent: (id) => setSel({ kind: 'event', id }) })
               : h(FindingDetail, { run, patient, findingId: sel.id, gotoSource, gotoReview })))
     }
 
@@ -483,7 +483,7 @@ window.__ModuleLoader__.load({
         h('div', { className: 'me-faint', style: { fontSize: 10.5 } }, h('span', { className: `me-chip ${m.tier <= 2 ? 'ok' : ''}` }, `${m.tierName} · ${m.tier}`), `→ ${m.occurFrom ?? '?'}${m.occurTo && m.occurTo !== m.occurFrom ? `～${m.occurTo}` : ''} · ${m.timeSource ?? ''}${m.rule ? ` · ${m.rule}` : ''}`))
     }
 
-    function EventDetail({ run, patient, eventId, gotoSource, onFinding }) {
+    function EventDetail({ run, patient, eventId, gotoSource, onFinding, onEvent }) {
       const d = useAsync(() => call('event', { runId: run.id, patient, eventId }), [run.id, patient, eventId])
       if (!d.value) return h('div', { className: 'me-faint' }, d.error ?? '加载中…')
       const e = d.value.event
@@ -499,6 +499,13 @@ window.__ModuleLoader__.load({
           e.aliases?.length ? h('span', { className: 'me-faint' }, '别名') : null, e.aliases?.length ? h('span', {}, e.aliases.map((a) => `${a.alias}（${a.nature}）`).join('；')) : null),
         d.value.findings.length ? h(React.Fragment, {}, h('div', { className: 'me-sec' }, h('b', {}, '相关发现')),
           d.value.findings.map((f) => h('div', { key: f.id, className: 'me-mrow', style: { cursor: 'pointer' }, onClick: () => onFinding(f.id) }, h('span', { className: `me-chip ${VERDICT_CLS[f.verdict] ?? ''}` }, `${f.verdict}·${f.subclass}`), f.why))) : null,
+        d.value.links?.length ? h(React.Fragment, {}, h('div', { className: 'me-sec' }, h('b', {}, '印证关系'), h('span', { className: 'me-cap' }, '只连不并')),
+          d.value.links.map((l) => h('div', { key: l.id, className: 'me-mrow' },
+            h('div', { style: { display: 'flex', gap: 6, alignItems: 'baseline', flexWrap: 'wrap' } },
+              h('span', { className: `me-chip ${l.to ? 'ok' : 'w'}` }, l.dir === 'out' ? `${l.relation} →` : `← ${l.relation}`),
+              l.other ? h('a', { className: 'me-tl', style: { cursor: 'pointer' }, onClick: () => onEvent?.(l.other.id) }, `${l.other.concept ?? l.other.conceptGroup}（${l.other.form} · ${l.other.a ?? ''}）`) : h('span', { className: 'me-warn' }, '无法印证：记录里找不到它本身'),
+              h('span', { className: 'me-faint' }, l.rule)),
+            l.note ? h('div', { className: 'me-faint', style: { fontSize: 10.5 } }, l.note) : null))) : null,
         h('div', { className: 'me-sec' }, h('b', {}, '各方提及'), h('span', { className: 'me-cap' }, '按写成时间')),
         d.value.mentions.map((m) => h(MentionRow, { key: m.id, m, gotoSource })),
         d.value.more ? h('div', { className: 'me-faint' }, `… 另 ${d.value.more} 条`) : null)

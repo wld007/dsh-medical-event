@@ -94,6 +94,22 @@ export function fictionalTables() {
     { PRM_KEY: key('检查'), EXAM_DT: '2022-07-20 10:00:00', EXAM_RPT_DT: '2022-07-20 18:12:00', CRT_TM: '2022-07-20 18:12:00', EXAM_ITM_NM: '胸部CT平扫', EXAM_RPT_RSLT_OBJCT: '两肺纹理增多。', EXAM_RPT_RSLT_SBJCT: '1、两侧肺动脉区致密影，请结合临床。' },
     { PRM_KEY: key('检查'), EXAM_DT: '2025-11-04 10:00:00', EXAM_RPT_DT: '2025-11-04 16:00:00', CRT_TM: '2025-11-04 16:00:00', EXAM_ITM_NM: '胸部CT平扫', EXAM_RPT_RSLT_OBJCT: '两侧肺动脉边缘可见条片状钙化影。', EXAM_RPT_RSLT_SBJCT: '1、两侧肺动脉钙化。' },
   ])
+  // 血管通路：2017-05-08 手术记录（结构化）＋收费；之后门诊“内瘘成形术后”；2023-09 因内瘘流量下降入院，
+  // 出院记录转述 CTA，检查报告表里有同日 CTA 报告原件
+  put('一般治疗处置/手术记录', '201705', 'p_doc_fact_oprt_rcd.json', [{ PRM_KEY: key('手术'), INHOS_NO: '住院-AVF', OPRT_NM: '右上肢动静脉内瘘成形术', OPRT_DT_TM: ts('2017-05-08 10:00'), OPRT_STRT_DT_TM: ts('2017-05-08 09:00'), CRT_TM: ts('2017-05-08 12:00'), OPRT_DPT_NM: '肾脏内科' }])
+  put('费用/门诊费用', '201705', 'p_doc_fact_otpt_fee_dtl.json', [{ PRM_KEY: key('收费'), CHRG_DT: ts('2017-05-10 10:00'), CHRG_ITM_NM: '动静脉内瘘成形术', FEE_CGY_NM: '治疗费', ITM_QTY: '1', OTPT_EMG_NO: '就诊-O9', CHRG_RTRN_FLG: '1' }])
+  put('病历记录/门急诊病历', '201801', 'p_doc_fact_otpt_emg_mdc_htr_rcd.json', [
+    otpt('O9', '2018-01-15 09:30', { CHF_COMPLNT: '配药', PRST_ILLNS_HST: '动静脉内瘘成形术后，规律血透。', HDL_SGST: '1、低盐饮食\n2、不适随诊' }),
+  ])
+  visits.push({ PRM_KEY: key('病历'), VST_TP: '2', VST_DT: ts('2023-09-12 09:00'), ADMN_DT_TM: ts('2023-09-12 09:00'), DSCG_DT_TM: ts('2023-09-20 10:00'), INHOS_NO: '住院-C', ADMN_DPT_NM: '肾脏内科', MDC_ORG_NM: '医院-000009' })
+  put('病历记录/出院记录', '202309', 'p_doc_fact_dscg_rcd.json', [{ PRM_KEY: key('病历'), INHOS_NO: '住院-C', CRT_TM: ts('2023-09-20 15:00'), UPD_DT: '2023-09-20 15:00:00',
+    ADMN_CDT: '患者，男，80岁，家住地址-000077，既往高血压病、冠心病病史。因"血透2年余，内瘘流量下降1周余"收住入院。入院查体：脉搏74次/分,血压172/81mmHg。双下肢无浮肿。右上肢内瘘血管震颤弱，杂音弱。辅助检查：（2023-09-11我院）右上肢动脉CTA：右上肢桡动脉与桡侧头静脉吻合术后。',
+    DSCG_CDT: '患者内瘘流量较前好转，予出院。' }])
+  put('检查/检查记录', '202309', 'p_doc_fact_exam_rcd.json', [
+    { PRM_KEY: key('检查'), EXAM_DT: '2023-09-11 10:00:00', EXAM_RPT_DT: '2023-09-11 16:00:00', CRT_TM: '2023-09-11 16:00:00', EXAM_ITM_NM: '右上肢动脉CTA', EXAM_RPT_RSLT_OBJCT: '右上肢桡动脉与桡侧头静脉吻合术后，吻合口远端静脉局限性狭窄。', EXAM_RPT_RSLT_SBJCT: '1、右上肢桡动脉与桡侧头静脉吻合术后，吻合口远端静脉狭窄。' },
+  ])
+  // visits 已经 put 过，重新写一次
+  files['就诊/就诊记录/202207/p_doc_fact_vst_infmt.json'] = visits
   return files
 }
 
