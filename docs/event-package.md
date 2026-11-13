@@ -141,7 +141,7 @@
 
 - 交付位置：`<outputRoot>/<输入名>/<病人相对路径>/`；单个病人输入时直接是 `<outputRoot>/<输入名>/`。
 - 片段全文放进包里（下游不回读病历）。
-- 人工裁定不写进事件包，放 `_records/decisions.json`（按稳定编号）；读取时合并到 `findings[].review`。
+- 人工裁定放 `_records/records.sqlite` 的 `decisions` 表（按稳定编号；每次改动另记 `decision_log`），读取时合并到 `findings[].review`。旧版的 `_records/decisions.json` 在第一次打开记录库时并入。运行时没有 `node:sqlite` 时仍用 `decisions.json`。
 - as-of：以批次参数 `asOf` 产出整包（manifest.asOf 记录），引擎内 `runStages(raw, pack, { asOf })` 可按需重算。
 
 ## 待定
