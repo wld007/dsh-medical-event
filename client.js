@@ -769,6 +769,8 @@ window.__ModuleLoader__.load({
         const what = ['人等待读入', '', '', '', '', '人待复核', '人等待交付']
         const pileAt = (k) => (k === 0 ? [12, 116] : k === 6 ? [yard + 14, 92] : [bay0(k) + 14, D + 12])
         const pileZ = (k) => (k === 6 ? 4 : 0)
+        // 画布范围按每个排队位都可能有箱子来算，不随数据和选中变化
+        loads.forEach((_, k) => { const [pi, pj] = pileAt(k); bb.push(iso(pi, pj + 24), iso(pi + 39, pj, 70)) })
         loads.forEach((n, k) => {
           if (!n) return
           const [pi, pj] = pileAt(k)
@@ -785,7 +787,6 @@ window.__ModuleLoader__.load({
           els.push(h('g', { key: `q${k}`, ...click(k) }, h('title', {}, `${stations[k].no} 门前排队：${n} ${what[k]}`), g,
             h('text', { x: top[0], y: top[1], textAnchor: 'middle', fill: A, fontSize: 17, fontWeight: 700, fontFamily: MONO, stroke: C.card, strokeWidth: 3.5, paintOrder: 'stroke' }, String(n)),
             h('text', { x: top[0], y: top[1] + 13, textAnchor: 'middle', fill: P.ink, fontSize: 10, stroke: C.card, strokeWidth: 3, paintOrder: 'stroke' }, what[k] ? `排队 · ${what[k].replace(/^人/, '')}` : '排队')))
-          bb.push(iso(pi, pj + 24), iso(pi + 39, pj, 70))
         })
       }
 
@@ -846,13 +847,19 @@ window.__ModuleLoader__.load({
       // 每道工序的标签卡（选中的那张在下面单独画大卡）
       const anchor = (k) => (k === 0 ? iso(42, 58, 112) : k === 6 ? iso(yard + 75, 70, 40) : iso(bay0(k) + bw / 2, D / 2, H + 30))
       const gateFill = { ok: P.ok, warn: P.warn, '': P.ink3 }
+      // 画布范围与选中无关：每一站的小标签和（按最高行数算的）大卡都算进去，点哪一站画面都不动
+      const cardRows = (s) => 3 + s.rows.length
+      const maxCh = 34 + Math.max(...stations.map(cardRows)) * 18
+      stations.forEach((s, k) => {
+        const [x, y] = anchor(k)
+        bb.push([x + 30, y - 106], [x + 142, y - 70], [x + 70, y - 80 - maxCh], [x + 266, y - 80])
+      })
       stations.forEach((s, k) => {
         if (k === sel) return
         const [x, y] = anchor(k)
         const hotS = s.state === 'hold' || s.state === 'run'
         const cw = 112; const ch = 36; const cx = x + 30; const cy = y - 70 - ch
         const [gl, gv, gc] = s.rows[0] ?? []
-        bb.push([cx, cy], [cx + cw, cy + ch])
         els.push(h('g', { key: `tag${k}`, ...click(k) },
           h('polyline', { points: pts([[x, y], [x, y - 20], [cx, cy + ch]]), fill: 'none', stroke: hotS ? A : C.grid, strokeOpacity: hotS ? 0.8 : 0.35 }),
           h('circle', { cx: x, cy: y, r: 1.8, fill: hotS ? A : C.grid, opacity: hotS ? 1 : 0.5 }),
@@ -868,7 +875,6 @@ window.__ModuleLoader__.load({
         const cw = 196; const ch = 34 + rows.length * 18
         const cx = x + 70; const cy = y - 80 - ch
         const fill = { ok: P.ok, warn: P.warn, '': P.ink }
-        bb.push([cx, cy], [cx + cw, cy + ch])
         els.push(h('g', { key: 'card', className: 'me-cardin' },
           h('polyline', { points: pts([[x, y], [x, y - 22], [cx, cy + ch]]), fill: 'none', stroke: A, strokeWidth: 1 }),
           h('circle', { cx: x, cy: y, r: 3, fill: A, filter: 'url(#me-glow)' }),
@@ -887,7 +893,7 @@ window.__ModuleLoader__.load({
       const xs = bb.map((p) => p[0]); const ys = bb.map((p) => p[1])
       const x0 = Math.min(...xs) - 24; const y0 = Math.min(...ys) - 16; const x1 = Math.max(...xs) + 24; const y1 = Math.max(...ys) + 16
       defs.push(h('mask', { key: 'mk', id: 'me-gridmask', maskUnits: 'userSpaceOnUse', x: x0, y: y0, width: x1 - x0, height: y1 - y0 }, h('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: 'url(#me-fade)' })))
-      return h('svg', { className: 'me-scene', viewBox: `${x0} ${y0} ${x1 - x0} ${y1 - y0}`, style: { maxHeight: 620, overflow: 'hidden' } }, h('defs', {}, defs), els)
+      return h('svg', { className: 'me-scene', viewBox: `${x0} ${y0} ${x1 - x0} ${y1 - y0}`, preserveAspectRatio: 'xMidYMin meet', style: { maxHeight: 620, overflow: 'hidden' } }, h('defs', {}, defs), els)
     }
 
     /** 右侧：选中工序的详情——小模型、按病人的指标柱、关键数字。 */
