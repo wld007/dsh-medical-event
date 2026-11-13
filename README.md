@@ -34,9 +34,16 @@ DeepSeek Harness 插件。把一位患者的病历变成**可计算的事件**�
   manifest.json fragments.jsonl encounters.jsonl mentions.jsonl events.jsonl findings.jsonl clues.jsonl stage-changes.json
   exports/drug_exposure.csv labs_long.csv extraction_samples.jsonl
 <outputRoot>/_records/
-  index.json  decisions.json（人工裁定，按稳定编号，重跑沿用）
-  runs/<runId>/run.json report.md report.json calls.jsonl model-cache.jsonl model/
+  records.sqlite   记录库，各批次共用，按 run_id 区分：
+                   runs（批次）、decisions（人工裁定，按稳定编号，重跑沿用）、decision_log（裁定改动留痕）、
+                   model_cache（模型回复缓存）、model_calls（模型调用流水）
+  runs/<runId>/report.md report.json model/
 ```
+
+- 记录库用运行时自带的 `node:sqlite`（DSH 内置 Node 24 可用），表结构版本记在 `PRAGMA user_version`，升级时自动迁移；库比插件新时拒绝打开。
+- 旧布局（`index.json`、`decisions.json`、`runs/<runId>/run.json`、`calls.jsonl`、`model-cache.jsonl`）在第一次打开记录库时并入，原文件保留不动，此后不再写。
+- 运行时没有 `node:sqlite` 时退回旧布局文件。
+- 同一输出根目录下重跑，模型回复直接复用缓存；要重新问模型，换一个输出根目录。
 
 ## 文档
 

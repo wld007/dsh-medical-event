@@ -76,6 +76,12 @@ test('批次：两位病人、交付布局、源文件只读、报告、裁定�
   assert.ok(sg.some((s) => s.kind === 'type' && s.outcome === 'discarded' && /引用不在原文/.test(s.suggestProblem)), '引用核对失败丢弃')
   assert.ok(sg.some((s) => s.kind === 'type' && s.outcome === 'candidate'), '两模型一致成为候选')
   assert.ok(run.totals.modelCalls > 0)
+  // 记录库：模型缓存和调用流水在输出根目录的 records.sqlite
+  assert.equal(run.records.kind, 'sqlite')
+  await stat(join(base, 'out', '_records', 'records.sqlite'))
+  const c1 = await svc.calls(runId)
+  // 两位虚构病人内容相同，第二位会命中第一位的缓存；但每个模型都真正发出过调用
+  assert.ok(c1.models.length >= 2 && c1.models.every((m) => m.calls > m.cached), JSON.stringify(c1.models))
 
   // 裁定：按稳定编号存，重跑沿用
   const target = d.findings.find((f) => f.certainty === '需人工确认')
@@ -87,6 +93,35 @@ test('批次：两位病人、交付布局、源文件只读、报告、裁定�
   assert.equal(d2.findings.find((f) => f.id === target.id).review.decision, '证据不足')
   const list = await svc.list()
   assert.equal(list.runs.length, 2)
+  // 批次与裁定都在记录库里，不再写 index.json / run.json / decisions.json
+  for (const f of ['index.json', 'decisions.json', `runs/${runId}/run.json`]) await assert.rejects(stat(join(base, 'out', '_records', f)), f)
+  await stat(join(base, 'out', '_records', 'runs', runId, 'report.md'))
+  // 新开一个服务（相当于重启 DSH）：从记录库读回批次和裁定
+  const svc2 = createService({ config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state') })
+  assert.equal((await svc2.list()).runs.length, 2)
+  assert.equal((await svc2.status(runId)).run.id, runId)
+  assert.equal((await svc2.patientData(again.runId, '病人A', ['findings'])).findings.find((f) => f.id === target.id).review.decision, '证据不足')
+  await svc2.decide(runId, { id: target.id, clear: true })
+  // （第二批的事件包里已写入当时的裁定；看第一批，它的包里没有裁定，只靠裁定表）
+  assert.equal((await svc.patientData(runId, '病人A', ['findings'])).findings.find((f) => f.id === target.id).review, null)
+  await svc2.dispose()
+  // 同一输出根目录再跑：模型回复全部命中缓存
+  const c2 = await svc.calls(again.runId)
+  assert.ok(c2.models.length && c2.models.every((m) => m.calls > 0 && m.cached === m.calls), JSON.stringify(c2.models))
+  await svc.dispose()
+})
+
+test('批次：没有 node:sqlite 时用旧布局文件', async () => {
+  const base = await realpath(await mkdtemp(join(tmpdir(), 'event-files-')))
+  await writeFictionalPatient(join(base, 'in'))
+  const svc = createService({ config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state'), recordsOptions: { sqlite: false } })
+  const { runId } = await svc.start({ inputDir: join(base, 'in') })
+  const run = await waitDone(svc, runId)
+  assert.equal(run.records.kind, 'jsonl')
+  for (const f of ['index.json', `runs/${runId}/run.json`]) await stat(join(base, 'out', '_records', f))
+  await assert.rejects(stat(join(base, 'out', '_records', 'records.sqlite')))
+  assert.equal((await svc.list()).runs[0].id, runId)
+  await svc.dispose()
 })
 
 test('输出根目录不能与输入相同或包含输入', async () => {

@@ -547,7 +547,7 @@ window.__ModuleLoader__.load({
           f.review ? h('button', { className: 'me-btn', onClick: async () => { await call('decide', { runId: run.id, kind: 'findings', id: f.id, clear: true }); setChoice(null); setSaved('已撤销'); onDecided?.() } }, '撤销裁定') : null,
           gotoReview ? h('button', { className: 'me-btn', onClick: () => gotoReview(f.id) }, '去复核') : null,
           h('span', { className: 'me-tl' }, saved)),
-        h('div', { className: 'me-faint', style: { fontSize: 10.5, marginTop: 6 } }, '裁定按稳定编号写入裁定表（_records/decisions.json），下次重跑沿用；不改原文。'))
+        h('div', { className: 'me-faint', style: { fontSize: 10.5, marginTop: 6 } }, '裁定按稳定编号写入记录库（_records/records.sqlite），每次改动留痕，下次重跑沿用；不改原文。'))
     }
 
     /* ----------------------------------------------------------------- source */
