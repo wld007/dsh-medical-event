@@ -35,12 +35,12 @@ window.__ModuleLoader__.load({
     const CSS = `
 .me{--mono:"SF Mono","JetBrains Mono",Menlo,monospace;
   height:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);font:12.5px -apple-system,"PingFang SC","Helvetica Neue",sans-serif;display:flex;flex-direction:column;gap:8px;padding:8px 10px 10px;color-scheme:dark;overflow:hidden}
-.me.me-dark{--bg:#0c0b12;--panel:#12111b;--panel2:#181624;--panel3:#201d2e;--line:#221f31;--line2:#332e48;--ink:#ebe8f4;--ink2:#a49fba;--ink3:#6b6683;--teal:#a78bfa;--teal2:#d6c9ff;--tealdim:rgba(167,139,250,.12);--ok:#62c27e;--warn:#f0a63a;--bad:#e5484d;--badink:#ff8a8d;--vio:#4cc9e0;--fact:#6cb4ff;--judge:#f38bc8;--decide:#4fd1a5;--visit:#8681a0;--tick:#514c68;--arrow:#423d58;--cell-ok:#62c27e;--top:#100f18;--st1:#161423;--st2:#100f18;--shade:rgba(12,11,18,.65);--sel:#ebe8f4;color-scheme:dark}
-.me.me-light{--bg:#f1eff6;--panel:#fcfbfe;--panel2:#f5f3fa;--panel3:#eae6f3;--line:#e2dfec;--line2:#cdc7dc;--ink:#221d33;--ink2:#625b78;--ink3:#958fa9;--teal:#7148d6;--teal2:#5530ae;--tealdim:rgba(113,72,214,.1);--ok:#2f9a55;--warn:#c27a12;--bad:#cf3a3f;--badink:#b83034;--vio:#0f8ea3;--fact:#1f7fd0;--judge:#c23d8c;--decide:#0f9d78;--visit:#8a84a2;--tick:#b3adc5;--arrow:#bcb6cc;--cell-ok:#3fb27a;--top:#f8f7fb;--st1:#faf9fd;--st2:#f2f0f7;--shade:rgba(241,239,246,.72);--sel:#221d33;color-scheme:light}
+.me.me-dark{--bg:#0c0b12;--panel:#12111b;--panel2:#181624;--panel3:#201d2e;--line:#221f31;--line2:#332e48;--ink:#ebe8f4;--ink2:#a49fba;--ink3:#6b6683;--teal:#8f6ef5;--teal2:#c9b8ff;--tealdim:rgba(143,110,245,.14);--fill:#6d4ae0;--ok:#62c27e;--warn:#f0a63a;--bad:#e5484d;--badink:#ff8a8d;--vio:#4cc9e0;--fact:#6cb4ff;--judge:#f38bc8;--decide:#4fd1a5;--visit:#8681a0;--tick:#514c68;--arrow:#423d58;--cell-ok:#62c27e;--top:#100f18;--st1:#161423;--st2:#100f18;--shade:rgba(12,11,18,.65);--sel:#ebe8f4;color-scheme:dark}
+.me.me-light{--bg:#f1eff6;--panel:#fcfbfe;--panel2:#f5f3fa;--panel3:#eae6f3;--line:#e2dfec;--line2:#cdc7dc;--ink:#221d33;--ink2:#625b78;--ink3:#958fa9;--teal:#5b3cc4;--teal2:#45289e;--tealdim:rgba(91,60,196,.1);--fill:#5b3cc4;--ok:#2f9a55;--warn:#c27a12;--bad:#cf3a3f;--badink:#b83034;--vio:#0f8ea3;--fact:#1f7fd0;--judge:#c23d8c;--decide:#0f9d78;--visit:#8a84a2;--tick:#b3adc5;--arrow:#bcb6cc;--cell-ok:#3fb27a;--top:#f8f7fb;--st1:#faf9fd;--st2:#f2f0f7;--shade:rgba(241,239,246,.72);--sel:#221d33;color-scheme:light}
 .me *{box-sizing:border-box}
 .me-frame{border:1px solid var(--line);background:var(--panel);border-radius:6px}
 .me-top{display:flex;align-items:center;gap:14px;padding:6px 12px;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 10%,transparent),transparent 40%),var(--panel);flex:none}
-.me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#cdb9ff,#6a3fd0);display:grid;place-items:center;flex:none}
+.me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#9a7bff,#4a27b0);display:grid;place-items:center;flex:none}
 .me-brand{display:flex;align-items:center;gap:10px;flex:none}.me-brand b{display:block;font-size:15px;letter-spacing:2px}.me-brand span{font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:1px}
 .me-status{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 10px;border-radius:8px;border:1px solid var(--line2);min-width:170px;max-width:340px}
 .me-status>div{display:flex;flex-direction:column;line-height:16px;min-width:0}.me-status>div>*{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -159,7 +159,7 @@ window.__ModuleLoader__.load({
 .me-hud .sw.box{background:#e9e6f0;border-top:2px solid var(--teal)}.me-hud .sw.red{background:var(--bad)}.me-hud .sw.vio{background:var(--vio);box-shadow:0 0 5px var(--vio)}
 .me-hud .sw.flow{height:2px;background:repeating-linear-gradient(90deg,var(--ink2) 0 4px,transparent 4px 7px)}
 .me-act{position:relative}
-.me-new{border-color:var(--teal);background:var(--teal);color:#170a33;font-weight:600}
+.me-new{border-color:var(--fill);background:var(--fill);color:#fff;font-weight:600}
 .me-new:hover:not(:disabled){filter:brightness(1.06)}
 .me-new:disabled{background:transparent;color:var(--ink2);border-color:var(--line2);font-weight:400}
 .me-caret{font-size:9px;opacity:.7;margin-left:5px}
@@ -243,8 +243,8 @@ window.__ModuleLoader__.load({
     const VERDICT_CLS = { 矛盾: 'b', 记录质量: 'w', 改判: 'v', 病情变化: 'v', 调整: 'ok', 命名不一致: '', 证据不足: '' }
     // SVG 用的调色板（与 CSS 的 .me-dark / .me-light 对应）
     const PAL = {
-      dark: { fact: '#6cb4ff', judge: '#f38bc8', decide: '#4fd1a5', visit: '#8681a0', grid: '#1c1a28', lane: '#2b273c', ink: '#ebe8f4', ink2: '#a49fba', ink3: '#6b6683', tick: '#514c68', bad: '#e5484d', warn: '#f0a63a', vio: '#4cc9e0', ok: '#62c27e', shade: 'rgba(12,11,18,.65)', teal: '#a78bfa', halo: '#0c0b12', band: '#12111b' },
-      light: { fact: '#1f7fd0', judge: '#c23d8c', decide: '#0f9d78', visit: '#8a84a2', grid: '#e2dfec', lane: '#cdc7dc', ink: '#221d33', ink2: '#625b78', ink3: '#958fa9', tick: '#b3adc5', bad: '#cf3a3f', warn: '#c27a12', vio: '#0f8ea3', ok: '#2f9a55', shade: 'rgba(241,239,246,.72)', teal: '#7148d6', halo: '#fcfbfe', band: '#f5f3fa' },
+      dark: { fact: '#6cb4ff', judge: '#f38bc8', decide: '#4fd1a5', visit: '#8681a0', grid: '#1c1a28', lane: '#2b273c', ink: '#ebe8f4', ink2: '#a49fba', ink3: '#6b6683', tick: '#514c68', bad: '#e5484d', warn: '#f0a63a', vio: '#4cc9e0', ok: '#62c27e', shade: 'rgba(12,11,18,.65)', teal: '#8f6ef5', halo: '#0c0b12', band: '#12111b' },
+      light: { fact: '#1f7fd0', judge: '#c23d8c', decide: '#0f9d78', visit: '#8a84a2', grid: '#e2dfec', lane: '#cdc7dc', ink: '#221d33', ink2: '#625b78', ink3: '#958fa9', tick: '#b3adc5', bad: '#cf3a3f', warn: '#c27a12', vio: '#0f8ea3', ok: '#2f9a55', shade: 'rgba(241,239,246,.72)', teal: '#5b3cc4', halo: '#fcfbfe', band: '#f5f3fa' },
     }
     /** 调亮（k>0，混白）或调暗（k<0，混黑）一个 #rrggbb 颜色。 */
     function shade(hex, k) {
@@ -374,7 +374,7 @@ window.__ModuleLoader__.load({
         // ── 顶栏（与匿名化插件同一布局）：品牌 · 批次状态 · 用时 · 完成 · 版本 · 新批次 · 记录 · 设置 ──
         h('header', { className: 'me-frame me-top' },
           h('div', { className: 'me-brand' },
-            h('div', { className: 'me-logo' }, h('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: 'none', stroke: '#170a33', strokeWidth: 2.4, strokeLinecap: 'round' }, h('path', { d: 'M3 12h4l2-6 4 12 2-6h6' }))),
+            h('div', { className: 'me-logo' }, h('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: 'none', stroke: '#fff', strokeWidth: 2.4, strokeLinecap: 'round' }, h('path', { d: 'M3 12h4l2-6 4 12 2-6h6' }))),
             h('div', {}, h('b', {}, '病历事件还原'), h('span', {}, 'MEDICAL EVENT RECONSTRUCTION'))),
           h('div', { className: `me-status s-${lineStatus}` },
             h('span', { className: 'me-lamp' }),
