@@ -1,6 +1,6 @@
 {
   "name": "dsh-medical-event",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "病历事件还原：把病历变成可计算的事件（提及、两个时间、类型、事件归并、记录冲突）。DeepSeek Harness 插件。",
   "type": "module",
   "license": "MIT",

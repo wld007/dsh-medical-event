@@ -506,7 +506,8 @@ window.__ModuleLoader__.load({
       // 失败或取消、且一个病人都没跑完：各站都是“未开始”
       const broken = !running && ['failed', 'cancelled'].includes(run.status) && !P.length
       const stOf = (no) => (broken ? 'idle' : !running ? 'done' : stage === no || (no === 'S01' && stage === 'S00') ? 'run' : 'part')
-      const fmtRow = run.format?.kind === 'recognized' ? ['格式', `识别 ${run.format.adopted}/${run.format.tables} 表${run.format.held ? ` · 待确认 ${run.format.held}` : ''}`, run.format.held ? 'warn' : 'ok'] : null
+      // 第 4 项是产线小标签里用的短写（小标签只有 112 宽，长文字会压到大数字上）
+      const fmtRow = run.format?.kind === 'recognized' ? ['格式', `${run.format.adopted}/${run.format.tables} 表${run.format.held ? ` · 待确认 ${run.format.held}` : ''}`, run.format.held ? 'warn' : 'ok', run.format.held ? `待确认 ${run.format.held}` : `${run.format.adopted}/${run.format.tables}`] : null
       const reviewN = t.review
       const verdicts = {}
       for (const p of P) for (const [k, v] of Object.entries(p.verdicts ?? {})) { const vk = k.split('·')[0]; verdicts[vk] = (verdicts[vk] ?? 0) + v }
@@ -862,7 +863,8 @@ window.__ModuleLoader__.load({
         const [x, y] = anchor(k)
         const hotS = s.state === 'hold' || s.state === 'run'
         const cw = 112; const ch = 36; const cx = x + 30; const cy = y - 70 - ch
-        const [gl, gv, gc] = s.rows[0] ?? []
+        const [gl, gvFull, gc, gvShort] = s.rows[0] ?? []
+        const gv = gvShort ?? gvFull
         els.push(h('g', { key: `tag${k}`, ...click(k) },
           h('polyline', { points: pts([[x, y], [x, y - 20], [cx, cy + ch]]), fill: 'none', stroke: hotS ? A : C.grid, strokeOpacity: hotS ? 0.8 : 0.35 }),
           h('circle', { cx: x, cy: y, r: 1.8, fill: hotS ? A : C.grid, opacity: hotS ? 1 : 0.5 }),
