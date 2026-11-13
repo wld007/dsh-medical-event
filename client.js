@@ -35,12 +35,12 @@ window.__ModuleLoader__.load({
     const CSS = `
 .me{--mono:"SF Mono","JetBrains Mono",Menlo,monospace;
   height:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);font:12.5px -apple-system,"PingFang SC","Helvetica Neue",sans-serif;display:flex;flex-direction:column;gap:8px;padding:8px 10px 10px;color-scheme:dark;overflow:hidden}
-.me.me-dark{--bg:#0b0a09;--panel:#121110;--panel2:#191714;--panel3:#221f1a;--line:#24211c;--line2:#363128;--ink:#ece6da;--ink2:#a39b8c;--ink3:#6c665b;--teal:#f0a63a;--teal2:#ffc66b;--tealdim:rgba(240,166,58,.12);--ok:#62c27e;--warn:#f0a63a;--bad:#e5484d;--badink:#ff8a8d;--vio:#a58bff;--fact:#6cb4ff;--judge:#c79bff;--decide:#4fd1a5;--visit:#8a8476;--tick:#5a554b;--arrow:#4a443a;--cell-ok:#62c27e;--top:#100f0d;--st1:#161411;--st2:#100f0d;--shade:rgba(11,10,9,.65);--sel:#ece6da;color-scheme:dark}
-.me.me-light{--bg:#f1eee7;--panel:#fbfaf6;--panel2:#f4f1ea;--panel3:#ebe6db;--line:#e3ded2;--line2:#d0c9b9;--ink:#24211c;--ink2:#6b6458;--ink3:#9a9284;--teal:#c27a12;--teal2:#9a5f08;--tealdim:rgba(194,122,18,.1);--ok:#2f9a55;--warn:#c27a12;--bad:#cf3a3f;--badink:#b83034;--vio:#7b5cf0;--fact:#1f7fd0;--judge:#8b4fd6;--decide:#0f9d78;--visit:#8f8878;--tick:#b5ad9c;--arrow:#bdb4a2;--cell-ok:#3fb27a;--top:#f7f4ed;--st1:#faf8f3;--st2:#f2eee6;--shade:rgba(241,238,231,.72);--sel:#24211c;color-scheme:light}
+.me.me-dark{--bg:#0c0b12;--panel:#12111b;--panel2:#181624;--panel3:#201d2e;--line:#221f31;--line2:#332e48;--ink:#ebe8f4;--ink2:#a49fba;--ink3:#6b6683;--teal:#a78bfa;--teal2:#d6c9ff;--tealdim:rgba(167,139,250,.12);--ok:#62c27e;--warn:#f0a63a;--bad:#e5484d;--badink:#ff8a8d;--vio:#4cc9e0;--fact:#6cb4ff;--judge:#f38bc8;--decide:#4fd1a5;--visit:#8681a0;--tick:#514c68;--arrow:#423d58;--cell-ok:#62c27e;--top:#100f18;--st1:#161423;--st2:#100f18;--shade:rgba(12,11,18,.65);--sel:#ebe8f4;color-scheme:dark}
+.me.me-light{--bg:#f1eff6;--panel:#fcfbfe;--panel2:#f5f3fa;--panel3:#eae6f3;--line:#e2dfec;--line2:#cdc7dc;--ink:#221d33;--ink2:#625b78;--ink3:#958fa9;--teal:#7148d6;--teal2:#5530ae;--tealdim:rgba(113,72,214,.1);--ok:#2f9a55;--warn:#c27a12;--bad:#cf3a3f;--badink:#b83034;--vio:#0f8ea3;--fact:#1f7fd0;--judge:#c23d8c;--decide:#0f9d78;--visit:#8a84a2;--tick:#b3adc5;--arrow:#bcb6cc;--cell-ok:#3fb27a;--top:#f8f7fb;--st1:#faf9fd;--st2:#f2f0f7;--shade:rgba(241,239,246,.72);--sel:#221d33;color-scheme:light}
 .me *{box-sizing:border-box}
 .me-frame{border:1px solid var(--line);background:var(--panel);border-radius:6px}
 .me-top{display:flex;align-items:center;gap:14px;padding:6px 12px;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 10%,transparent),transparent 40%),var(--panel);flex:none}
-.me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#f7c470,#b5680f);display:grid;place-items:center;flex:none}
+.me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#cdb9ff,#6a3fd0);display:grid;place-items:center;flex:none}
 .me-brand{display:flex;align-items:center;gap:10px;flex:none}.me-brand b{display:block;font-size:15px;letter-spacing:2px}.me-brand span{font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:1px}
 .me-status{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 10px;border-radius:8px;border:1px solid var(--line2);min-width:170px;max-width:340px}
 .me-status>div{display:flex;flex-direction:column;line-height:16px;min-width:0}.me-status>div>*{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -132,7 +132,7 @@ window.__ModuleLoader__.load({
 .me-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 /* ---- 产线：等轴测工厂＋HUD 面板（参考工业监控大屏） ---- */
 .me.me-dark{--lift:0 1px 0 rgba(255,255,255,.025) inset,0 12px 26px -22px #000}
-.me.me-light{--lift:0 1px 0 rgba(255,255,255,.8) inset,0 10px 22px -20px rgba(60,45,20,.35)}
+.me.me-light{--lift:0 1px 0 rgba(255,255,255,.8) inset,0 10px 22px -20px rgba(40,20,80,.32)}
 .me-frame{box-shadow:var(--lift);border-radius:4px}
 .me-tab.on{color:var(--teal2);border-bottom-color:var(--teal)}
 .me-tab i{color:var(--ink3)}.me-tab.on i{color:var(--teal)}
@@ -154,12 +154,12 @@ window.__ModuleLoader__.load({
 .me-hud.br{right:14px;top:36px;display:flex;flex-direction:column;gap:4px;font-size:10px;color:var(--ink3)}
 .me-hud.br div{display:flex;align-items:center;gap:6px;justify-content:flex-end}
 .me-hud .sw{width:12px;height:8px;display:inline-block;border-radius:1px}
-.me-hud .sw.hot{background:var(--teal);box-shadow:0 0 5px var(--teal)}.me-hud .sw.clay{background:#cfc8b8}
+.me-hud .sw.hot{background:var(--teal);box-shadow:0 0 5px var(--teal)}.me-hud .sw.clay{background:#c9c4d6}
 .me-hud .sw.sel{border:1.5px solid var(--teal);border-right:0;border-bottom:0;background:transparent}
-.me-hud .sw.box{background:#d8cdb0;border-top:2px solid var(--teal)}.me-hud .sw.red{background:var(--bad)}.me-hud .sw.vio{background:var(--vio);box-shadow:0 0 5px var(--vio)}
+.me-hud .sw.box{background:#e9e6f0;border-top:2px solid var(--teal)}.me-hud .sw.red{background:var(--bad)}.me-hud .sw.vio{background:var(--vio);box-shadow:0 0 5px var(--vio)}
 .me-hud .sw.flow{height:2px;background:repeating-linear-gradient(90deg,var(--ink2) 0 4px,transparent 4px 7px)}
 .me-act{position:relative}
-.me-new{border-color:var(--teal);background:var(--teal);color:#1d1100;font-weight:600}
+.me-new{border-color:var(--teal);background:var(--teal);color:#170a33;font-weight:600}
 .me-new:hover:not(:disabled){filter:brightness(1.06)}
 .me-new:disabled{background:transparent;color:var(--ink2);border-color:var(--line2);font-weight:400}
 .me-caret{font-size:9px;opacity:.7;margin-left:5px}
@@ -243,8 +243,8 @@ window.__ModuleLoader__.load({
     const VERDICT_CLS = { 矛盾: 'b', 记录质量: 'w', 改判: 'v', 病情变化: 'v', 调整: 'ok', 命名不一致: '', 证据不足: '' }
     // SVG 用的调色板（与 CSS 的 .me-dark / .me-light 对应）
     const PAL = {
-      dark: { fact: '#6cb4ff', judge: '#c79bff', decide: '#4fd1a5', visit: '#8a8476', grid: '#1f1c18', lane: '#2e2a24', ink: '#ece6da', ink2: '#a39b8c', ink3: '#6c665b', tick: '#5a554b', bad: '#e5484d', warn: '#f0a63a', vio: '#a58bff', ok: '#62c27e', shade: 'rgba(11,10,9,.65)', teal: '#f0a63a', halo: '#0b0a09', band: '#13110f' },
-      light: { fact: '#1f7fd0', judge: '#8b4fd6', decide: '#0f9d78', visit: '#8f8878', grid: '#e3ded2', lane: '#d0c9b9', ink: '#24211c', ink2: '#6b6458', ink3: '#9a9284', tick: '#b5ad9c', bad: '#cf3a3f', warn: '#c27a12', vio: '#7b5cf0', ok: '#2f9a55', shade: 'rgba(241,238,231,.72)', teal: '#c27a12', halo: '#fbfaf6', band: '#f4f1ea' },
+      dark: { fact: '#6cb4ff', judge: '#f38bc8', decide: '#4fd1a5', visit: '#8681a0', grid: '#1c1a28', lane: '#2b273c', ink: '#ebe8f4', ink2: '#a49fba', ink3: '#6b6683', tick: '#514c68', bad: '#e5484d', warn: '#f0a63a', vio: '#4cc9e0', ok: '#62c27e', shade: 'rgba(12,11,18,.65)', teal: '#a78bfa', halo: '#0c0b12', band: '#12111b' },
+      light: { fact: '#1f7fd0', judge: '#c23d8c', decide: '#0f9d78', visit: '#8a84a2', grid: '#e2dfec', lane: '#cdc7dc', ink: '#221d33', ink2: '#625b78', ink3: '#958fa9', tick: '#b3adc5', bad: '#cf3a3f', warn: '#c27a12', vio: '#0f8ea3', ok: '#2f9a55', shade: 'rgba(241,239,246,.72)', teal: '#7148d6', halo: '#fcfbfe', band: '#f5f3fa' },
     }
     /** 调亮（k>0，混白）或调暗（k<0，混黑）一个 #rrggbb 颜色。 */
     function shade(hex, k) {
@@ -374,7 +374,7 @@ window.__ModuleLoader__.load({
         // ── 顶栏（与匿名化插件同一布局）：品牌 · 批次状态 · 用时 · 完成 · 版本 · 新批次 · 记录 · 设置 ──
         h('header', { className: 'me-frame me-top' },
           h('div', { className: 'me-brand' },
-            h('div', { className: 'me-logo' }, h('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: 'none', stroke: '#2a1700', strokeWidth: 2.4, strokeLinecap: 'round' }, h('path', { d: 'M3 12h4l2-6 4 12 2-6h6' }))),
+            h('div', { className: 'me-logo' }, h('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: 'none', stroke: '#170a33', strokeWidth: 2.4, strokeLinecap: 'round' }, h('path', { d: 'M3 12h4l2-6 4 12 2-6h6' }))),
             h('div', {}, h('b', {}, '病历事件还原'), h('span', {}, 'MEDICAL EVENT RECONSTRUCTION'))),
           h('div', { className: `me-status s-${lineStatus}` },
             h('span', { className: 'me-lamp' }),
@@ -544,7 +544,7 @@ window.__ModuleLoader__.load({
             h('div', { className: 'me-hud br' },
               h('div', {}, h('i', { className: 'sw hot' }), '运行中／待复核'), h('div', {}, h('i', { className: 'sw clay' }), '已完成'),
               h('div', {}, h('i', { className: 'sw box' }), '箱子＝一位病人'), h('div', {}, h('i', { className: 'sw red' }), '红箱＝验收门未过，带红标交付'),
-              h('div', {}, h('i', { className: 'sw vio' }), '紫灯＝模型补充（旁路）'), h('div', {}, h('i', { className: 'sw flow' }), '虚线：裁定回流，重跑沿用')),
+              h('div', {}, h('i', { className: 'sw vio' }), '青灯＝模型补充（旁路）'), h('div', {}, h('i', { className: 'sw flow' }), '虚线：裁定回流，重跑沿用')),
             h('div', { className: 'me-hero-legend' }, stations.map((s, i) => h('button', { key: s.no, className: `me-bay${i === k ? ' on' : ''} ${s.state}`, onClick: () => setSelK(i) }, h('b', {}, s.no), s.nm)))),
           h(StationPanel, { s: stations[k], k, patients: P, openPatient })),
         h('div', { className: 'me-grid4' },
@@ -585,10 +585,10 @@ window.__ModuleLoader__.load({
         h('ellipse', { key: `${key}h`, cx: x0, cy: y1, rx: rx * 0.62, ry: ry * 0.62, fill: C.hole }),
       ]
     }
-    // 黏土模型配色（深浅主题共用一套偏暖的灰米色）
+    // 黏土模型配色（偏冷的紫灰，与主色薰衣草紫同调）
     const CLAY = {
-      dark: { top: '#d9d3c5', left: '#b3ac9c', right: '#8c8576', edge: 'rgba(0,0,0,.28)', top2: '#e6e1d4', left2: '#c2bba9', right2: '#9d9685', win: '#3b362d', hole: '#4a443a', pad: '#2a2620', padL: '#1f1c17', padR: '#191612', grid: '#ece6da', floorShadow: '#000', card: 'rgba(14,13,11,.88)', cardLine: '#4a4336', lamp: '#f4e6c4' },
-      light: { top: '#e9e4d8', left: '#cbc4b3', right: '#aaa392', edge: 'rgba(60,50,30,.22)', top2: '#f4f0e6', left2: '#d8d1bf', right2: '#b8b19f', win: '#6d6556', hole: '#8a8270', pad: '#ddd7ca', padL: '#cbc4b4', padR: '#bab3a2', grid: '#6b6458', floorShadow: '#5a4a30', card: 'rgba(255,253,248,.94)', cardLine: '#d0c9b9', lamp: '#f2c46e' },
+      dark: { top: '#d8d5e2', left: '#b0abc0', right: '#88839a', edge: 'rgba(0,0,0,.28)', top2: '#e5e2ec', left2: '#bfbacd', right2: '#9a95ab', win: '#34303f', hole: '#433e50', pad: '#24212e', padL: '#1a1822', padR: '#15131c', grid: '#e8e5f0', floorShadow: '#000', card: 'rgba(12,11,18,.88)', cardLine: '#433d58', lamp: '#ece4ff' },
+      light: { top: '#e9e6f0', left: '#c9c4d6', right: '#a8a2b8', edge: 'rgba(40,25,80,.2)', top2: '#f3f1f8', left2: '#d6d1e2', right2: '#b6b0c5', win: '#625b74', hole: '#827b96', pad: '#dcd8e5', padL: '#cac5d6', padR: '#b8b2c7', grid: '#5f5878', floorShadow: '#2c2050', card: 'rgba(253,252,255,.94)', cardLine: '#cdc7dc', lamp: '#d9c9ff' },
     }
     function useClay() { const P = React.useContext(ThemeCtx); return [P, P === PAL.light ? CLAY.light : CLAY.dark] }
 
@@ -651,7 +651,7 @@ window.__ModuleLoader__.load({
         g.push(...isoBox('b', 0, 8, 0, 84, 100, 88, { top: C.top, left: C.left, right: C.right, edge: C.edge }))
         g.push(...isoBox('cap', 8, 18, 88, 50, 40, 10, { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
         g.push(...isoBox('vent', 56, 70, 88, 18, 22, 14, { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
-        // 窗户＝病人：已读入的比例点亮（运行中用琥珀色，完成后是暖白）
+        // 窗户＝病人：已读入的比例点亮（运行中用主色紫，完成后是浅紫白）
         const wins = []
         for (let z = 66; z >= 14; z -= 13) for (let i = 8; i < 78; i += 12) wins.push([i, z])
         const litN = Math.round((total ? done / total : 0) * wins.length)
@@ -663,7 +663,7 @@ window.__ModuleLoader__.load({
         els.push(h('g', { key: 's01', ...click(0) }, h('title', {}, `${s.no} ${s.nm}`), g))
       }
 
-      // 走廊：工序之间一段带窗的连廊，灯点沿它流动（运行时琥珀色、快）
+      // 走廊：工序之间一段带窗的连廊，灯点沿它流动（运行时主色紫、快）
       // 验收门：门①③④有人没过就是红色，门②只报兜底率（灰色，不拦人）
       const GATE_AFTER = { 2: '①', 3: '②', 4: '③', 5: '④' } // 通往第 k 栋的走廊上，是前一道工序的出口门
       const corridor = (key, i0, i1, k) => {
