@@ -8,7 +8,7 @@ lib/
     ids.js            稳定编号
     time.js           日期解析、区间、精度、时间短语换算
     text.js           切句、分句、顿号、规范化
-    source.js         读平台导出 → 记录（按数据源层规则包映射）
+    source.js         读导出 → 记录（按数据源层规则包映射；识别出的格式按表名匹配，嵌入文书在此解码）
     s01-fragments.js  记录 → 片段（可见时间、就诊）
     s02-mentions.js   片段 → 提及（工序1）
     s03-classify.js   提及 → 类型（工序2）
@@ -17,6 +17,14 @@ lib/
     gates.js          验收门
     asof.js           截至时刻 T 的重算
     pipeline.js       串联：runPatient(dir, rulepack, {until, asOf})
+  recognize/          S00 格式识别（非内置格式）
+    canon.js          标准记录类别、栏目、角色（识别层与规则层的契约）
+    read.js           通用读入：json/ndjson/csv/tsv/xlsx；表名；base64 XML/HTML 文书解码
+    profile.js        画像（字段统计、截短样例、栏目标签）；病人分组
+    draft.js          规则草稿、模型提示词、规格规范化／校验／比较
+    library.js        本机格式库（按表签名复用）
+    build.js          已采用的规格 → 数据源层规则包
+    index.js          编排：画像 → 复用 → 起草 → 核验 → 采用／暂扣
   rulepack/
     load.js           合并三层、校验（只允许纯数据）、编译正则
   package/

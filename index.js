@@ -181,6 +181,8 @@ export function apply(ctx, config = {}) {
           case 'event': return service.eventDetail(r.runId, r.patient, r.eventId)
           case 'finding': return service.findingDetail(r.runId, r.patient, r.findingId)
           case 'reviewQueue': return service.reviewQueue(r.runId)
+          case 'formats': return service.formats(r.runId)
+          case 'formatDecide': return service.decideFormat({ signature: r.signature, action: r.action, use: r.use, spec: r.spec })
           case 'pickFolder': return { path: await pickFolder() }
           case 'saveDefaults': return saveDefaults(r)
           default: throw Object.assign(new Error(`未知方法: ${endpoint}`), { code: 'unknown-endpoint' })

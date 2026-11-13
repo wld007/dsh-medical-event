@@ -61,6 +61,7 @@ const handlers = {
   event: (p) => service.eventDetail(p.runId, p.patient, p.eventId),
   finding: (p) => service.findingDetail(p.runId, p.patient, p.findingId),
   reviewQueue: (p) => service.reviewQueue(p.runId),
+  formats: (p) => service.formats(p.runId),
   documents: (p) => service.documents(p.runId, p.patient),
   fragment: (p) => service.fragment(p.runId, p.patient, p.fragmentId),
   rulepack: (p) => service.rulepack(p.specialty),

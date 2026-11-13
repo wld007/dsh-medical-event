@@ -144,6 +144,12 @@
 - 人工裁定放 `_records/records.sqlite` 的 `decisions` 表（按稳定编号；每次改动另记 `decision_log`），读取时合并到 `findings[].review`。旧版的 `_records/decisions.json` 在第一次打开记录库时并入。运行时没有 `node:sqlite` 时仍用 `decisions.json`。
 - as-of：以批次参数 `asOf` 产出整包（manifest.asOf 记录），引擎内 `runStages(raw, pack, { asOf })` 可按需重算。
 
+## 输入格式与记录类别（0.2.0 起）
+
+- 输入不是区域平台导出时，数据源层由 S00 格式识别组装（`manifest.rulepacks` 中 `layer: source` 的那一项是 `recognized@<版本>`）。格式本身不变。
+- `recordType` 的完整取值见 `lib/recognize/canon.js`：结构化（基本信息、就诊登记、诊断记录、检验、生命体征、医嘱、处方、用药记录、治疗记录、申请单、手术记录、收费、其他结构化）、文书（入院记录、门诊病历、出院记录、检查报告、病程记录、会诊记录、手术麻醉记录、护理记录、转诊记录、其他文书）。内置区域平台格式的“门诊收费”保留原名。
+- 识别后暂扣（未确认）的表不进事件包。
+
 ## 待定
 
 - 未匿名化输入时，事件包是否禁止离开本机。

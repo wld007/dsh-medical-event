@@ -368,7 +368,8 @@ window.__ModuleLoader__.load({
       const lineStatus = run?.status ?? 'idle'
       const review = run?.totals?.review ?? 0
       const dark = useHostDark()
-      const tabs = [['line', '◈ 产线'], ['patients', '患者', run?.totals?.patients], ['timeline', '时间线'], ['source', '原文标注'], ['review', '复核', review], ['improve', '规则改进'], ['calls', '模型调用'], ['rules', '规则包'], ['report', '报告']]
+      const heldFormats = run?.format?.held ?? 0
+      const tabs = [['line', '◈ 产线'], ...(run?.format?.kind === 'recognized' ? [['formats', '格式', heldFormats]] : []), ['patients', '患者', run?.totals?.patients], ['timeline', '时间线'], ['source', '原文标注'], ['review', '复核', review], ['improve', '规则改进'], ['calls', '模型调用'], ['rules', '规则包'], ['report', '报告']]
       return h(ThemeCtx.Provider, { value: dark ? PAL.dark : PAL.light }, h('div', { className: `me ${dark ? 'me-dark' : 'me-light'}` },
         h('style', {}, CSS),
         // ── 顶栏（与匿名化插件同一布局）：品牌 · 批次状态 · 用时 · 完成 · 版本 · 新批次 · 记录 · 设置 ──
@@ -425,6 +426,7 @@ window.__ModuleLoader__.load({
                     : tab === 'review' ? h(Review, { run, focus, gotoSource: (p, fragmentId) => { setPatient(p); setFocus({ kind: 'fragment', id: fragmentId }); setTab('source') } })
                       : tab === 'improve' ? h(Improve, { run })
                         : tab === 'calls' ? h(Calls, { run })
+                          : tab === 'formats' ? h(Formats, { run, busy: !!activeId, onRerun: (id) => { setRunId(id); setRun(null); setPatient(null); refreshList(); setTab('formats') }, onError: setError })
                           : tab === 'rules' ? h(Rules, { run })
                             : h(Report, { run })),
         modal === 'settings' ? h('div', { className: 'me-modal-back', onMouseDown: (e) => { if (e.target === e.currentTarget) setModal(null) } },
@@ -503,7 +505,8 @@ window.__ModuleLoader__.load({
       const stage = running ? run.current?.stage : null
       // 失败或取消、且一个病人都没跑完：各站都是“未开始”
       const broken = !running && ['failed', 'cancelled'].includes(run.status) && !P.length
-      const stOf = (no) => (broken ? 'idle' : !running ? 'done' : stage === no ? 'run' : 'part')
+      const stOf = (no) => (broken ? 'idle' : !running ? 'done' : stage === no || (no === 'S01' && stage === 'S00') ? 'run' : 'part')
+      const fmtRow = run.format?.kind === 'recognized' ? ['格式', `识别 ${run.format.adopted}/${run.format.tables} 表${run.format.held ? ` · 待确认 ${run.format.held}` : ''}`, run.format.held ? 'warn' : 'ok'] : null
       const reviewN = t.review
       const verdicts = {}
       for (const p of P) for (const [k, v] of Object.entries(p.verdicts ?? {})) { const vk = k.split('·')[0]; verdicts[vk] = (verdicts[vk] ?? 0) + v }
@@ -513,7 +516,7 @@ window.__ModuleLoader__.load({
       const gateRow = (g) => [`验收${g}`, `${gatePass(g)}/${P.length}`, gatePass(g) === P.length ? 'ok' : 'warn']
       const st = (no, nm, sub, big, unit, rows, state, frac) => ({ no, nm, sub, big, unit, rows, state, frac: frac ?? doneFrac })
       const stations = [
-        st('S01', '读入·片段', '切片段、挂可见时间、剔除作废记录', fmt(sum((p) => p.counts.fragments)), '片段', [['病人', `${t.done}/${t.patients}`, '']], stOf('S01')),
+        st('S01', '读入·片段', '切片段、挂可见时间、剔除作废记录', fmt(sum((p) => p.counts.fragments)), '片段', [...(fmtRow ? [fmtRow] : []), ['病人', `${t.done}/${t.patients}`, '']], stOf('S01')),
         st('S02', '提及抽取', '栏目→句→分句→顿号；两个时间', fmt(t.mentions), '提及', [gateRow('①')], stOf('S02')),
         st('S03', '类型切分', '事实／判断／决策 → 细分 → 细项', typeTotal ? `${Math.round((types['事实'] ?? 0) / typeTotal * 100)}%` : '—', '事实', [['兜底率', pct(fb), '']], stOf('S03')),
         st('S04', '事件归并·印证', '同概念＋时间相容＋同就诊；前后印证', fmt(t.events), '事件', [gateRow('③')], stOf('S04')),
@@ -807,7 +810,7 @@ window.__ModuleLoader__.load({
 
       // 正在处理的病人：一只发光的箱子停在它所在那一站的门口
       if (running && current?.stage) {
-        const k = { S01: 0, S02: 1, S03: 2, S04: 3, S05: 4, S07: 6 }[current.stage]
+        const k = { S00: 0, S01: 0, S02: 1, S03: 2, S04: 3, S05: 4, S07: 6 }[current.stage]
         const at = current.stage === 'model' ? [bay0(4) + 2, D + 112] : k === 0 ? [44, 110] : k === 6 ? [yard + 8, 140] : k != null ? [bay0(k) + 30, D + 6] : null
         if (at) {
           const tp = iso(at[0] + 8, at[1] + 7, 34)
@@ -1003,6 +1006,7 @@ window.__ModuleLoader__.load({
       if (run.error) items.push(['crit', 'S0?', '批次出错', run.error.split('\n')[0], null])
       if (failed.length) items.push(['crit', '验收', `${failed.length} 人验收门未过`, failed.slice(0, 2).map((p) => p.patient.split('/').pop()).join('、'), 'patients'])
       if (run.sourceCheck?.changed) items.push(['crit', '源文件', `源文件有 ${run.sourceCheck.changed} 个变化`, '只读核对不一致', null])
+      if (run.format?.held) items.push(['warn', 'S00', `格式识别：${run.format.held} 张表待确认`, '暂扣，没有用来生成事件；确认后重新运行', 'formats'])
       if (t.review) items.push(['warn', 'S06', `待复核 ${fmt(t.review)} 项`, `涉及 ${P.filter((p) => p.review.findings).length} 位病人`, 'review'])
       for (const w of run.warnings ?? []) items.push(['warn', '提示', w, '', null])
       if (fb != null && fb > 0.15) items.push(['warn', 'S03', `兜底率 ${pct(fb)}`, '超过 15%，建议抽样核对', 'improve'])
@@ -1020,6 +1024,110 @@ window.__ModuleLoader__.load({
           h(Ticks, { v: level[lv], n: 12, hot: lv === 'crit' || lv === 'warn' }),
           h('span', { className: 'me-al-tag' }, tag[lv])))))
     }
+
+
+    /* --------------------------------------------------------------- formats */
+    const FMT_STATUS = { agreed: ['自动采用', 'ok'], confirmed: ['已确认', 'ok'], disputed: ['有分歧', 'w'], invalid: ['校验未过', 'w'], pending: ['待确认', 'w'], failed: ['调用失败', 'b'], rejected: ['已跳过', ''] }
+    const FMT_ORIGIN = { model: '建议模型', verify: '核验模型', rule: '规则', user: '人工' }
+    const DRAFT_LABEL = { model: '建议模型草稿', verify: '核验模型草稿', rule: '规则草稿' }
+
+    /** 规格的一句话小结。 */
+    function specLine(spec) {
+      if (!spec) return '—'
+      const parts = [spec.recordType ?? '（未定类别）']
+      if (spec.written?.length) parts.push(`写成：${spec.written.join(' › ')}`)
+      if (spec.sections?.length) parts.push(`栏目：${spec.sections.map(([f, n]) => `${n}←${f}`).join('，')}`)
+      const roles = Object.entries(spec.roles ?? {})
+      if (roles.length) parts.push(`角色：${roles.map(([r, f]) => `${r}←${[].concat(f).join('+')}`).join('，')}`)
+      if (spec.measures?.length) parts.push(`测量：${spec.measures.map((m) => m[1]).join('、')}`)
+      return parts.join('｜')
+    }
+
+    function Formats({ run, busy, onRerun, onError }) {
+      const data = useAsync(() => call('formats', { runId: run.id }), [run.id])
+      const [sel, setSel] = useState(null)
+      const [filter, setFilter] = useState('held')
+      const [rerunning, setRerunning] = useState(false)
+      const entries = data.value?.entries ?? []
+      const rec = run.recognition?.tables ?? []
+      const bySig = new Map(entries.map((e) => [e.signature, e]))
+      // 当前状态以格式库为准（人工裁定后立即反映），行数等取本批次
+      const rows = rec.map((t) => ({ ...t, ...(bySig.get(t.signature) ? { status: bySig.get(t.signature).status, entry: bySig.get(t.signature) } : {}) }))
+      const held = (r) => !['agreed', 'confirmed', 'rejected'].includes(r.status)
+      const shown = rows.filter((r) => filter === 'all' || (filter === 'held' ? held(r) : !held(r)))
+      const counts = { held: rows.filter(held).length, ok: rows.filter((r) => !held(r)).length, all: rows.length }
+      const decide = async (payload) => {
+        try { await call('formatDecide', payload); data.reload() } catch (e) { onError(msg(e)) }
+      }
+      const rerun = async () => {
+        setRerunning(true)
+        try { const v = await call('start', { inputDir: run.input, outputRoot: run.outputRoot, asOf: run.asOf || undefined }); onRerun(v.runId) } catch (e) { onError(msg(e)) } finally { setRerunning(false) }
+      }
+      const changed = rows.some((r) => (r.entry?.status ?? r.status) !== (rec.find((x) => x.signature === r.signature)?.status))
+      const current = sel ? rows.find((r) => r.signature === sel) : null
+      return h('div', { className: 'me-body', style: { flex: 1 } },
+        h('div', { className: 'me-frame me-col', style: { flex: 1, minWidth: 0 } },
+          h('div', { className: 'me-pad', style: { borderBottom: '1px solid var(--line)' } },
+            h('div', { className: 'me-h' }, h('b', {}, '格式识别'), h('span', { className: 'me-cap' }, 'S00 · FORMAT'),
+              h('span', { className: 'me-sp' }),
+              h('button', { className: `me-btn ${changed ? 'me-new' : ''}`, disabled: busy || rerunning, title: busy ? '有批次在运行' : '用格式库里的最新结果重新跑这个输入', onClick: rerun }, rerunning ? '启动中…' : '↻ 按确认结果重新运行')),
+            h('div', { className: 'me-muted', style: { lineHeight: 1.7 } },
+              `${run.format?.tables ?? rows.length} 张表：自动采用或已确认 ${run.format?.adopted ?? 0}，待确认 ${run.format?.held ?? 0}，跳过 ${run.format?.ignored ?? 0}。`,
+              h('br'), '两方一致（建议模型＋核验模型；只配了一个模型时第二票是规则草稿）才自动采用；有分歧、校验未过、没配模型的表先暂扣。确认后点右上角重新运行。识别结果存在本机格式库，同样的表以后直接复用。'),
+            h('div', { style: { display: 'flex', gap: 6, marginTop: 8 } },
+              [['held', '待确认'], ['ok', '已采用／跳过'], ['all', '全部']].map(([k, l]) => h('button', { key: k, className: `me-btn sm${filter === k ? ' on' : ''}`, onClick: () => setFilter(k) }, `${l} ${counts[k]}`)))),
+          h('div', { className: 'me-scroll', style: { flex: 1 } },
+            !shown.length ? h('div', { className: 'me-empty' }, filter === 'held' ? '没有待确认的表。' : '—')
+              : h('table', {}, h('thead', {}, h('tr', {}, h('th', {}, '表'), h('th', {}, '行'), h('th', {}, '状态'), h('th', {}, '类别'), h('th', {}, '依据'))),
+                h('tbody', {}, shown.map((r) => {
+                  const [label, cls] = FMT_STATUS[r.status] ?? [r.status, '']
+                  const spec = r.entry?.spec
+                  return h('tr', { key: r.signature, className: `click${sel === r.signature ? ' sel' : ''}`, onClick: () => setSel(r.signature) },
+                    h('td', { className: 'me-num', style: { maxWidth: 280, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, title: r.table }, r.table),
+                    h('td', { className: 'me-num' }, fmt(r.rows)),
+                    h('td', {}, h('span', { className: `me-chip ${cls}` }, label)),
+                    h('td', {}, spec?.recordType ?? r.recordType ?? '—', spec?.origin ? h('span', { className: 'me-faint', style: { marginLeft: 6, fontSize: 10.5 } }, FMT_ORIGIN[spec.origin] ?? spec.origin) : null),
+                    h('td', { className: 'me-muted', style: { fontSize: 11.5 } }, [r.reason, ...(r.diffs ?? []), ...(r.problems ?? []).slice(0, 2)].filter(Boolean).join('；') || '—'))
+                }))))),
+        h('div', { className: 'me-frame me-scroll me-pad', style: { width: 460, flex: 'none' } },
+          !current ? h('div', { className: 'me-faint' }, '点左边的一张表，查看识别规格和各方草稿，并确认、修改或跳过。')
+            : h(FormatDetail, { key: current.signature, row: current, entry: current.entry, canon: data.value?.canon, decide })))
+    }
+
+    function FormatDetail({ row, entry, canon, decide }) {
+      const [editing, setEditing] = useState(false)
+      const [text, setText] = useState(() => JSON.stringify(stripSpec(entry?.spec), null, 1))
+      const [jsonErr, setJsonErr] = useState('')
+      const [label, cls] = FMT_STATUS[entry?.status ?? row.status] ?? [row.status, '']
+      const drafts = entry?.drafts ?? {}
+      return h('div', {},
+        h('div', { className: 'me-h' }, h('b', { className: 'me-num', style: { wordBreak: 'break-all' } }, row.table), h('span', { className: `me-chip ${cls}` }, label)),
+        h('div', { className: 'me-muted', style: { fontSize: 11.5, marginBottom: 8 } }, `${fmt(row.rows)} 行 · ${row.files} 个文件 · 字段 ${entry?.fields?.length ?? '—'}（空 ${entry?.fields?.filter((f) => f.kind === 'empty').length ?? '—'}）`),
+        row.reason ? h('div', { className: 'me-mo' }, row.reason, ...(row.diffs ?? []).map((d, i) => h('div', { key: i }, `· ${d}`)), ...(row.problems ?? []).map((d, i) => h('div', { key: `p${i}`, className: 'me-warn' }, `· ${d}`))) : null,
+        h('div', { className: 'me-sec' }, h('b', {}, '当前规格'), h('span', { className: 'me-cap' }, FMT_ORIGIN[entry?.spec?.origin] ?? '')),
+        h('div', { style: { fontSize: 12, lineHeight: 1.7 } }, specLine(entry?.spec)),
+        entry?.spec?.note ? h('div', { className: 'me-faint', style: { fontSize: 11, marginTop: 4 } }, `依据：${entry.spec.note}`) : null,
+        h('div', { style: { display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 10 } },
+          h('button', { className: 'me-btn me-new', onClick: () => decide({ signature: row.signature, action: 'confirm' }) }, '✓ 采用当前规格'),
+          h('button', { className: 'me-btn', onClick: () => decide({ signature: row.signature, action: 'reject' }) }, '跳过这张表'),
+          h('button', { className: 'me-btn', title: '从格式库删掉，下次运行重新起草', onClick: () => decide({ signature: row.signature, action: 'reset' }) }, '重新起草'),
+          h('button', { className: `me-btn${editing ? ' on' : ''}`, onClick: () => setEditing(!editing) }, '编辑…')),
+        editing ? h('div', { style: { marginTop: 8 } },
+          h('textarea', { className: 'me-input', style: { width: '100%', height: 260, fontFamily: 'var(--mono)', fontSize: 11.5 }, value: text, onChange: (e) => setText(e.target.value) }),
+          h('div', { className: 'me-faint', style: { fontSize: 10.5, margin: '4px 0 6px' } }, `类别：${(canon?.recordTypes ?? []).join('、')}。字段名必须是这张表里有的；保存时插件会校验。`),
+          jsonErr ? h('div', { className: 'me-err', style: { marginBottom: 6 } }, jsonErr) : null,
+          h('button', { className: 'me-btn me-new', onClick: () => { let spec; try { spec = JSON.parse(text) } catch (e) { return setJsonErr(`不是合法的 JSON：${msg(e)}`) } setJsonErr(''); decide({ signature: row.signature, action: 'confirm', spec }) } }, '校验并确认')) : null,
+        h('div', { className: 'me-sec' }, h('b', {}, '各方草稿'), h('span', { className: 'me-cap' }, 'DRAFTS')),
+        Object.entries(DRAFT_LABEL).filter(([k]) => drafts[k]).map(([k, l]) => h('div', { key: k, className: 'me-mrow' },
+          h('div', { style: { display: 'flex', alignItems: 'center', gap: 8 } }, h('b', { style: { fontSize: 12 } }, l), h('span', { className: 'me-sp' }),
+            h('button', { className: 'me-btn sm', onClick: () => decide({ signature: row.signature, action: 'confirm', use: k }) }, '采用这份')),
+          h('div', { className: 'me-muted', style: { marginTop: 3 } }, specLine(drafts[k])))),
+        entry?.fields?.length ? h(React.Fragment, {},
+          h('div', { className: 'me-sec' }, h('b', {}, '字段'), h('span', { className: 'me-cap' }, 'FIELDS')),
+          h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 4 } }, entry.fields.filter((f) => f.kind !== 'empty').map((f) => h('span', { key: f.name, className: 'me-chip', title: `${f.kind} · 填充 ${f.fill}%` }, `${f.name}·${FIELD_KIND[f.kind] ?? f.kind}`)))) : null)
+    }
+    const FIELD_KIND = { time: '时间', number: '数', code: '代码', text: '短文', long: '长文', embedded: '嵌入文书', pseudonym: '假名' }
+    const stripSpec = (s) => { if (!s) return {}; const { origin, accept, ...rest } = s; return rest }
 
     /* --------------------------------------------------------------- patients */
     function Patients({ run, openPatient }) {
