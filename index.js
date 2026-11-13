@@ -4,6 +4,7 @@
  * Registers agent tools, the /event command and one authenticated browser RPC
  * channel. Every caller shares the same service.
  */
+import { execFile } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
@@ -180,10 +181,7 @@ export function apply(ctx, config = {}) {
           case 'event': return service.eventDetail(r.runId, r.patient, r.eventId)
           case 'finding': return service.findingDetail(r.runId, r.patient, r.findingId)
           case 'reviewQueue': return service.reviewQueue(r.runId)
-          case 'pickFolder': {
-            const ws = ctx.get('uiWorkspace')
-            return { path: ws?.pickDirectory ? await ws.pickDirectory() : null }
-          }
+          case 'pickFolder': return { path: await pickFolder() }
           case 'saveDefaults': return saveDefaults(r)
           default: throw Object.assign(new Error(`未知方法: ${endpoint}`), { code: 'unknown-endpoint' })
         }
@@ -193,6 +191,26 @@ export function apply(ctx, config = {}) {
       return { ok: false, error: { code: error?.code ?? 'medical-event', message: String(error?.message ?? error), details: {} } }
     }
   }
+}
+
+/**
+ * 系统的“选择文件夹”对话框（macOS，osascript）。取消时返回 null。
+ * 其他平台抛错，由页面退回宿主的目录选择器或手填路径。
+ */
+function pickFolder() {
+  if (process.platform !== 'darwin') return Promise.reject(Object.assign(new Error('系统文件夹对话框目前只支持 macOS；请直接在输入框里填写完整路径'), { code: 'unsupported' }))
+  const script = 'POSIX path of (choose folder with prompt "选择病人导出目录（一位病人，或包含多位病人的上级目录）")'
+  return new Promise((resolve, reject) => {
+    execFile('osascript', ['-e', script], { timeout: 10 * 60 * 1000 }, (error, stdout, stderr) => {
+      if (error) {
+        // -128：用户点了取消
+        if (/-128/.test(String(stderr)) || /-128/.test(String(error.message))) resolve(null)
+        else reject(new Error(String(stderr || error.message).trim()))
+        return
+      }
+      resolve(String(stdout).trim().replace(/(.)\/$/, '$1') || null)
+    })
+  })
 }
 
 function sessionIdOf(agent) {

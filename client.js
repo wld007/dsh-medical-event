@@ -444,7 +444,22 @@ window.__ModuleLoader__.load({
         window.addEventListener('keydown', onKey)
         return () => window.removeEventListener('keydown', onKey)
       }, [])
-      const pick = async () => { try { const v = await call('pickFolder'); if (v.path) setInput(v.path) } catch (e) { onError(msg(e)) } }
+      // 先用系统的“选择文件夹”对话框（macOS，由插件服务端弹出）；不行再用宿主的目录选择器
+      const [picking, setPicking] = useState(false)
+      const pick = async () => {
+        setPicking(true)
+        try {
+          const v = await call('pickFolder')
+          if (v.path) setInput(v.path)
+        } catch (cause) {
+          try {
+            const ws = services.ctx?.get('uiWorkspace')
+            if (!ws?.pickDirectory) throw cause
+            const picked = await ws.pickDirectory()
+            if (picked) setInput(picked)
+          } catch (e) { onError(msg(e)) }
+        } finally { setPicking(false) }
+      }
       const go = async (payload) => {
         setBusy(true)
         try { const v = await call('start', payload); onStarted(v.runId) } catch (e) { onError(msg(e)) } finally { setBusy(false) }
@@ -453,7 +468,7 @@ window.__ModuleLoader__.load({
         h('div', { className: 'me-pop-h' }, h('b', {}, '新批次'), h('button', { className: 'me-btn sm', onClick: onClose, 'aria-label': '关闭' }, '✕')),
         h('label', { className: 'me-field' }, '病人导出目录',
           h('input', { className: 'me-input', value: inputDir, onChange: (e) => setInput(e.target.value), placeholder: '/path/to/_medical-anonymizer/…', title: inputDir, autoFocus: true }),
-          h('div', { className: 'me-pick' }, h('button', { className: 'me-btn sm', onClick: pick }, '选择文件夹…'), h('span', { className: 'me-faint' }, '一位病人，或包含多位病人的上级目录；通常是匿名化插件的交付目录'))),
+          h('div', { className: 'me-pick' }, h('button', { className: 'me-btn sm', onClick: pick, disabled: picking }, picking ? '请在弹出的窗口里选择…' : '选择文件夹…'), h('span', { className: 'me-faint' }, '一位病人，或包含多位病人的上级目录；通常是匿名化插件的交付目录'))),
         h('label', { className: 'me-field' }, '输出根目录', h('input', { className: 'me-input', value: outputRoot, onChange: (e) => setOut(e.target.value), placeholder: '空＝设置里的默认值，再缺省为输入旁的 _medical-event' })),
         h('label', { className: 'me-field' }, '截至时刻（可空）', h('input', { className: 'me-input', value: asOf, onChange: (e) => setAsOf(e.target.value), placeholder: 'YYYY-MM-DD HH:mm · 只用此刻以前写成的记录' })),
         h('div', { className: 'me-pop-act' },
