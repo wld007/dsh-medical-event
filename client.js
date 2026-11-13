@@ -35,15 +35,42 @@ window.__ModuleLoader__.load({
     const CSS = `
 .me{--mono:"SF Mono","JetBrains Mono",Menlo,monospace;
   height:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);font:12.5px -apple-system,"PingFang SC","Helvetica Neue",sans-serif;display:flex;flex-direction:column;gap:8px;padding:8px 10px 10px;color-scheme:dark;overflow:hidden}
-.me.me-dark{--bg:#081116;--panel:#0d1a20;--panel2:#112128;--panel3:#16282f;--line:#1a2c34;--line2:#26404a;--ink:#e2eef0;--ink2:#8ba5ad;--ink3:#58717a;--teal:#22c7c0;--teal2:#7fe9e2;--tealdim:rgba(34,199,192,.14);--ok:#46d17f;--warn:#f5a524;--bad:#f05252;--badink:#ff9a9a;--vio:#a58bff;--fact:#4fb3ff;--judge:#c48bff;--decide:#2fd6a0;--visit:#6d8790;--tick:#4d6770;--arrow:#3a5e69;--cell-ok:#2f9e62;--top:#0f2329;--st1:#13262d;--st2:#0c191e;--shade:rgba(8,17,22,.6);--sel:#e2eef0;color-scheme:dark}
-.me.me-light{--bg:color-mix(in srgb,var(--dsw-alias-bg-base,#eef2f3) 84%,#0e9f98);--panel:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 92%,#0e9f98);--panel2:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 85%,#0e9f98);--panel3:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 76%,#0e9f98);--line:color-mix(in srgb,var(--dsw-alias-border-l1,#d9e2e4) 82%,#0e9f98);--line2:color-mix(in srgb,var(--dsw-alias-border-l2,#c3d1d4) 80%,#0e9f98);--ink:var(--dsw-alias-label-primary,#16303c);--ink2:var(--dsw-alias-label-secondary,#4e6873);--ink3:var(--dsw-alias-label-tertiary,#7d9298);--teal:#0e9f98;--teal2:#08776f;--tealdim:rgba(14,159,152,.12);--ok:#1f9d55;--warn:#c27a00;--bad:#d23c3c;--badink:#c03030;--vio:#7b5cf0;--fact:#1f7fd0;--judge:#8b4fd6;--decide:#0f9d78;--visit:#7f98a0;--tick:#9db3b9;--arrow:#8fb0b6;--cell-ok:#3fb27a;--top:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 80%,#0e9f98);--st1:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 88%,#0e9f98);--st2:color-mix(in srgb,var(--dsw-alias-bg-layer-1,#f7f9fa) 80%,#0e9f98);--shade:rgba(220,232,234,.7);--sel:#16303c;color-scheme:light}
+.me.me-dark{--bg:#0b0a09;--panel:#121110;--panel2:#191714;--panel3:#221f1a;--line:#24211c;--line2:#363128;--ink:#ece6da;--ink2:#a39b8c;--ink3:#6c665b;--teal:#f0a63a;--teal2:#ffc66b;--tealdim:rgba(240,166,58,.12);--ok:#62c27e;--warn:#f0a63a;--bad:#e5484d;--badink:#ff8a8d;--vio:#a58bff;--fact:#6cb4ff;--judge:#c79bff;--decide:#4fd1a5;--visit:#8a8476;--tick:#5a554b;--arrow:#4a443a;--cell-ok:#62c27e;--top:#100f0d;--st1:#161411;--st2:#100f0d;--shade:rgba(11,10,9,.65);--sel:#ece6da;color-scheme:dark}
+.me.me-light{--bg:#f1eee7;--panel:#fbfaf6;--panel2:#f4f1ea;--panel3:#ebe6db;--line:#e3ded2;--line2:#d0c9b9;--ink:#24211c;--ink2:#6b6458;--ink3:#9a9284;--teal:#c27a12;--teal2:#9a5f08;--tealdim:rgba(194,122,18,.1);--ok:#2f9a55;--warn:#c27a12;--bad:#cf3a3f;--badink:#b83034;--vio:#7b5cf0;--fact:#1f7fd0;--judge:#8b4fd6;--decide:#0f9d78;--visit:#8f8878;--tick:#b5ad9c;--arrow:#bdb4a2;--cell-ok:#3fb27a;--top:#f7f4ed;--st1:#faf8f3;--st2:#f2eee6;--shade:rgba(241,238,231,.72);--sel:#24211c;color-scheme:light}
 .me *{box-sizing:border-box}
 .me-frame{border:1px solid var(--line);background:var(--panel);border-radius:6px}
-.me-top{display:flex;align-items:center;gap:14px;padding:8px 14px;background:linear-gradient(90deg,var(--top),var(--panel) 40%)}
-.me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#2fd6cd,#138a96);display:grid;place-items:center;flex:none}
-.me-brand b{display:block;font-size:14px;letter-spacing:2px}.me-brand span{font-family:var(--mono);font-size:9.5px;color:var(--ink2);letter-spacing:1px}
-.me-runbox{border:1px solid var(--line2);border-radius:6px;padding:3px 10px;line-height:1.35;min-width:220px}
-.me-runbox b{font-size:12px}.me-runbox .me-num{font-size:11px;color:var(--ink2)}
+.me-top{display:flex;align-items:center;gap:14px;padding:6px 12px;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 10%,transparent),transparent 40%),var(--panel);flex:none}
+.me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#f7c470,#b5680f);display:grid;place-items:center;flex:none}
+.me-brand{display:flex;align-items:center;gap:10px;flex:none}.me-brand b{display:block;font-size:15px;letter-spacing:2px}.me-brand span{font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:1px}
+.me-status{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 10px;border-radius:8px;border:1px solid var(--line2);min-width:170px;max-width:340px}
+.me-status>div{display:flex;flex-direction:column;line-height:16px;min-width:0}.me-status>div>*{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me-status b{font-size:13px}.me-status span{font-size:11px;color:var(--ink2)}.me-status .me-tl{color:var(--teal)}
+.me-lamp{width:9px;height:9px;border-radius:50%;background:var(--line2);flex:none}
+.s-running .me-lamp{background:var(--warn);box-shadow:0 0 0 3px color-mix(in srgb,var(--warn) 25%,transparent);animation:me-pulse 1.2s infinite}
+.s-completed .me-lamp{background:var(--ok)}.s-review .me-lamp{background:var(--warn)}.s-failed .me-lamp,.s-cancelled .me-lamp{background:var(--bad)}
+.me-clock{display:flex;flex-direction:column;align-items:flex-end;line-height:16px;padding:0 4px}
+.me-clock span{font-size:10px;color:var(--ink2);letter-spacing:1px}
+.me-clock b{font-family:var(--mono);font-size:18px;font-weight:600;letter-spacing:1px;line-height:22px}
+.me-clock.sep{padding-right:14px;margin-right:6px;border-right:1px solid var(--line)}
+.me-clock.pct b{color:var(--teal)}.me-clock.pct small{font-size:11px;font-weight:400;margin-left:1px;color:var(--ink2)}
+.me-clock.ver{margin-right:6px}.me-clock.ver b{font-size:12.5px;font-weight:500;letter-spacing:0;color:var(--ink2)}
+.me-top .me-btn,.me-icon{height:34px;border-radius:7px}
+.me-top .me-btn{display:inline-flex;align-items:center;gap:5px;padding:0 14px;box-shadow:none}
+.me-stop{border-color:var(--bad);color:var(--badink)}
+.me-hbtn{padding:0 10px 0 11px!important}.me-hbtn:hover,.me-hbtn[aria-expanded="true"]{border-color:var(--teal);color:var(--teal2)}
+.me-hcount{font-style:normal;font-family:var(--mono);font-size:10.5px;line-height:15px;padding:0 5px;border-radius:8px;background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--ink2)}
+.me-icon{width:34px;border:1px solid var(--line2);background:var(--panel2);color:var(--ink2);font-size:15px;cursor:pointer;display:grid;place-items:center}
+.me-icon:hover{color:var(--teal);border-color:var(--teal)}
+.me-runs-pop{width:440px;max-height:min(560px,calc(100vh - 120px))}
+.me-runs{display:flex;flex-direction:column;gap:4px;overflow:auto;min-height:0}
+.me-run{padding:7px 10px;border:1px solid var(--line);border-radius:6px;cursor:pointer}
+.me-run:hover{border-color:var(--line2);background:var(--panel2)}.me-run.on{border-color:var(--teal);background:var(--tealdim)}
+.me-run-top{display:flex;align-items:center;gap:8px}.me-run-name{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me-run-meta{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--ink2);margin-top:2px}
+.me-modal-back{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:24px}
+.me-modal{width:min(880px,100%);max-height:calc(100vh - 48px);display:flex;flex-direction:column;border-radius:10px;background:var(--dsw-alias-bg-layer-1,var(--panel));border:1px solid var(--line2);box-shadow:0 18px 50px rgba(0,0,0,.35);overflow:hidden;color:var(--dsw-alias-label-primary,var(--ink))}
+.me-modal-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line2);border-top:3px solid var(--teal)}.me-modal-head h3{flex:1;margin:0;font-size:15px}
+.me-modal-body{flex:1;min-height:0;overflow:auto;padding:16px 24px 20px}
 .me-sp{flex:1}
 .me-btn{border:1px solid var(--line2);border-radius:5px;padding:4px 11px;color:var(--ink);background:var(--panel2);font-size:12px;cursor:pointer;white-space:nowrap}
 .me-btn:hover{border-color:var(--teal)}.me-btn:disabled{opacity:.45;cursor:default}
@@ -82,21 +109,7 @@ window.__ModuleLoader__.load({
 .me-field{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--ink2)}
 .me-err{color:var(--badink);border:1px solid color-mix(in srgb,var(--bad) 40%,transparent);background:color-mix(in srgb,var(--bad) 8%,transparent);padding:6px 10px;border-radius:5px}
 .me-empty{color:var(--ink3);padding:30px;text-align:center}
-.me-st{position:relative;flex:1;min-width:120px;border:1px solid var(--line2);border-radius:8px;background:linear-gradient(180deg,var(--st1),var(--st2));padding:10px;min-height:128px}
-.me-st .no{font-family:var(--mono);font-size:9.5px;color:var(--ink3);letter-spacing:1px}.me-st .nm{font-size:14px;font-weight:700;margin:2px 0}
-.me-st .sub{font-size:10.5px;color:var(--ink3);line-height:14px;min-height:28px}.me-st .big{font-family:var(--mono);font-size:19px;font-weight:700;margin-top:6px}
-.me-st .big small{font-size:10px;color:var(--ink3);font-weight:400;margin-left:3px}
-.me-st .gate{display:flex;justify-content:space-between;font-size:10.5px;margin-top:6px}
-.me-st .bar{position:absolute;left:0;right:0;top:-1px;height:3px;border-radius:8px 8px 0 0;background:var(--line2);overflow:hidden}.me-st .bar span{display:block;height:100%;background:var(--ok)}
-.me-st.run{border-color:var(--teal);box-shadow:0 0 0 1px color-mix(in srgb,var(--teal) 25%,transparent),0 0 24px color-mix(in srgb,var(--teal) 20%,transparent)}.me-st.run .bar span{background:var(--teal)}
-.me-st.hold{border-color:color-mix(in srgb,var(--warn) 70%,transparent)}.me-st.hold .bar span{background:var(--warn)}
-.me-st.idle{opacity:.55}
-.me-arrow{align-self:center;color:var(--arrow)}
-.me-cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(12px,1fr));gap:2px}
-.me-cells i{height:10px;border-radius:1.5px;background:var(--line2);cursor:pointer}
-.me-cells i.o{background:var(--cell-ok)}.me-cells i.r{background:var(--teal)}.me-cells i.w{background:var(--warn)}.me-cells i.x{background:var(--bad)}
 .me-bigs{display:flex;gap:22px;margin:4px 0 8px;flex-wrap:wrap}.me-bigs div small{display:block;color:var(--ink3);font-size:11px}.me-bigs div .me-num{font-size:24px;font-weight:700}
-.me-stack{display:flex;height:9px;border-radius:3px;overflow:hidden;margin:6px 0 4px;background:var(--line2)}.me-stack span{display:block;height:100%}
 .me-pi{padding:6px 8px;border-radius:5px;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:1px 6px}
 .me-pi:hover{background:var(--panel2)}.me-pi.on{background:var(--panel3);box-shadow:inset 3px 0 0 var(--teal)}
 .me-pi b{font-family:var(--mono);font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.me-pi span{font-size:10.5px;color:var(--ink3)}
@@ -117,6 +130,111 @@ window.__ModuleLoader__.load({
 .me-settings .me-btn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-border-l2)}
 .me-settings .me-field{color:var(--dsw-alias-label-secondary)}
 .me-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* ---- 产线：等轴测工厂＋HUD 面板（参考工业监控大屏） ---- */
+.me.me-dark{--lift:0 1px 0 rgba(255,255,255,.025) inset,0 12px 26px -22px #000}
+.me.me-light{--lift:0 1px 0 rgba(255,255,255,.8) inset,0 10px 22px -20px rgba(60,45,20,.35)}
+.me-frame{box-shadow:var(--lift);border-radius:4px}
+.me-tab.on{color:var(--teal2);border-bottom-color:var(--teal)}
+.me-tab i{color:var(--ink3)}.me-tab.on i{color:var(--teal)}
+.me-stack{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:6px 0 4px;background:var(--line2)}.me-stack span{display:block;height:100%}
+.me-scene{display:block;width:100%;height:auto;overflow:visible;margin:0 auto}
+.me-scene text{pointer-events:none}
+.me-hero{position:relative;padding:10px 12px 8px;min-height:560px;background:radial-gradient(120% 90% at 45% 55%,var(--panel2),var(--bg) 75%);display:flex;flex-direction:column;min-height:420px}
+.me-hero .me-scene{flex:1}
+.me-hud{position:absolute;z-index:1;font-size:11px;color:var(--ink2);pointer-events:none}
+.me-hud.tl{bottom:44px;left:14px;width:208px;padding:10px 12px;background:color-mix(in srgb,var(--panel) 82%,transparent);border:1px solid var(--line2);border-radius:3px;backdrop-filter:blur(3px)}
+.me-hud-id{font-size:9.5px;letter-spacing:1px;color:var(--ink3);margin-bottom:8px}.me-hud-id b{color:var(--ink2);font-weight:500}
+.me-hud-row{display:grid;grid-template-columns:1fr auto;gap:0 8px;margin-bottom:7px}.me-hud-row b{color:var(--ink);font-weight:500}
+.me-hud-row .me-ticks{grid-column:1/3;height:9px;margin-top:3px}
+.me-hud-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line2);margin-top:4px}
+.me-hud-grid div{padding:6px 0 5px;border-bottom:1px solid var(--line)}.me-hud-grid div:nth-child(even){padding-left:10px;border-left:1px solid var(--line)}
+.me-hud-grid small{display:block;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.5px}.me-hud-grid b{font-size:15px;font-weight:400;color:var(--ink)}
+.me-hud-model{margin-top:8px;font-family:var(--mono);font-size:9.5px;color:var(--ink3);display:flex;align-items:center;gap:6px}
+.me-hud-model i{width:6px;height:6px;border-radius:50%;background:var(--ink3)}.me-hud-model i.on{background:var(--ok);box-shadow:0 0 5px var(--ok)}
+.me-hud.br{right:14px;top:36px;display:flex;flex-direction:column;gap:4px;font-size:10px;color:var(--ink3)}
+.me-hud.br div{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+.me-hud .sw{width:12px;height:8px;display:inline-block;border-radius:1px}
+.me-hud .sw.hot{background:var(--teal);box-shadow:0 0 5px var(--teal)}.me-hud .sw.clay{background:#cfc8b8}
+.me-hud .sw.sel{border:1.5px solid var(--teal);border-right:0;border-bottom:0;background:transparent}
+.me-hud .sw.box{background:#d8cdb0;border-top:2px solid var(--teal)}.me-hud .sw.red{background:var(--bad)}.me-hud .sw.vio{background:var(--vio);box-shadow:0 0 5px var(--vio)}
+.me-hud .sw.flow{height:2px;background:repeating-linear-gradient(90deg,var(--ink2) 0 4px,transparent 4px 7px)}
+.me-act{position:relative}
+.me-new{border-color:var(--teal);background:var(--teal);color:#1d1100;font-weight:600}
+.me-new:hover:not(:disabled){filter:brightness(1.06)}
+.me-new:disabled{background:transparent;color:var(--ink2);border-color:var(--line2);font-weight:400}
+.me-caret{font-size:9px;opacity:.7;margin-left:5px}
+.me-shade{position:fixed;inset:0;z-index:940;background:rgba(0,0,0,.35)}
+.me-pop{position:absolute;right:0;top:36px;z-index:950;width:460px;padding:14px 16px;border:1px solid color-mix(in srgb,var(--teal) 50%,transparent);border-radius:8px;background:var(--panel);box-shadow:0 20px 60px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:10px;text-align:left}
+.me-pop-h{display:flex;justify-content:space-between;align-items:center}.me-pop-h b{font-size:12px;letter-spacing:2px;color:var(--teal2);font-weight:600}
+.me-pop .me-field{gap:4px}
+.me-pick{display:flex;gap:8px;align-items:center;font-size:10.5px}
+.me-pop-act{display:flex;gap:8px;margin-top:2px}
+.me-pop-act .me-btn{height:32px}
+.me-hero-cap{display:flex;align-items:center;gap:10px}
+.me-live{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;color:var(--teal);display:inline-flex;align-items:center;gap:6px}
+.me-live i{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;animation:me-pulse 1.6s ease-in-out infinite}
+.me-live.ok{color:var(--ok)}
+.me-hero-legend{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.me-bay{font-size:11px;color:var(--ink2);background:transparent;border:1px solid var(--line2);border-radius:3px;padding:2px 8px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.me-bay b{font-family:var(--mono);font-weight:500;font-size:10px;color:var(--ink3)}
+.me-bay.hold,.me-bay.run{border-color:color-mix(in srgb,var(--teal) 45%,transparent)}.me-bay.hold b,.me-bay.run b{color:var(--teal)}
+.me-bay.on{background:var(--tealdim);border-color:var(--teal);color:var(--ink)}
+.me-side{width:300px;flex:none;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.me-side-h{display:flex;align-items:center;gap:8px}.me-side-h b{font-size:14px;letter-spacing:1px}.me-side-h span:nth-child(2){font-weight:600;flex:1}
+.me-side-sub{font-family:var(--mono);font-size:10.5px;color:var(--teal);margin-top:4px;line-height:1.5}
+.me-side-big{display:flex;align-items:baseline;gap:6px;margin:2px 0 6px}.me-side-big .me-num{font-size:28px;font-weight:300;letter-spacing:-.5px}.me-side-big small{color:var(--ink3);font-size:11px}
+.me-kvrow{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink3);padding:3px 0;border-top:1px solid var(--line)}.me-kvrow b{color:var(--ink);font-weight:500}
+.me-side-sec{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.5px;color:var(--ink3);margin-top:12px;padding-top:8px;border-top:1px solid var(--line2)}
+.me-hbars{display:flex;align-items:flex-end;gap:2px;height:64px;margin-top:8px}
+.me-hbars i{flex:1;min-width:2px;background:var(--line2);cursor:pointer;border-radius:1px 1px 0 0}
+.me-hbars i.hi{background:var(--ink3)}.me-hbars i.pk{background:var(--teal);box-shadow:0 0 8px color-mix(in srgb,var(--teal) 60%,transparent)}
+.me-hbars i:hover{background:var(--ink)}
+.me-side-foot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-top:4px}
+.me-ticks{display:flex;gap:2px;height:13px;margin-top:5px}
+.me-ticks i{flex:1;max-width:3px;background:var(--line2);border-radius:.5px}
+.me-ticks i.on{background:var(--ink2)}.me-ticks.hot i.on{background:var(--teal)}
+.me-grid4{display:grid;grid-template-columns:1fr 1.15fr 1.1fr 1.2fr;gap:8px;flex:none}
+@media (max-width:1250px){.me-grid4{grid-template-columns:1fr 1fr}}
+.me-panel{padding:12px 14px;display:flex;flex-direction:column;min-width:0}
+.me-panel-h{display:flex;align-items:center;gap:8px;margin-bottom:10px}.me-panel-h b{font-size:12.5px;letter-spacing:1px}
+.me-panel-foot{margin-top:auto;padding-top:8px;font-size:11px;color:var(--ink2)}
+.me-gl{margin-bottom:9px}
+.me-gl-h{display:flex;justify-content:space-between;font-size:11.5px}.me-gl-h em{font-style:normal;font-family:var(--mono);color:var(--ink3);margin-right:6px}.me-gl-h b{font-weight:500}
+.me-tagbox{font-family:var(--mono);font-size:9.5px;border:1px solid var(--line2);color:var(--ink2);padding:0 5px;border-radius:2px}
+.me-mets{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.me-met{padding:8px 8px 10px 0;border-bottom:1px solid var(--line)}
+.me-met:not(:nth-child(3n+1)){padding-left:10px;border-left:1px solid var(--line)}
+.me-met small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:1px;color:var(--ink3);margin-bottom:6px}
+.me-met .me-num{font-size:24px;font-weight:300;letter-spacing:-.5px}.me-met em{font-style:normal;font-size:10px;color:var(--ink3);margin-left:3px}
+.me-panel-sec{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin:10px 0 6px;gap:8px}
+.me-pchips{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.me-pchips button{font-family:var(--mono);font-size:10px;padding:2px 0;width:42px;border:1px solid var(--line2);border-radius:2px;background:var(--panel2);color:var(--ink2);cursor:pointer}
+.me-pchips button:hover{border-color:var(--ink2);color:var(--ink)}
+.me-pchips button.w{border-color:color-mix(in srgb,var(--warn) 60%,transparent);color:var(--warn);background:color-mix(in srgb,var(--warn) 9%,transparent)}
+.me-pchips button.x{border-color:color-mix(in srgb,var(--bad) 60%,transparent);color:var(--badink);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.me-hero-num{display:flex;align-items:center;gap:10px;margin-bottom:6px}.me-hero-num>.me-num{font-size:40px;font-weight:200;letter-spacing:-1px;line-height:1}
+.me-hero-num small{display:block;font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:.5px}
+.me-vchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.me-alerts{display:flex;flex-direction:column;gap:4px}
+.me-al{display:grid;grid-template-columns:5px 44px 1fr 46px 40px;gap:8px;align-items:center;padding:6px 8px 6px 0;border:1px solid var(--line);border-radius:3px;background:var(--panel2)}
+.me-al.click{cursor:pointer}.me-al.click:hover{border-color:var(--line2);background:var(--panel3)}
+.me-al-bar{align-self:stretch;margin:-6px 0;border-radius:3px 0 0 3px;background:var(--line2)}
+.me-al.crit{background:color-mix(in srgb,var(--bad) 8%,var(--panel2));border-color:color-mix(in srgb,var(--bad) 30%,transparent)}
+.me-al.crit .me-al-bar{background:repeating-linear-gradient(135deg,var(--bad) 0 3px,transparent 3px 6px)}
+.me-al.warn .me-al-bar{background:repeating-linear-gradient(135deg,var(--warn) 0 3px,transparent 3px 6px)}
+.me-al-src{font-size:10px;color:var(--ink3)}
+.me-al-t{min-width:0}.me-al-t b{display:block;font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.me-al-t small{display:block;font-size:10px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me-al .me-ticks{margin:0;height:11px}
+.me-al-tag{font-family:var(--mono);font-size:9.5px;text-align:center;border:1px solid var(--line2);border-radius:2px;color:var(--ink2);padding:1px 0}
+.me-al.crit .me-al-tag{color:var(--badink);border-color:var(--bad)}.me-al.warn .me-al-tag{color:var(--warn);border-color:var(--warn)}.me-al.ok .me-al-tag{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 60%,transparent)}
+.me-flow{animation:me-flow 1.2s linear infinite}
+@keyframes me-flow{to{stroke-dashoffset:-30}}
+.me-breathe{animation:me-breathe 2.4s ease-in-out infinite}
+@keyframes me-breathe{50%{opacity:.82}}
+.me-cardin{animation:me-cardin .25s ease-out}
+@keyframes me-cardin{from{opacity:0;transform:translateY(4px)}}
+.me-pulse{animation:me-pulse 1.4s ease-in-out infinite}
+@keyframes me-pulse{50%{opacity:.35}}
 `
 
     /* -------------------------------------------------------------- helpers */
@@ -124,9 +242,18 @@ window.__ModuleLoader__.load({
     const VERDICT_CLS = { 矛盾: 'b', 记录质量: 'w', 改判: 'v', 病情变化: 'v', 调整: 'ok', 命名不一致: '', 证据不足: '' }
     // SVG 用的调色板（与 CSS 的 .me-dark / .me-light 对应）
     const PAL = {
-      dark: { fact: '#4fb3ff', judge: '#c48bff', decide: '#2fd6a0', visit: '#6d8790', grid: '#1a2c34', lane: '#26404a', ink: '#e2eef0', ink2: '#8ba5ad', ink3: '#58717a', tick: '#4d6770', bad: '#f05252', warn: '#f5a524', vio: '#a58bff', ok: '#46d17f', shade: 'rgba(8,17,22,.6)' },
-      light: { fact: '#1f7fd0', judge: '#8b4fd6', decide: '#0f9d78', visit: '#7f98a0', grid: '#cfdcdf', lane: '#b7cbcf', ink: '#16303c', ink2: '#4e6873', ink3: '#7d9298', tick: '#9db3b9', bad: '#d23c3c', warn: '#c27a00', vio: '#7b5cf0', ok: '#1f9d55', shade: 'rgba(214,228,231,.72)' },
+      dark: { fact: '#6cb4ff', judge: '#c79bff', decide: '#4fd1a5', visit: '#8a8476', grid: '#1f1c18', lane: '#2e2a24', ink: '#ece6da', ink2: '#a39b8c', ink3: '#6c665b', tick: '#5a554b', bad: '#e5484d', warn: '#f0a63a', vio: '#a58bff', ok: '#62c27e', shade: 'rgba(11,10,9,.65)', teal: '#f0a63a', halo: '#0b0a09', band: '#13110f' },
+      light: { fact: '#1f7fd0', judge: '#8b4fd6', decide: '#0f9d78', visit: '#8f8878', grid: '#e3ded2', lane: '#d0c9b9', ink: '#24211c', ink2: '#6b6458', ink3: '#9a9284', tick: '#b5ad9c', bad: '#cf3a3f', warn: '#c27a12', vio: '#7b5cf0', ok: '#2f9a55', shade: 'rgba(241,238,231,.72)', teal: '#c27a12', halo: '#fbfaf6', band: '#f4f1ea' },
     }
+    /** 调亮（k>0，混白）或调暗（k<0，混黑）一个 #rrggbb 颜色。 */
+    function shade(hex, k) {
+      const m = /^#([0-9a-f]{6})$/i.exec(hex ?? '')
+      if (!m) return hex
+      const n = parseInt(m[1], 16)
+      const ch = [n >> 16, (n >> 8) & 255, n & 255].map((c) => Math.round(k >= 0 ? c + (255 - c) * k : c * (1 + k)))
+      return `#${ch.map((c) => c.toString(16).padStart(2, '0')).join('')}`
+    }
+    const pts = (a) => a.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
     const verdictColor = (pal) => ({ 矛盾: pal.bad, 记录质量: pal.warn, 改判: pal.vio, 病情变化: pal.vio, 调整: pal.ok, 命名不一致: pal.ink2, 证据不足: pal.ink3 })
     const VERDICT_COLOR = verdictColor(PAL.dark)
 
@@ -168,6 +295,9 @@ window.__ModuleLoader__.load({
     const fmtTime = (s) => { if (!s) return '—'; try { return new Date(s).toLocaleString() } catch { return String(s) } }
     const pct = (x) => (x == null ? '—' : `${(x * 100).toFixed(1)}%`)
     const statusChip = (s) => h('span', { className: `me-chip ${s === 'completed' ? 'ok' : s === 'running' ? '' : s === 'review' ? 'w' : 'b'}` }, { completed: '完成', running: '运行中', review: '待复核', failed: '失败', cancelled: '已取消' }[s] ?? s)
+    const STATUS_LABEL = { completed: '完成', running: '运行中', review: '待复核', failed: '失败', cancelled: '已取消' }
+    const SOURCE_LABEL = { panel: '面板启动', agent: 'Agent 启动', command: '/event 命令' }
+    const clock = (ms) => { if (ms == null) return '00:00'; const t = Math.floor(ms / 1000); const hh = Math.floor(t / 3600); const mm = Math.floor(t / 60) % 60; const ss = t % 60; const p = (n) => String(n).padStart(2, '0'); return hh ? `${hh}:${p(mm)}:${p(ss)}` : `${p(mm)}:${p(ss)}` }
     const kindLabel = { finding: '发现', time: '待定时间', type: '兜底类型', concept: '未归一概念', mapping: '药名映射' }
 
     function Icon({ size = 16 }) {
@@ -186,6 +316,11 @@ window.__ModuleLoader__.load({
       const [focus, setFocus] = useState(null) // { kind:'finding'|'event'|'fragment', id }
       const [error, setError] = useState('')
       const [showNew, setShowNew] = useState(false)
+      const [runsOpen, setRunsOpen] = useState(false)
+      const [modal, setModal] = useState(null) // 'settings'
+      const [version, setVersion] = useState(null)
+      const [now, setNow] = useState(Date.now())
+      useEffect(() => { call('config').then((c) => setVersion(c.version ?? null)).catch(() => {}) }, [])
 
       const refreshList = useCallback(async () => {
         try {
@@ -214,29 +349,75 @@ window.__ModuleLoader__.load({
         return () => { alive = false; clearTimeout(timer) }
       }, [runId])
 
+      useEffect(() => {
+        if (run?.status !== 'running') return undefined
+        const timer = setInterval(() => setNow(Date.now()), 1000)
+        return () => clearInterval(timer)
+      }, [run?.status])
+      useEffect(() => {
+        if (!modal && !runsOpen) return undefined
+        const onKey = (e) => { if (e.key === 'Escape') { setModal(null); setRunsOpen(false) } }
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+      }, [modal, runsOpen])
       const openPatient = (p, next = 'timeline', f = null) => { setPatient(p); setFocus(f); setTab(next) }
+      const selectRun = (id) => { setRunId(id); setRun(null); setPatient(null); setRunsOpen(false); setTab('line') }
+      const elapsed = run?.startedAt ? Math.max(0, (run.status === 'running' ? now : Date.parse(run.finishedAt ?? run.startedAt)) - Date.parse(run.startedAt)) : null
+      const percent = run?.totals?.patients ? Math.round(run.totals.done / run.totals.patients * 100) : null
+      const lineStatus = run?.status ?? 'idle'
       const review = run?.totals?.review ?? 0
       const dark = useHostDark()
       const tabs = [['line', '◈ 产线'], ['patients', '患者', run?.totals?.patients], ['timeline', '时间线'], ['source', '原文标注'], ['review', '复核', review], ['improve', '规则改进'], ['calls', '模型调用'], ['rules', '规则包'], ['report', '报告']]
       return h(ThemeCtx.Provider, { value: dark ? PAL.dark : PAL.light }, h('div', { className: `me ${dark ? 'me-dark' : 'me-light'}` },
         h('style', {}, CSS),
-        h('div', { className: 'me-frame me-top' },
-          h('div', { className: 'me-logo' }, h('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: 'none', stroke: '#04201f', strokeWidth: 2.4, strokeLinecap: 'round' }, h('path', { d: 'M3 12h4l2-6 4 12 2-6h6' }))),
-          h('div', { className: 'me-brand' }, h('b', {}, '病历事件还原'), h('span', {}, 'MEDICAL EVENT RECONSTRUCTION')),
-          run ? h('div', { className: 'me-runbox' },
-            h('b', {}, statusChip(run.status), run.current ? `${run.current.patient} · ${run.current.step}` : `${run.totals.done}/${run.totals.patients} 位病人`),
-            h('div', { className: 'me-num' }, `${run.id}${run.asOf ? ` · 截至 ${run.asOf}` : ''}`)) : null,
-          h('div', { className: 'me-sp' }),
-          run?.status === 'running' ? h('button', { className: 'me-btn', onClick: () => call('cancel', { runId: run.id }).catch((e) => setError(msg(e))) }, '取消批次') : null,
-          h('button', { className: 'me-btn pri', onClick: () => setShowNew((x) => !x) }, '＋ 新批次'),
-          h('select', { className: 'me-input', value: runId ?? '', onChange: (e) => { setRunId(e.target.value); setRun(null); setPatient(null) } },
-            runs.map((r) => h('option', { key: r.id, value: r.id }, `${r.id} · ${r.input} · ${r.status}`)))),
+        // ── 顶栏（与匿名化插件同一布局）：品牌 · 批次状态 · 用时 · 完成 · 版本 · 新批次 · 记录 · 设置 ──
+        h('header', { className: 'me-frame me-top' },
+          h('div', { className: 'me-brand' },
+            h('div', { className: 'me-logo' }, h('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: 'none', stroke: '#2a1700', strokeWidth: 2.4, strokeLinecap: 'round' }, h('path', { d: 'M3 12h4l2-6 4 12 2-6h6' }))),
+            h('div', {}, h('b', {}, '病历事件还原'), h('span', {}, 'MEDICAL EVENT RECONSTRUCTION'))),
+          h('div', { className: `me-status s-${lineStatus}` },
+            h('span', { className: 'me-lamp' }),
+            h('div', {},
+              h('b', {}, lineStatus === 'idle' ? '空闲' : STATUS_LABEL[lineStatus] ?? lineStatus),
+              h('span', { className: 'me-num' }, run?.id ?? '—'),
+              run?.status === 'running' && run.current
+                ? h('span', { className: 'me-tl' }, `${String(run.current.patient).split('/').pop()} · ${run.current.step}`)
+                : run ? h('span', {}, [SOURCE_LABEL[run.source?.kind], run.asOf ? `截至 ${run.asOf}` : null, run.inputName ?? run.input?.split('/').pop()].filter(Boolean).join(' · ')) : null)),
+          h('span', { className: 'me-sp' }),
+          h('div', { className: 'me-clock sep' }, h('span', {}, '用时'), h('b', {}, clock(elapsed))),
+          run ? h('div', { className: 'me-clock sep pct', title: `${run.totals.done} / ${run.totals.patients} 位病人` }, h('span', {}, '完成'), h('b', {}, percent == null ? '—' : String(percent), h('small', {}, '%'))) : null,
+          version ? h('div', { className: 'me-clock ver' }, h('span', {}, '版本'), h('b', {}, `v${version}`)) : null,
+          h('div', { className: 'me-act' },
+            run?.status === 'running'
+              ? h('button', { className: 'me-btn me-stop', onClick: () => call('cancel', { runId: run.id }).catch((e) => setError(msg(e))) }, '■ 停止批次')
+              : h('button', { className: 'me-btn me-new', disabled: !!activeId, title: activeId ? '已有批次在运行，结束或取消后再开新批次' : undefined, onClick: () => setShowNew((x) => !x) },
+                activeId ? '正在处理…' : h(React.Fragment, {}, '＋ 新批次', h('span', { className: 'me-caret' }, '▾'))),
+            showNew && !activeId ? h('div', { className: 'me-shade', onMouseDown: () => setShowNew(false) }) : null,
+            showNew && !activeId ? h(NewRun, {
+              resumable: run && ['cancelled', 'failed'].includes(run.status) ? run : null,
+              onClose: () => setShowNew(false),
+              onStarted: (id) => { setShowNew(false); setRunId(id); setRun(null); setPatient(null); refreshList(); setTab('line') },
+              onError: setError,
+            }) : null),
+          h('div', { className: 'me-act' },
+            h('button', { className: 'me-btn me-hbtn', 'aria-expanded': runsOpen ? 'true' : 'false', title: '切换批次：查看历史批次', onClick: () => { if (!runsOpen) refreshList(); setRunsOpen(!runsOpen) } },
+              '记录', runs.length ? h('i', { className: 'me-hcount' }, String(runs.length)) : null),
+            runsOpen ? h('div', { className: 'me-shade', onMouseDown: () => setRunsOpen(false) }) : null,
+            runsOpen ? h('div', { className: 'me-pop me-runs-pop', role: 'dialog', 'aria-label': '批次记录' },
+              h('div', { className: 'me-pop-h' }, h('b', {}, '批次记录'), h('span', { className: 'me-sp' }), h('button', { className: 'me-btn sm', onClick: refreshList }, '刷新')),
+              !runs.length ? h('div', { className: 'me-faint' }, '还没有批次。')
+                : h('div', { className: 'me-runs' }, runs.map((r) => h('div', {
+                  key: r.id, role: 'button', tabIndex: 0, className: `me-run${r.id === runId ? ' on' : ''}`,
+                  onClick: () => selectRun(r.id), onKeyDown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectRun(r.id) } },
+                },
+                  h('div', { className: 'me-run-top' }, h('span', { className: 'me-run-name', title: r.outputRoot }, r.input || r.id), statusChip(r.status)),
+                  h('div', { className: 'me-run-meta' }, h('span', {}, fmtTime(r.startedAt)), h('span', { className: 'me-num' }, `${r.patients ?? 0} 人 · 发现 ${r.findings ?? 0}${r.review ? ` · 待复核 ${r.review}` : ''}`)))))) : null),
+          h('button', { className: 'me-icon', title: '设置', 'aria-label': '设置', onClick: () => setModal('settings') }, '⚙')),
         h('div', { className: 'me-frame me-tabs' }, tabs.map(([k, label, n]) => h('button', { key: k, className: `me-tab${tab === k ? ' on' : ''}`, onClick: () => setTab(k) }, label, n ? h('i', {}, String(n)) : null))),
         error ? h('div', { className: 'me-err', onClick: () => setError('') }, error) : null,
-        showNew ? h(NewRun, { onStarted: (id) => { setShowNew(false); setRunId(id); setRun(null); setPatient(null); refreshList(); setTab('line') }, onError: setError }) : null,
         h('div', { className: 'me-body' },
           !run ? h('div', { className: 'me-frame me-empty', style: { flex: 1 } }, runs.length ? '加载中…' : '还没有批次。点右上角「＋ 新批次」选择病人导出目录开始。')
-            : tab === 'line' ? h(Pipeline, { run, openPatient })
+            : tab === 'line' ? h(Pipeline, { run, openPatient, goto: setTab })
               : tab === 'patients' ? h(Patients, { run, openPatient })
                 : tab === 'timeline' ? h(Timeline, { run, patient, setPatient, focus, setFocus, gotoSource: (fragmentId) => { setFocus({ kind: 'fragment', id: fragmentId }); setTab('source') }, gotoReview: (fid) => { setFocus({ kind: 'finding', id: fid }); setTab('review') } })
                   : tab === 'source' ? h(Source, { run, patient, setPatient, focus })
@@ -244,30 +425,57 @@ window.__ModuleLoader__.load({
                       : tab === 'improve' ? h(Improve, { run })
                         : tab === 'calls' ? h(Calls, { run })
                           : tab === 'rules' ? h(Rules, { run })
-                            : h(Report, { run }))))
+                            : h(Report, { run })),
+        modal === 'settings' ? h('div', { className: 'me-modal-back', onMouseDown: (e) => { if (e.target === e.currentTarget) setModal(null) } },
+          h('div', { className: 'me-modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': '设置' },
+            h('div', { className: 'me-modal-head' }, h('h3', {}, '设置 · 病历事件还原'), h('button', { className: 'me-btn sm', onClick: () => setModal(null), 'aria-label': '关闭' }, '✕')),
+            h('div', { className: 'me-modal-body' }, activeId ? h('div', { className: 'me-err', style: { marginBottom: 10 } }, '有批次在运行：改动从下一个批次起生效。') : null, h(SettingsSection, { inModal: true })))) : null))
     }
 
     /* --------------------------------------------------------------- new run */
-    function NewRun({ onStarted, onError }) {
+    /** 新批次：挂在右上角按钮下的浮层（和匿名化插件一致），点暗处或按 Esc 关闭。 */
+    function NewRun({ onStarted, onError, onClose, resumable }) {
       const [inputDir, setInput] = useState('')
       const [outputRoot, setOut] = useState('')
       const [asOf, setAsOf] = useState('')
       const [busy, setBusy] = useState(false)
+      useEffect(() => {
+        const onKey = (e) => { if (e.key === 'Escape') onClose() }
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+      }, [])
       const pick = async () => { try { const v = await call('pickFolder'); if (v.path) setInput(v.path) } catch (e) { onError(msg(e)) } }
-      const start = async () => {
+      const go = async (payload) => {
         setBusy(true)
-        try { const v = await call('start', { inputDir, outputRoot: outputRoot || undefined, asOf: asOf || undefined }); onStarted(v.runId) } catch (e) { onError(msg(e)) } finally { setBusy(false) }
+        try { const v = await call('start', payload); onStarted(v.runId) } catch (e) { onError(msg(e)) } finally { setBusy(false) }
       }
-      return h('div', { className: 'me-frame me-pad', style: { display: 'flex', gap: 10, alignItems: 'flex-end', flexWrap: 'wrap' } },
-        h('label', { className: 'me-field', style: { flex: 3, minWidth: 280 } }, '病人导出目录（一位病人，或包含多位病人的上级目录；通常是匿名化插件的交付目录）',
-          h('div', { style: { display: 'flex', gap: 6 } }, h('input', { className: 'me-input', style: { flex: 1 }, value: inputDir, onChange: (e) => setInput(e.target.value), placeholder: '/path/to/_medical-anonymizer/…' }), h('button', { className: 'me-btn', onClick: pick }, '选择…'))),
-        h('label', { className: 'me-field', style: { flex: 2, minWidth: 200 } }, '输出根目录（可空：输入旁的 _medical-event）', h('input', { className: 'me-input', value: outputRoot, onChange: (e) => setOut(e.target.value) })),
-        h('label', { className: 'me-field', style: { width: 180 } }, '截至时刻（可空）', h('input', { className: 'me-input', value: asOf, onChange: (e) => setAsOf(e.target.value), placeholder: 'YYYY-MM-DD HH:mm' })),
-        h('button', { className: 'me-btn pri', disabled: !inputDir || busy, onClick: start }, busy ? '启动中…' : '开始'))
+      return h('div', { className: 'me-pop', role: 'dialog', 'aria-label': '新批次' },
+        h('div', { className: 'me-pop-h' }, h('b', {}, '新批次'), h('button', { className: 'me-btn sm', onClick: onClose, 'aria-label': '关闭' }, '✕')),
+        h('label', { className: 'me-field' }, '病人导出目录',
+          h('input', { className: 'me-input', value: inputDir, onChange: (e) => setInput(e.target.value), placeholder: '/path/to/_medical-anonymizer/…', title: inputDir, autoFocus: true }),
+          h('div', { className: 'me-pick' }, h('button', { className: 'me-btn sm', onClick: pick }, '选择文件夹…'), h('span', { className: 'me-faint' }, '一位病人，或包含多位病人的上级目录；通常是匿名化插件的交付目录'))),
+        h('label', { className: 'me-field' }, '输出根目录', h('input', { className: 'me-input', value: outputRoot, onChange: (e) => setOut(e.target.value), placeholder: '空＝设置里的默认值，再缺省为输入旁的 _medical-event' })),
+        h('label', { className: 'me-field' }, '截至时刻（可空）', h('input', { className: 'me-input', value: asOf, onChange: (e) => setAsOf(e.target.value), placeholder: 'YYYY-MM-DD HH:mm · 只用此刻以前写成的记录' })),
+        h('div', { className: 'me-pop-act' },
+          h('button', { className: 'me-btn me-new', style: { flex: 1 }, disabled: !inputDir || busy, onClick: () => go({ inputDir, outputRoot: outputRoot || undefined, asOf: asOf || undefined }) }, busy ? '启动中…' : '▶ 开始'),
+          resumable ? h('button', { className: 'me-btn', disabled: busy, title: `继续批次 ${resumable.id}：已完成的病人和模型调用直接复用`, onClick: () => go({ resumeFrom: resumable.id }) }, '↻ 继续') : null))
     }
 
     /* --------------------------------------------------------------- pipeline */
-    function Pipeline({ run, openPatient }) {
+    const MONO = 'SF Mono,JetBrains Mono,Menlo,monospace'
+    const STATE_LABEL = { run: '运行中', part: '进行中', hold: '待复核', done: '完成', idle: '未开始' }
+    // 每道工序在右侧面板里按病人展示的指标
+    const STATION_METRIC = [
+      ['片段', (p) => p.counts.fragments, fmt],
+      ['提及', (p) => p.counts.mentions, fmt],
+      ['兜底率', (p) => p.fallbackRate, pct],
+      ['事件', (p) => p.counts.events, fmt],
+      ['发现', (p) => p.counts.findings, fmt],
+      ['待确认', (p) => p.review.findings, fmt],
+      ['用时', (p) => p.ms / 1000, (v) => `${(v ?? 0).toFixed(1)}s`],
+    ]
+
+    function Pipeline({ run, openPatient, goto }) {
       const P = run.patients
       const t = run.totals
       const gatePass = (g) => P.filter((p) => !p.failedGates.includes(g)).length
@@ -275,62 +483,523 @@ window.__ModuleLoader__.load({
       const running = run.status === 'running'
       const doneFrac = t.patients ? t.done / t.patients : 0
       const fb = P.length ? sum((p) => p.fallbackRate ?? 0) / P.length : null
-      const st = (no, nm, sub, big, unit, gate, state, frac) => h('div', { className: `me-st ${state}` },
-        h('div', { className: 'bar' }, h('span', { style: { width: `${Math.round((frac ?? doneFrac) * 100)}%` } })),
-        h('div', { className: 'no' }, no), h('div', { className: 'nm' }, nm), h('div', { className: 'sub' }, sub),
-        h('div', { className: 'big' }, big, h('small', {}, unit)), h('div', { className: 'gate' }, gate))
-      const stState = running ? 'run' : 'done'
+      // 逐站进度：当前病人所在的那一站是“运行中”，其余已开工的是“进行中”
+      const stage = running ? run.current?.stage : null
+      const stOf = (no) => (!running ? 'done' : stage === no ? 'run' : 'part')
       const reviewN = t.review
       const verdicts = {}
       for (const p of P) for (const [k, v] of Object.entries(p.verdicts ?? {})) { const vk = k.split('·')[0]; verdicts[vk] = (verdicts[vk] ?? 0) + v }
       const types = {}
       for (const p of P) for (const [k, v] of Object.entries(p.types ?? p.summary?.types ?? {})) types[k] = (types[k] ?? 0) + v
       const typeTotal = Object.values(types).reduce((a, b) => a + b, 0)
-      const gateCell = (label, n, total) => h('tr', {}, h('td', {}, label), h('td', { className: `me-num ${n === total ? 'me-ok' : 'me-warn'}` }, n === total ? '全部通过' : `${total - n} 人未过`))
-      return h('div', { className: 'me-col', style: { flex: 1 } },
-        h('div', { className: 'me-frame me-pad' },
-          h('div', { className: 'me-h' }, h('b', {}, '处理流程'), h('span', { className: 'me-cap' }, 'PIPELINE'), h('span', { className: 'me-sp' }), h('span', { className: 'me-faint' }, `${run.input}`)),
-          h('div', { style: { display: 'flex', gap: 6 } },
-            st('S01', '读入·片段', '切片段、挂可见时间、剔除作废记录', fmt(sum((p) => p.counts.fragments)), '片段', [h('span', { key: 1, className: 'me-faint' }, `${t.done}/${t.patients}`)], stState),
-            h('span', { className: 'me-arrow' }, '→'),
-            st('S02 · 工序1', '提及抽取', '栏目→句→分句→顿号；两个时间', fmt(t.mentions), '提及', [h('span', { key: 1, className: 'me-faint' }, '验收①'), h('span', { key: 2, className: gatePass('①') === P.length ? 'me-ok' : 'me-warn' }, `${gatePass('①')}/${P.length}`)], stState),
-            h('span', { className: 'me-arrow' }, '→'),
-            st('S03 · 工序2', '类型切分', '事实／判断／决策 → 细分 → 细项', typeTotal ? `${Math.round((types['事实'] ?? 0) / typeTotal * 100)}%` : '—', '事实', [h('span', { key: 1, className: 'me-faint' }, `兜底 ${pct(fb)}`), h('span', { key: 2, className: 'me-ok' }, '②')], stState),
-            h('span', { className: 'me-arrow' }, '→'),
-            st('S04 · 工序3', '事件归并', '同概念＋时间相容＋同就诊', fmt(t.events), '事件', [h('span', { key: 1, className: 'me-faint' }, '验收③'), h('span', { key: 2, className: gatePass('③') === P.length ? 'me-ok' : 'me-warn' }, `${gatePass('③')}/${P.length}`)], stState),
-            h('span', { className: 'me-arrow' }, '→'),
-            st('S05 · 工序4', '矛盾判断', 'R1–R10；七类判定、建议采信', fmt(t.findings), '发现', [h('span', { key: 1, className: 'me-faint' }, '验收④'), h('span', { key: 2, className: gatePass('④') === P.length ? 'me-ok' : 'me-warn' }, `${gatePass('④')}/${P.length}`)], stState),
-            h('span', { className: 'me-arrow' }, '→'),
-            st('S06', '人工复核', '需人工确认的发现、药名映射、模型分歧', fmt(reviewN), '项待办', [h('span', { key: 1, className: 'me-faint' }, `模型建议 ${fmt(t.suggestions)}`)], reviewN ? 'hold' : stState, 1),
-            h('span', { className: 'me-arrow' }, '→'),
-            st('S07', '交付', '每人一个事件包＋导出', run.output ? '✓' : '—', '', [h('span', { key: 1, className: 'me-faint' }, run.output ? '已交付' : '未交付')], run.output ? 'done' : 'idle', run.output ? 1 : 0)),
-          h('div', { className: 'me-mo', style: { marginTop: 10 } }, h('b', { style: { color: 'var(--vio)' } }, '◇ 模型旁路 '),
-            run.model ? `${run.model.model}${run.model.verifyModel ? ` ＋ 核验 ${run.model.verifyModel}` : ''} · 调用 ${fmt(t.modelCalls)} 次 · 建议 ${fmt(t.suggestions)} 条。只处理规则判不了的项（待定时间、兜底类型、未归一概念、需人工确认的发现），结论须引用原文并通过核对，只出建议，不改规则结果。` : '未配置模型：只跑规则。可在 设置 → 病历事件还原 配置本机或内网模型。')),
-        h('div', { style: { display: 'flex', gap: 8, minHeight: 0, flex: 1 } },
-          h('div', { className: 'me-frame me-pad', style: { flex: 1.2 } },
-            h('div', { className: 'me-h' }, h('b', {}, '患者带'), h('span', { className: 'me-cap' }, 'PATIENTS'), h('span', { className: 'me-faint' }, '每格 1 位，点开看时间线')),
-            h('div', { className: 'me-cells' }, P.map((p) => h('i', { key: p.patient, title: `${p.patient}：发现 ${p.counts.findings}，待确认 ${p.review.findings}`, className: p.failedGates.length ? 'x' : p.review.findings ? 'w' : 'o', onClick: () => openPatient(p.patient) })),
-              running ? Array.from({ length: Math.max(0, t.patients - P.length) }, (_, i) => h('i', { key: `p${i}`, className: i === 0 ? 'r' : '' })) : null),
-            h('div', { className: 'me-bigs', style: { marginTop: 14 } },
-              h('div', {}, h('small', {}, '完成'), h('span', { className: 'me-num' }, `${Math.round(doneFrac * 100)}%`)),
-              h('div', {}, h('small', {}, '提及'), h('span', { className: 'me-num' }, fmt(t.mentions))),
-              h('div', {}, h('small', {}, '事件'), h('span', { className: 'me-num' }, fmt(t.events))),
-              h('div', {}, h('small', {}, '发现'), h('span', { className: 'me-num me-warn' }, fmt(t.findings)))),
-            typeTotal ? h('div', {}, h('div', { className: 'me-faint', style: { fontSize: 11 } }, '提及类型'),
-              h('div', { className: 'me-stack' }, ['事实', '判断', '决策'].map((k) => h('span', { key: k, style: { width: `${(types[k] ?? 0) / typeTotal * 100}%`, background: `var(--${{ 事实: 'fact', 判断: 'judge', 决策: 'decide' }[k]})` } }))),
-              h('div', { className: 'me-muted', style: { fontSize: 11 } }, ['事实', '判断', '决策'].map((k) => `${k} ${Math.round((types[k] ?? 0) / typeTotal * 100)}%`).join(' · '))) : null),
-          h('div', { className: 'me-frame me-pad', style: { flex: 1 } },
-            h('div', { className: 'me-h' }, h('b', {}, '验收门'), h('span', { className: 'me-cap' }, 'GATES')),
-            h('table', {}, h('tbody', {},
-              gateCell('① 原文逐字一致 · 区间不倒置 · 不晚于写成', gatePass('①'), P.length),
-              h('tr', {}, h('td', {}, '② 兜底命中率（供抽样核对）'), h('td', { className: 'me-num' }, pct(fb))),
-              gateCell('③ 每条提及恰属一个事件 · 事件内类型一致', gatePass('③'), P.length),
-              gateCell('④ 每条发现可回溯原始提及', gatePass('④'), P.length),
-              h('tr', {}, h('td', {}, '源文件只读核对'), h('td', { className: run.sourceCheck ? (run.sourceCheck.changed ? 'me-warn' : 'me-ok') : 'me-faint' }, run.sourceCheck ? (run.sourceCheck.changed ? `${run.sourceCheck.changed} 个变化` : '一致') : '—')))),
-            h('div', { className: 'me-sec' }, h('b', {}, '发现'), h('span', { className: 'me-cap' }, 'FINDINGS')),
-            Object.keys(verdicts).length ? h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 6 } }, Object.entries(verdicts).sort((a, b) => b[1] - a[1]).map(([k, v]) => h('span', { key: k, className: `me-chip ${VERDICT_CLS[k] ?? ''}` }, `${k} ${v}`))) : h('div', { className: 'me-faint' }, '—'),
-            (run.warnings ?? []).map((w, i) => h('div', { key: i, className: 'me-warn', style: { marginTop: 6 } }, `⚠ ${w}`)),
-            run.error ? h('div', { className: 'me-err', style: { marginTop: 8 } }, run.error.split('\n')[0]) : null)))
+      const gateRow = (g) => [`验收${g}`, `${gatePass(g)}/${P.length}`, gatePass(g) === P.length ? 'ok' : 'warn']
+      const st = (no, nm, sub, big, unit, rows, state, frac) => ({ no, nm, sub, big, unit, rows, state, frac: frac ?? doneFrac })
+      const stations = [
+        st('S01', '读入·片段', '切片段、挂可见时间、剔除作废记录', fmt(sum((p) => p.counts.fragments)), '片段', [['病人', `${t.done}/${t.patients}`, '']], stOf('S01')),
+        st('S02', '提及抽取', '栏目→句→分句→顿号；两个时间', fmt(t.mentions), '提及', [gateRow('①')], stOf('S02')),
+        st('S03', '类型切分', '事实／判断／决策 → 细分 → 细项', typeTotal ? `${Math.round((types['事实'] ?? 0) / typeTotal * 100)}%` : '—', '事实', [['兜底率', pct(fb), '']], stOf('S03')),
+        st('S04', '事件归并·印证', '同概念＋时间相容＋同就诊；前后印证', fmt(t.events), '事件', [gateRow('③')], stOf('S04')),
+        st('S05', '矛盾判断', 'R1–R10；七类判定、建议采信', fmt(t.findings), '发现', [gateRow('④')], stOf('S05')),
+        st('S06', '人工复核', '需人工确认的发现、药名映射、模型分歧', fmt(reviewN), '项待办', [['模型建议', fmt(t.suggestions), '']], reviewN ? 'hold' : running ? 'part' : 'done', 1),
+        st('S07', '交付', '生成事件包 → 整批汇总表 → 只读核对 → 移交', run.output ? '已交付' : `${t.done}/${t.patients}`, run.output ? '' : '事件包', [['输出', run.output ? '已写出' : '未交付', run.output ? 'ok' : '']], running ? stOf('S07') : run.output ? 'done' : 'idle', run.output ? 1 : doneFrac),
+      ]
+      const defSel = Math.max(1, stations.findIndex((s) => s.state === 'run' || s.state === 'hold'))
+      const [selK, setSelK] = useState(null)
+      const k = selK ?? defSel
+      const hot = stations.filter((s) => s.state === 'run' || s.state === 'hold')
+      return h('div', { className: 'me-col me-scroll', style: { flex: 1 } },
+        h('div', { style: { display: 'flex', gap: 8, flex: 'none' } },
+          h('div', { className: 'me-frame me-hero', style: { flex: 1, minWidth: 0 } },
+            h('div', { className: 'me-hero-cap' },
+              h('span', { className: 'me-cap', style: { color: 'var(--ink2)' } }, '处理流程 · PLANT'),
+              h('span', { className: 'me-faint me-num', style: { fontSize: 10.5 } }, run.input),
+              h('span', { className: 'me-sp' }),
+              hot.length ? h('span', { className: 'me-live' }, h('i'), hot.map((s) => `${s.no} ${STATE_LABEL[s.state]}`).join(' · ')) : h('span', { className: 'me-live ok' }, h('i'), '全部完成')),
+            h(PlantScene, {
+              stations, sel: k, onSel: setSelK, running, done: t.done, total: t.patients, current: run.current,
+              reviewPatients: P.filter((p) => p.review.findings > 0).length,
+              gates: Object.fromEntries(['①', '③', '④'].map((g) => [g, { n: gatePass(g), of: P.length }])), fallback: pct(fb),
+              failed: P.filter((p) => p.failedGates.length).map((p) => ({ patient: p.patient, gate: p.failedGates[0] })),
+              model: run.model ? { name: run.model.model, calls: t.modelCalls, sugg: t.suggestions } : null, goto, openPatient,
+            }),
+            h('div', { className: 'me-hud br' },
+              h('div', {}, h('i', { className: 'sw hot' }), '运行中／待复核'), h('div', {}, h('i', { className: 'sw clay' }), '已完成'),
+              h('div', {}, h('i', { className: 'sw box' }), '箱子＝一位病人'), h('div', {}, h('i', { className: 'sw red' }), '红箱＝验收门未过，带红标交付'),
+              h('div', {}, h('i', { className: 'sw vio' }), '紫灯＝模型补充（旁路）'), h('div', {}, h('i', { className: 'sw flow' }), '虚线：裁定回流，重跑沿用')),
+            h('div', { className: 'me-hero-legend' }, stations.map((s, i) => h('button', { key: s.no, className: `me-bay${i === k ? ' on' : ''} ${s.state}`, onClick: () => setSelK(i) }, h('b', {}, s.no), s.nm)))),
+          h(StationPanel, { s: stations[k], k, patients: P, openPatient })),
+        h('div', { className: 'me-grid4' },
+          h(GatesPanel, { P, gatePass, fb, types, typeTotal, run }),
+          h(BatchPanel, { run, P, fb, openPatient }),
+          h(FindingsPanel, { P, t, verdicts }),
+          h(AlertsPanel, { run, P, t, fb, goto })))
+    }
+
+    /* ----------------------------------------------------------- 2.5D scenes */
+    // 等轴测投影：i 轴向右下、j 轴向左下、z 向上（30°）
+    // 投影（与匿名化插件的产线一致）：i 轴向右、略向下（约 15°），j 轴向左下；流程沿 i 轴，读起来接近水平
+    const IX = [0.94, 0.26]; const JX = [-0.66, 0.58]
+    const iso = (i, j, z = 0) => [i * IX[0] + j * JX[0], i * IX[1] + j * JX[1] - z]
+    /** 地面上的远近（越大越靠前），用来排画的先后。 */
+    const depthOf = (i, j) => i * IX[1] + j * JX[1]
+    /** 等轴测长方体：底面从 (i, j) 起、沿 i 长 a、沿 j 长 b、高 hh，底在 z。返回 [左面, 右面, 顶面]。 */
+    function isoBox(key, i, j, z, a, b, hh, { top, left, right, edge, roofClass, props } = {}) {
+      const s = edge ? { stroke: edge, strokeWidth: 0.6, strokeLinejoin: 'round' } : {}
+      return [
+        h('polygon', { key: `${key}l`, points: pts([iso(i, j + b, z), iso(i + a, j + b, z), iso(i + a, j + b, z + hh), iso(i, j + b, z + hh)]), fill: left, ...s, ...props }),
+        h('polygon', { key: `${key}r`, points: pts([iso(i + a, j, z), iso(i + a, j + b, z), iso(i + a, j + b, z + hh), iso(i + a, j, z + hh)]), fill: right, ...s, ...props }),
+        h('polygon', { key: `${key}t`, className: roofClass, points: pts([iso(i, j, z + hh), iso(i + a, j, z + hh), iso(i + a, j + b, z + hh), iso(i, j + b, z + hh)]), fill: top, ...s, ...props }),
+      ]
+    }
+    /** 左面（j＝常数）上的贴片：i 从 i0 到 i1、z 从 z0 到 z1。 */
+    const leftPatch = (key, i0, i1, j, z0, z1, props) => h('polygon', { key, points: pts([iso(i0, j, z0), iso(i1, j, z0), iso(i1, j, z1), iso(i0, j, z1)]), ...props })
+    /** 右面（i＝常数）上的贴片。 */
+    const rightPatch = (key, i, j0, j1, z0, z1, props) => h('polygon', { key, points: pts([iso(i, j0, z0), iso(i, j1, z0), iso(i, j1, z1), iso(i, j0, z1)]), ...props })
+    /** 竖直圆柱（烟囱、储罐）。 */
+    function isoCyl(key, ci, cj, z, r, hh, C) {
+      const [x0, y0] = iso(ci, cj, z); const [, y1] = iso(ci, cj, z + hh)
+      const rx = r * 1.12; const ry = r * 0.62
+      return [
+        h('ellipse', { key: `${key}b`, cx: x0, cy: y0, rx, ry, fill: C.right }),
+        h('rect', { key: `${key}m`, x: x0 - rx, y: y1, width: rx * 2, height: y0 - y1, fill: 'url(#me-cyl)' }),
+        h('ellipse', { key: `${key}t`, cx: x0, cy: y1, rx, ry, fill: C.top, stroke: C.edge, strokeWidth: 0.6 }),
+        h('ellipse', { key: `${key}h`, cx: x0, cy: y1, rx: rx * 0.62, ry: ry * 0.62, fill: C.hole }),
+      ]
+    }
+    // 黏土模型配色（深浅主题共用一套偏暖的灰米色）
+    const CLAY = {
+      dark: { top: '#d9d3c5', left: '#b3ac9c', right: '#8c8576', edge: 'rgba(0,0,0,.28)', top2: '#e6e1d4', left2: '#c2bba9', right2: '#9d9685', win: '#3b362d', hole: '#4a443a', pad: '#2a2620', padL: '#1f1c17', padR: '#191612', grid: '#ece6da', floorShadow: '#000', card: 'rgba(14,13,11,.88)', cardLine: '#4a4336', lamp: '#f4e6c4' },
+      light: { top: '#e9e4d8', left: '#cbc4b3', right: '#aaa392', edge: 'rgba(60,50,30,.22)', top2: '#f4f0e6', left2: '#d8d1bf', right2: '#b8b19f', win: '#6d6556', hole: '#8a8270', pad: '#ddd7ca', padL: '#cbc4b4', padR: '#bab3a2', grid: '#6b6458', floorShadow: '#5a4a30', card: 'rgba(255,253,248,.94)', cardLine: '#d0c9b9', lamp: '#f2c46e' },
+    }
+    function useClay() { const P = React.useContext(ThemeCtx); return [P, P === PAL.light ? CLAY.light : CLAY.dark] }
+
+    /**
+     * 产线主视图：一座黏土质感的等轴测小工厂，按阅读顺序从左上走到右下。
+     * S01 进料楼 → S02–S06 主厂房的五个跨（屋顶设备：运行中的跨按进度点亮、待复核的跨整跨发光）
+     * → S07 交付堆场；厂房前有管廊，运行时管廊上的灯流动。点任意一跨看右侧详情。
+     */
+    function PlantScene({ stations, sel, onSel, running, done = 0, total = 0, current = null, reviewPatients = 0, gates = {}, fallback = '—', failed = [], model = null, goto = () => {}, openPatient = () => {} }) {
+      const [P, C] = useClay()
+      const A = P.teal
+      const tone = (s) => (s.state === 'hold' ? A : s.state === 'run' ? A : null)
+      const L = 150; const bw = 72; const D = 104; const H = 50 // 工序间距、每栋长、进深、高（间隔处是走廊）
+      const h0 = 84 + (L - bw) // S02 起点 i（S01 楼到 i=84，中间留走廊）
+      const bay0 = (k) => h0 + (k - 1) * L // S02–S06 各栋起点
+      const hallEnd = bay0(5) + bw
+      const yard = hallEnd + (L - bw) // 堆场起点
+      const els = []; const defs = []; const bb = []
+      const click = (k) => ({ onClick: () => onSel(k), style: { cursor: 'pointer' } })
+      const halo = { stroke: C.card, strokeWidth: 3, paintOrder: 'stroke', strokeLinejoin: 'round' }
+      const AMB = { top: shade(A, 0.3), left: A, right: shade(A, -0.32) }
+      const RED = { top: shade(P.bad, 0.3), left: P.bad, right: shade(P.bad, -0.35) }
+      const CL2 = { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }
+
+      // 地面网格（中心清晰、四周渐隐）
+      const gi0 = -120; const gi1 = yard + 220; const gj0 = -90; const gj1 = D + 170
+      const grid = []
+      for (let i = gi0; i <= gi1; i += 40) { const a = iso(i, gj0); const b = iso(i, gj1); grid.push(h('line', { key: `gi${i}`, x1: a[0], y1: a[1], x2: b[0], y2: b[1] })) }
+      for (let j = gj0; j <= gj1; j += 40) { const a = iso(gi0, j); const b = iso(gi1, j); grid.push(h('line', { key: `gj${j}`, x1: a[0], y1: a[1], x2: b[0], y2: b[1] })) }
+      defs.push(h('radialGradient', { key: 'rg', id: 'me-fade', cx: '50%', cy: '55%', r: '55%' }, h('stop', { offset: 0, stopColor: '#fff', stopOpacity: 1 }), h('stop', { offset: 1, stopColor: '#fff', stopOpacity: 0 })))
+      defs.push(h('filter', { key: 'bl', id: 'me-blur', x: '-30%', y: '-30%', width: '160%', height: '160%' }, h('feGaussianBlur', { stdDeviation: 9 })))
+      defs.push(h('filter', { key: 'gl', id: 'me-glow', x: '-50%', y: '-50%', width: '200%', height: '200%' }, h('feGaussianBlur', { stdDeviation: 3.5, result: 'b' }), h('feMerge', {}, h('feMergeNode', { in: 'b' }), h('feMergeNode', { in: 'SourceGraphic' }))))
+      defs.push(h('marker', { key: 'ar', id: 'me-arr', viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto' }, h('path', { d: 'M0 0L10 5L0 10z', fill: P.ink2 })))
+      defs.push(h('linearGradient', { key: 'cy', id: 'me-cyl', x1: 0, x2: 1, y1: 0, y2: 0 }, h('stop', { offset: 0, stopColor: C.left2 }), h('stop', { offset: 0.55, stopColor: C.left }), h('stop', { offset: 1, stopColor: C.right })))
+      els.push(h('g', { key: 'grid', stroke: C.grid, strokeOpacity: 0.07, strokeWidth: 0.8, mask: 'url(#me-gridmask)' }, grid))
+
+      // 落地阴影（光从左上来，影子落向右前）
+      const shadow = (key, i, j, a, b, push = 26) => h('polygon', { key, points: pts([iso(i + 6, j + 4), iso(i + a + push, j + 4), iso(i + a + push, j + b + push * 0.5), iso(i + 6, j + b + push * 0.5)]), fill: C.floorShadow, opacity: 0.55, filter: 'url(#me-blur)' })
+      els.push(shadow('sh1', 0, 8, 84, 100), shadow('sh3', yard, 6, 150, 130, 14))
+      for (let k = 1; k <= 5; k++) els.push(shadow(`sb${k}`, bay0(k), 0, bw, D, 24))
+
+      // 选中跨的地面高亮
+      const footprint = (k) => (k === 0 ? [0, 8, 84, 100] : k === 6 ? [yard, 6, 150, 130] : [bay0(k), 0, bw, D])
+      {
+        const [fi, fj, fa, fb] = footprint(sel)
+        const m = 10
+        const corners = [[fi - m, fj - m], [fi + fa + m, fj - m], [fi + fa + m, fj + fb + m], [fi - m, fj + fb + m]]
+        els.push(h('polygon', { key: 'selfloor', points: pts(corners.map(([a, b]) => iso(a, b))), fill: A, opacity: 0.07 }))
+        // 四角括号
+        corners.forEach(([ci, cj], q) => {
+          const di = q === 0 || q === 3 ? 1 : -1; const dj = q < 2 ? 1 : -1
+          els.push(h('polyline', { key: `br${q}`, points: pts([iso(ci + di * 16, cj), iso(ci, cj), iso(ci, cj + dj * 16)]), fill: 'none', stroke: A, strokeWidth: 1.6, opacity: 0.9 }))
+        })
+      }
+
+      // S01 进料楼（较高的独立楼，左侧有进料坡道）
+      {
+        const s = stations[0]; const g = []
+        g.push(...isoBox('ramp', -60, 44, 0, 60, 24, 8, { top: C.top, left: C.left, right: C.right, edge: C.edge }))
+        g.push(...isoBox('b', 0, 8, 0, 84, 100, 88, { top: C.top, left: C.left, right: C.right, edge: C.edge }))
+        g.push(...isoBox('cap', 8, 18, 88, 50, 40, 10, { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
+        g.push(...isoBox('vent', 56, 70, 88, 18, 22, 14, { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
+        // 窗户＝病人：已读入的比例点亮（运行中用琥珀色，完成后是暖白）
+        const wins = []
+        for (let z = 66; z >= 14; z -= 13) for (let i = 8; i < 78; i += 12) wins.push([i, z])
+        const litN = Math.round((total ? done / total : 0) * wins.length)
+        wins.forEach(([i, z], q) => {
+          const lit = q < litN
+          const col = lit ? (s.state === 'run' ? A : C.lamp) : C.win
+          g.push(leftPatch(`w${z}-${i}`, i, i + 7, 108, z, z + 6, { fill: col, opacity: lit ? 0.95 : 0.55, filter: lit && s.state === 'run' ? 'url(#me-glow)' : undefined }))
+        })
+        els.push(h('g', { key: 's01', ...click(0) }, h('title', {}, `${s.no} ${s.nm}`), g))
+      }
+
+      // 走廊：工序之间一段带窗的连廊，灯点沿它流动（运行时琥珀色、快）
+      // 验收门：门①③④有人没过就是红色，门②只报兜底率（灰色，不拦人）
+      const GATE_AFTER = { 2: '①', 3: '②', 4: '③', 5: '④' } // 通往第 k 栋的走廊上，是前一道工序的出口门
+      const corridor = (key, i0, i1, k) => {
+        const cj = D - 30 // 贴着楼的前沿，楼与楼之间看得见
+        const a = iso(i0, cj + 24, 24); const b = iso(i1, cj + 24, 24)
+        const g = GATE_AFTER[k]
+        let gate = null
+        if (g) {
+          const info = gates[g]
+          const gc = g === '②' ? P.ink2 : info && info.n < info.of ? P.bad : P.ok
+          const gi = (i0 + i1) / 2
+          const label = g === '②' ? `② 兜底 ${fallback}` : `${g} ${info ? `${info.n}/${info.of}` : '—'}`
+          const lt = iso(gi, cj + 12, 54)
+          gate = h('g', { key: 'gate' },
+            h('polyline', { points: pts([iso(gi, cj - 2, 32), iso(gi, cj - 2, 46), iso(gi, cj + 26, 46), iso(gi, cj + 26, 32)]), fill: 'none', stroke: gc, strokeWidth: 2.2, strokeLinejoin: 'round' }),
+            h('text', { x: lt[0], y: lt[1], textAnchor: 'middle', fill: gc, fontSize: 10, fontFamily: MONO, ...halo }, h('title', {}, g === '②' ? '验收门②：兜底命中率，供抽样核对，不拦人' : `验收门${g}：不过就停在这一步，后续工序不算`), label))
+        }
+        return h('g', { key },
+          isoBox('c', i0, cj, 14, i1 - i0, 24, 18, { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }),
+          leftPatch('cw', i0 + 2, i1 - 2, cj + 24, 19, 29, { fill: C.win, opacity: 0.6 }),
+          h('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: running ? A : P.ink3, strokeWidth: 2.4, strokeLinecap: 'round', strokeDasharray: '2 8', className: 'me-flow', style: { animationDuration: running ? '0.9s' : '3.2s' }, filter: running ? 'url(#me-glow)' : undefined, opacity: running ? 1 : 0.7 }),
+          gate)
+      }
+
+      // S02–S06：每道工序一栋小楼
+      for (let k = 1; k <= 5; k++) {
+        const s = stations[k]; const i0 = bay0(k)
+        const c = tone(s)
+        const lit = !!c
+        els.push(corridor(`co${k}`, k === 1 ? 84 : bay0(k - 1) + bw, i0, k))
+        const g = []
+        g.push(...isoBox('b', i0, 0, 0, bw, D, H, { top: C.top, left: C.left, right: C.right, edge: C.edge }))
+        g.push(leftPatch('plinth', i0, i0 + bw, D, 0, 5, { fill: C.right, opacity: 0.6 }))
+        for (let w = 0; w < 3; w++) {
+          const wi = i0 + 8 + w * 20
+          g.push(leftPatch(`hw${w}`, wi, wi + 12, D, 20, 36, { fill: lit ? A : C.win, opacity: lit ? 0.85 : 0.6, filter: lit ? 'url(#me-glow)' : undefined }))
+        }
+        // 屋顶设备：运行中按进度点亮，待复核整栋点亮
+        const roof = []
+        for (let a = 0; a < 4; a++) for (let b2 = 0; b2 < 2; b2++) {
+          if (k === 4 && b2 === 1) continue
+          if (k === 5 && b2 === 1 && a >= 2) continue
+          roof.push([b2, a])
+        }
+        roof.sort((p, q) => depthOf(p[0] * 30, p[1] * 24) - depthOf(q[0] * 30, q[1] * 24))
+        const litN = s.state === 'hold' ? roof.length : s.state === 'run' ? Math.round((s.frac ?? 0) * roof.length) : 0
+        roof.forEach(([b2, a], idx) => {
+          const ui = i0 + 8 + b2 * 30; const uj = 8 + a * 24
+          const on = idx < litN && c
+          g.push(...isoBox(`u${a}${b2}`, ui, uj, H, 20, 18, 7, on ? { top: shade(c, 0.25), left: c, right: shade(c, -0.3), props: { filter: 'url(#me-glow)' } } : { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
+          const f = iso(ui + 10, uj + 9, H + 7)
+          g.push(h('ellipse', { key: `f${a}${b2}`, cx: f[0], cy: f[1], rx: 7.5, ry: 4, fill: on ? shade(c, -0.45) : C.hole, opacity: 0.85 }))
+        })
+        if (k === 4) [[i0 + 50, 20], [i0 + 54, 50], [i0 + 50, 80]].forEach(([ci, cj], q) => g.push(...isoCyl(`st${q}`, ci, cj, H, 5, 30 + q * 6, C)))
+        if (k === 5) g.push(...isoBox('ctl', i0 + 36, 56, H, 26, 36, 16, { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }), leftPatch('ctlw', i0 + 39, i0 + 59, 92, H + 6, H + 12, { fill: c ?? C.win, opacity: c ? 0.9 : 0.6 }))
+        if (sel === k) g.push(h('polygon', { key: 'selroof', points: pts([iso(i0 + 2, 2, H + 0.5), iso(i0 + bw - 2, 2, H + 0.5), iso(i0 + bw - 2, D - 2, H + 0.5), iso(i0 + 2, D - 2, H + 0.5)]), fill: 'none', stroke: A, strokeWidth: 1.4, strokeDasharray: '5 4', opacity: 0.9 }))
+        els.push(h('g', { key: `bay${k}`, className: s.state === 'hold' ? 'me-breathe' : undefined, ...click(k) }, h('title', {}, `${s.no} ${s.nm}：${s.sub}`),
+          h('polygon', { points: pts([iso(i0, 0, H), iso(i0 + bw, 0, H), iso(i0 + bw, D, H), iso(i0 + bw, D, 0), iso(i0, D, 0), iso(i0, D, H)]), fill: 'transparent' }), g))
+      }
+      els.push(corridor('co6', hallEnd, yard, 6))
+
+      // S07 交付堆场：地坪＋三台出货单元
+      {
+        const s = stations[6]; const g = []
+        g.push(...isoBox('pad', yard, 6, 0, 150, 130, 4, { top: C.pad, left: C.padL, right: C.padR }))
+        const delivered = s.state === 'done'
+        const unit = (key, ui, uj) => {
+          g.push(...isoBox(key, ui, uj, 4, 34, 34, 22, { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
+          const f = iso(ui + 17, uj + 17, 26)
+          g.push(h('ellipse', { key: `${key}f`, cx: f[0], cy: f[1], rx: 13, ry: 7.5, fill: C.hole }), h('ellipse', { key: `${key}g`, cx: f[0], cy: f[1], rx: 9, ry: 5, fill: 'none', stroke: C.left, strokeWidth: 1 }))
+        }
+        // 后排两台出货单元；前面每只箱子＝一位已交付的病人（最多画 12 只）
+        unit('du0', yard + 18, 14); unit('du1', yard + 98, 14)
+        const crates = delivered ? Math.min(done, 12) : 0
+        const cells = []
+        for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) cells.push([yard + 12 + c * 34, 58 + r * 24])
+        const redN = Math.min(crates, failed.length)
+        cells.slice(0, crates).map((c, q) => [...c, q < redN]).sort((a, b) => depthOf(a[0], a[1]) - depthOf(b[0], b[1])).forEach(([ci, cj, red], q) => {
+          g.push(...isoBox(`cr${q}`, ci, cj, 4, 22, 18, 13, red ? RED : { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
+          const a = iso(ci, cj + 9, 17); const b = iso(ci + 22, cj + 9, 17)
+          g.push(h('line', { key: `ct${q}`, x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: A, strokeWidth: 1.4, opacity: 0.85 }))
+        })
+        if (delivered) {
+          const m = [[yard + 4, 10], [yard + 146, 10], [yard + 146, 132], [yard + 4, 132]]
+          m.forEach(([ci, cj], q) => {
+            const di = q === 0 || q === 3 ? 1 : -1; const dj = q < 2 ? 1 : -1
+            g.push(h('polyline', { key: `dk${q}`, points: pts([iso(ci + di * 12, cj, 4), iso(ci, cj, 4), iso(ci, cj + dj * 12, 4)]), fill: 'none', stroke: A, strokeWidth: 1.8, filter: 'url(#me-glow)' }))
+          })
+        }
+        els.push(h('g', { key: 's07', opacity: s.state === 'idle' ? 0.6 : 1, ...click(6) }, h('title', {}, `${s.no} ${s.nm}`), g))
+      }
+
+      {
+        const [x, y] = iso(yard + 6, 150)
+        els.push(h('g', { key: 'yardcap', transform: `matrix(${IX[0]} ${IX[1]} ${JX[0]} ${JX[1]} ${x.toFixed(1)} ${y.toFixed(1)})`, pointerEvents: 'none' },
+          h('text', { x: 0, y: 0, fill: P.ink3, fontSize: 9.5 }, '生成事件包 → 整批汇总表 → 只读核对 → 移交')))
+      }
+
+      // 每道工序门前的排队：箱子＝病人，堆得越高等得越多（和匿名化插件的产线一致）
+      {
+        const waiting = Math.max(0, total - done - (current ? 1 : 0))
+        const loads = [waiting, 0, 0, 0, 0, reviewPatients, running ? done : 0]
+        const what = ['人等待读入', '', '', '', '', '人待复核', '人等待交付']
+        const pileAt = (k) => (k === 0 ? [12, 116] : k === 6 ? [yard + 14, 92] : [bay0(k) + 14, D + 12])
+        const pileZ = (k) => (k === 6 ? 4 : 0)
+        loads.forEach((n, k) => {
+          if (!n) return
+          const [pi, pj] = pileAt(k)
+          const hot = k === 5 || stations[k].state === 'run'
+          const shown = Math.min(36, n)
+          const g = []
+          for (let q = 0; q < shown; q++) {
+            const lv = Math.floor(q / 6); const a = q % 3; const c = Math.floor((q % 6) / 3)
+            const ci = pi + a * 13; const cj = pj + c * 12; const z = pileZ(k) + lv * 9
+            g.push(...isoBox(`p${q}`, ci, cj, z, 11, 10, 8, hot ? { top: shade(A, 0.3), left: A, right: shade(A, -0.32) } : { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
+            if (!hot) { const t1 = iso(ci, cj + 5, z + 8); const t2 = iso(ci + 11, cj + 5, z + 8); g.push(h('line', { key: `pt${q}`, x1: t1[0], y1: t1[1], x2: t2[0], y2: t2[1], stroke: A, strokeWidth: 1, opacity: 0.8 })) }
+          }
+          const top = iso(pi + 19, pj + 11, pileZ(k) + Math.ceil(shown / 6) * 9 + 10)
+          els.push(h('g', { key: `q${k}`, ...click(k) }, h('title', {}, `${stations[k].no} 门前排队：${n} ${what[k]}`), g,
+            h('text', { x: top[0], y: top[1], textAnchor: 'middle', fill: A, fontSize: 17, fontWeight: 700, fontFamily: MONO, stroke: C.card, strokeWidth: 3.5, paintOrder: 'stroke' }, String(n)),
+            h('text', { x: top[0], y: top[1] + 13, textAnchor: 'middle', fill: P.ink, fontSize: 10, stroke: C.card, strokeWidth: 3, paintOrder: 'stroke' }, what[k] ? `排队 · ${what[k].replace(/^人/, '')}` : '排队')))
+          bb.push(iso(pi, pj + 24), iso(pi + 39, pj, 70))
+        })
+      }
+
+      // 验收门未过的病人：红箱停在那道门后面（后续工序不算），照样带红标交付
+      {
+        const byGate = {}
+        for (const f of failed) (byGate[f.gate] = byGate[f.gate] ?? []).push(f)
+        const after = { '①': 2, '②': 3, '③': 4, '④': 5 }
+        Object.entries(byGate).forEach(([g, list]) => {
+          const k = after[g]; if (!k) return
+          const gi = (bay0(k - 1) + bw + bay0(k)) / 2 - 7
+          const gg = []
+          list.slice(0, 6).forEach((f, q) => gg.push(h('g', { key: f.patient, onClick: () => openPatient(f.patient), style: { cursor: 'pointer' } }, h('title', {}, `${f.patient}：验收门${g}未过`), isoBox(`rc${q}`, gi + (q % 2) * 15 - 4, D + 6 + Math.floor(q / 2) * 13, 0, 13, 12, 11, RED))))
+          const lp = iso(gi - 30, D + 30)
+          gg.push(h('text', { key: 't', x: lp[0], y: lp[1] + 16, textAnchor: 'end', fill: P.bad, fontSize: 10, ...halo }, `${list.length} 人未过${g} · 后续不算，带红标交付`))
+          els.push(h('g', { key: `red${g}` }, gg))
+        })
+      }
+
+      // 正在处理的病人：一只发光的箱子停在它所在那一站的门口
+      if (running && current?.stage) {
+        const k = { S01: 0, S02: 1, S03: 2, S04: 3, S05: 4, S07: 6 }[current.stage]
+        const at = current.stage === 'model' ? [bay0(4) + 2, D + 112] : k === 0 ? [44, 110] : k === 6 ? [yard + 8, 140] : k != null ? [bay0(k) + 30, D + 6] : null
+        if (at) {
+          const tp = iso(at[0] + 8, at[1] + 7, 34)
+          els.push(h('g', { key: 'cur' }, h('g', { filter: 'url(#me-glow)', className: 'me-pulse' }, isoBox('cc', at[0], at[1], 0, 16, 14, 13, AMB)),
+            h('text', { x: tp[0], y: tp[1], textAnchor: 'middle', fill: A, fontSize: 10.5, fontWeight: 700, ...halo }, `处理中 ${String(current.patient).split('/').pop()}`)))
+        }
+      }
+
+      // 模型补充（旁路）：S05 之后取一份结果，只出建议，送到 S06；没配模型时灯是暗的
+      {
+        const on = !!model; const V = P.vio
+        const mi = bay0(4) + 2; const mj = D + 118; const ma = 70; const mb = 42; const mh = 28
+        const g = []
+        g.push(...isoBox('mp', mi - 6, mj - 6, -3, ma + 12, mb + 12, 3, { top: C.pad, left: C.padL, right: C.padR }))
+        const pipe = (key, from, to) => { const a = iso(...from); const b = iso(...to); return h('line', { key, x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: on ? V : C.left2, strokeWidth: on ? 1.8 : 1.4, strokeDasharray: '3 6', className: on ? 'me-flow' : undefined, filter: on ? 'url(#me-glow)' : undefined, opacity: on ? 1 : 0.5 }) }
+        g.push(pipe('p1', [bay0(4) + 22, D, 22], [mi + 14, mj, mh - 4]), pipe('p2', [mi + ma - 14, mj, mh - 4], [bay0(5) + 22, D, 22]))
+        g.push(...isoBox('mb', mi, mj, 0, ma, mb, mh, { top: C.top, left: C.left, right: C.right, edge: C.edge }))
+        for (let w = 0; w < 3; w++) g.push(leftPatch(`mw${w}`, mi + 8 + w * 20, mi + 20 + w * 20, mj + mb, 9, 19, { fill: on ? V : C.win, opacity: on ? 0.9 : 0.55, filter: on ? 'url(#me-glow)' : undefined }))
+        g.push(...isoBox('mbk', mi + 48, mj + 14, mh, 10, 10, 7, on ? { top: shade(V, 0.3), left: V, right: shade(V, -0.3) } : CL2))
+        const lt = iso(mi - 10, mj + mb + 10)
+        g.push(h('text', { key: 't1', x: lt[0], y: lt[1] + 6, textAnchor: 'end', fill: on ? V : P.ink3, fontSize: 11, fontWeight: 600, ...halo }, '模型补充（旁路）'),
+          h('text', { key: 't2', x: lt[0], y: lt[1] + 20, textAnchor: 'end', fill: P.ink2, fontSize: 9.5, ...halo }, on ? `调用 ${fmt(model.calls)} · 建议 ${fmt(model.sugg)} · 不改规则结果` : '未配置模型 · 只跑规则'))
+        els.push(h('g', { key: 'model', onClick: () => goto('calls'), style: { cursor: 'pointer' } }, h('title', {}, on ? `模型补充：${model.name}` : '未配置模型'), g))
+        bb.push(iso(mi - 6, mj + mb + 6), iso(mi - 160, mj + mb + 40), iso(mi + ma, mj + mb + 6))
+      }
+
+      // 人工复核的回流：裁定写入裁定表，重跑时沿用到 S05
+      {
+        const a = iso(bay0(5) + 40, D + 40); const b = iso(bay0(4) + 50, D + 40)
+        const mx = (a[0] + b[0]) / 2; const my = Math.max(a[1], b[1]) + 34
+        els.push(h('g', { key: 'loop', pointerEvents: 'none' },
+          h('path', { d: `M${a[0].toFixed(1)} ${a[1].toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`, fill: 'none', stroke: P.ink2, strokeWidth: 1.4, strokeDasharray: '5 5', markerEnd: 'url(#me-arr)' }),
+          h('text', { x: mx, y: my - 8, textAnchor: 'middle', fill: P.ink2, fontSize: 10, ...halo }, '裁定写入裁定表 · 重跑沿用')))
+      }
+
+      // 每道工序的标签卡（选中的那张在下面单独画大卡）
+      const anchor = (k) => (k === 0 ? iso(42, 58, 112) : k === 6 ? iso(yard + 75, 70, 40) : iso(bay0(k) + bw / 2, D / 2, H + 30))
+      const gateFill = { ok: P.ok, warn: P.warn, '': P.ink3 }
+      stations.forEach((s, k) => {
+        if (k === sel) return
+        const [x, y] = anchor(k)
+        const hotS = s.state === 'hold' || s.state === 'run'
+        const cw = 112; const ch = 36; const cx = x + 30; const cy = y - 70 - ch
+        const [gl, gv, gc] = s.rows[0] ?? []
+        bb.push([cx, cy], [cx + cw, cy + ch])
+        els.push(h('g', { key: `tag${k}`, ...click(k) },
+          h('polyline', { points: pts([[x, y], [x, y - 20], [cx, cy + ch]]), fill: 'none', stroke: hotS ? A : C.grid, strokeOpacity: hotS ? 0.8 : 0.35 }),
+          h('circle', { cx: x, cy: y, r: 1.8, fill: hotS ? A : C.grid, opacity: hotS ? 1 : 0.5 }),
+          h('rect', { x: cx, y: cy, width: cw, height: ch, rx: 2, fill: C.card, stroke: hotS ? A : C.cardLine, strokeOpacity: hotS ? 0.8 : 1 }),
+          h('text', { x: cx + 7, y: cy + 13, fill: hotS ? A : P.ink3, fontSize: 8.5, fontFamily: MONO, letterSpacing: 0.5 }, s.no, h('tspan', { fill: P.ink2, dx: 5, fontFamily: 'inherit' }, s.nm)),
+          h('text', { x: cx + 7, y: cy + 29, fill: P.ink, fontSize: 12.5, fontWeight: 600, fontFamily: MONO }, s.big, s.unit ? h('tspan', { fontSize: 8.5, fontWeight: 400, fill: P.ink3, dx: 3 }, s.unit) : null),
+          gv ? h('text', { x: cx + cw - 7, y: cy + 29, textAnchor: 'end', fill: gateFill[gc] ?? P.ink3, fontSize: 9, fontFamily: MONO }, gv) : null))
+      })
+      // 选中跨的信息卡
+      {
+        const s = stations[sel]; const [x, y] = anchor(sel)
+        const rows = [[s.unit || '状态', s.big, ''], ...s.rows, ['完成', `${Math.round((s.frac ?? 0) * 100)}%`, ''], ['状态', STATE_LABEL[s.state], s.state === 'done' ? 'ok' : s.state === 'idle' ? '' : 'warn']]
+        const cw = 196; const ch = 34 + rows.length * 18
+        const cx = x + 70; const cy = y - 80 - ch
+        const fill = { ok: P.ok, warn: P.warn, '': P.ink }
+        bb.push([cx, cy], [cx + cw, cy + ch])
+        els.push(h('g', { key: 'card', className: 'me-cardin' },
+          h('polyline', { points: pts([[x, y], [x, y - 22], [cx, cy + ch]]), fill: 'none', stroke: A, strokeWidth: 1 }),
+          h('circle', { cx: x, cy: y, r: 3, fill: A, filter: 'url(#me-glow)' }),
+          h('rect', { x: cx, y: cy, width: cw, height: ch, rx: 3, fill: C.card, stroke: C.cardLine }),
+          h('rect', { x: cx, y: cy, width: 2, height: ch, fill: A }),
+          h('text', { x: cx + 14, y: cy + 20, fill: P.ink, fontSize: 12, fontWeight: 700, fontFamily: MONO, letterSpacing: 1 }, s.no, h('tspan', { fill: P.ink2, fontWeight: 400, dx: 8, fontSize: 11.5, fontFamily: 'inherit' }, s.nm)),
+          rows.map(([l, v, cls], i) => h('g', { key: i },
+            h('text', { x: cx + 14, y: cy + 42 + i * 18, fill: P.ink3, fontSize: 10.5 }, l),
+            h('text', { x: cx + cw - 12, y: cy + 42 + i * 18, textAnchor: 'end', fill: fill[cls] ?? P.ink, fontSize: 12, fontFamily: MONO }, v)))))
+      }
+
+      // 画布范围：建筑、贴字与信息卡（网格自然出血）
+      for (const [i, j, a, b, z] of [[-60, 44, 60, 24, 8], [0, 8, 84, 100, 112], [h0, 0, hallEnd - h0, D, H + 70], [yard, 6, 150, 160, 30], [bay0(4) - 10, D + 110, 90, 60, 30]]) {
+        for (const [di, dj] of [[0, 0], [a, 0], [a, b], [0, b]]) bb.push(iso(i + di, j + dj, 0), iso(i + di, j + dj, z))
+      }
+      const xs = bb.map((p) => p[0]); const ys = bb.map((p) => p[1])
+      const x0 = Math.min(...xs) - 24; const y0 = Math.min(...ys) - 16; const x1 = Math.max(...xs) + 24; const y1 = Math.max(...ys) + 16
+      defs.push(h('mask', { key: 'mk', id: 'me-gridmask', maskUnits: 'userSpaceOnUse', x: x0, y: y0, width: x1 - x0, height: y1 - y0 }, h('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: 'url(#me-fade)' })))
+      return h('svg', { className: 'me-scene', viewBox: `${x0} ${y0} ${x1 - x0} ${y1 - y0}`, style: { maxHeight: 620, overflow: 'hidden' } }, h('defs', {}, defs), els)
+    }
+
+    /** 右侧：选中工序的详情——小模型、按病人的指标柱、关键数字。 */
+    function StationPanel({ s, k, patients, openPatient }) {
+      const [P, C] = useClay()
+      const [label, get, show] = STATION_METRIC[k]
+      const vals = patients.map((p) => ({ p, v: get(p) ?? 0 }))
+      const max = Math.max(0, ...vals.map((x) => x.v))
+      const peak = vals.find((x) => x.v === max)
+      const avg = vals.length ? vals.reduce((a, x) => a + x.v, 0) / vals.length : 0
+      const peakN = vals.filter((x) => x.v === max).length
+      const flat = max === Math.min(...vals.map((x) => x.v))
+      const stateCls = s.state === 'hold' ? 'w' : s.state === 'run' ? 'w' : s.state === 'done' ? 'ok' : ''
+      const hotTone = s.state === 'run' || s.state === 'hold' ? P.teal : null
+      // 小模型：一个跨的特写
+      const model = []
+      model.push(...isoBox('pd', -8, -8, -4, 116, 96, 4, { top: C.pad, left: C.padL, right: C.padR }))
+      model.push(...isoBox('m', 0, 0, 0, 100, 80, 42, { top: C.top, left: C.left, right: C.right, edge: C.edge }))
+      for (let w = 0; w < 4; w++) model.push(leftPatch(`w${w}`, 10 + w * 22, 24 + w * 22, 80, 16, 30, { fill: hotTone ?? C.win, opacity: hotTone ? 0.85 : 0.6 }))
+      const roof = []
+      for (let a = 0; a < 2; a++) for (let b = 0; b < 3; b++) roof.push([b, a])
+      roof.sort((p, q) => depthOf(p[0] * 30, p[1] * 32) - depthOf(q[0] * 30, q[1] * 32)).forEach(([b, a], q) => {
+        const lit = hotTone && q < Math.max(1, Math.round((s.frac ?? 0) * 6))
+        model.push(...isoBox(`u${a}${b}`, 10 + b * 30, 12 + a * 32, 42, 22, 22, 9, lit ? { top: shade(hotTone, 0.25), left: hotTone, right: shade(hotTone, -0.3) } : { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }))
+        const f = iso(21 + b * 30, 23 + a * 32, 51)
+        model.push(h('ellipse', { key: `f${a}${b}`, cx: f[0], cy: f[1], rx: 8, ry: 4.6, fill: lit ? shade(hotTone, -0.45) : C.hole }))
+      })
+      return h('div', { className: 'me-frame me-side' },
+        h('div', { className: 'me-side-h' }, h('b', { className: 'me-num' }, s.no), h('span', {}, s.nm), h('span', { className: `me-chip ${stateCls}` }, STATE_LABEL[s.state])),
+        h('div', { className: 'me-side-sub' }, s.sub),
+        h('svg', { className: 'me-scene', viewBox: '-74 -74 186 158', style: { maxHeight: 160, margin: '6px 0' } }, model),
+        h('div', { className: 'me-side-big' }, h('span', { className: 'me-num' }, s.big), h('small', {}, s.unit)),
+        s.rows.map(([l, v, cls]) => h('div', { key: l, className: 'me-kvrow' }, h('span', {}, l), h('b', { className: `me-num ${cls === 'ok' ? 'me-ok' : cls === 'warn' ? 'me-warn' : ''}` }, v))),
+        h('div', { className: 'me-kvrow' }, h('span', {}, '完成'), h('b', { className: 'me-num' }, `${Math.round((s.frac ?? 0) * 100)}%`)),
+        h('div', { className: 'me-side-sec' }, h('span', {}, `${s.no} · 每位病人 · ${label}`), h('span', { className: 'me-tl' }, `峰值 ${show(max)}`)),
+        h('div', { className: 'me-hbars' }, vals.map(({ p, v }) => h('i', {
+          key: p.patient, title: `${p.patient}：${label} ${show(v)}`, onClick: () => openPatient(p.patient),
+          className: max > 0 && v === max && (peakN <= 3 || flat === false) && !flat ? 'pk' : v > avg || flat ? 'hi' : '', style: { height: `${max ? Math.max(4, v / max * 100) : 4}%` },
+        }))),
+        h('div', { className: 'me-side-foot' }, h('span', {}, `均值 ${show(avg)}`), h('span', {}, peak && max > 0 ? `峰值 ${peak.p.patient.split('/').pop()}` : '')))
+    }
+
+    /** 刻度条：n 根竖线，按比例点亮。 */
+    function Ticks({ v, n = 46, hot }) {
+      const on = Math.round(Math.max(0, Math.min(1, v ?? 0)) * n)
+      return h('div', { className: `me-ticks${hot ? ' hot' : ''}` }, Array.from({ length: n }, (_, i) => h('i', { key: i, className: i < on ? 'on' : '' })))
+    }
+
+    function GatesPanel({ P, gatePass, fb, types, typeTotal, run }) {
+      const n = P.length || 1
+      const rows = [
+        ['①', '原文逐字一致 · 区间不倒置', gatePass('①') / n],
+        ['③', '每条提及恰属一个事件', gatePass('③') / n],
+        ['④', '每条发现可回溯原始提及', gatePass('④') / n],
+        ['②', '兜底命中率', fb ?? 0, true],
+      ]
+      return h('div', { className: 'me-frame me-panel' },
+        h('div', { className: 'me-panel-h' }, h('b', {}, '验收门'), h('span', { className: 'me-cap' }, 'GATES'), h('span', { className: 'me-sp' }), h('span', { className: 'me-live' }, h('i'), `${P.length} 人`)),
+        rows.map(([g, label, v, rate, share]) => {
+          const bad = !rate && !share && v < 1
+          return h('div', { key: label, className: 'me-gl' },
+            h('div', { className: 'me-gl-h' }, h('span', {}, h('em', {}, g), label), h('b', { className: `me-num${bad ? ' me-warn' : ''}` }, rate || share ? pct(v) : v >= 1 ? '全部通过' : pct(v))),
+            h(Ticks, { v, hot: bad || (rate && v > 0.15) }))
+        }),
+        typeTotal ? h('div', { className: 'me-gl' },
+          h('div', { className: 'me-gl-h' }, h('span', {}, h('em', {}, '类'), '提及类型'), h('b', { className: 'me-num', style: { fontSize: 10.5 } }, ['事实', '判断', '决策'].map((k) => `${k[0]} ${Math.round((types[k] ?? 0) / typeTotal * 100)}`).join(' · '))),
+          h('div', { className: 'me-stack' }, ['事实', '判断', '决策'].map((k) => h('span', { key: k, style: { width: `${(types[k] ?? 0) / typeTotal * 100}%`, background: `var(--${{ 事实: 'fact', 判断: 'judge', 决策: 'decide' }[k]})` } })))) : null,
+        h('div', { className: 'me-panel-foot' }, run.sourceCheck ? (run.sourceCheck.changed ? h('span', { className: 'me-warn' }, `⚠ 源文件有 ${run.sourceCheck.changed} 个变化`) : h('span', {}, '◇ 源文件只读核对一致')) : h('span', { className: 'me-faint' }, '源文件只读核对 —')))
+    }
+
+    function BatchPanel({ run, P, fb, openPatient }) {
+      const t = run.totals
+      const cell = (label, v, unit, hot) => h('div', { className: 'me-met' }, h('small', {}, label), h('div', {}, h('span', { className: `me-num${hot ? ' me-tl' : ''}` }, v), unit ? h('em', {}, unit) : null))
+      const shown = P.slice(0, 16)
+      const failN = P.filter((p) => p.failedGates.length).length
+      const revN = P.filter((p) => !p.failedGates.length && p.review.findings).length
+      return h('div', { className: 'me-frame me-panel' },
+        h('div', { className: 'me-panel-h' }, h('b', {}, '批次'), h('span', { className: 'me-tagbox' }, run.status === 'running' ? 'RUN' : 'DONE'), h('span', { className: 'me-sp' }), statusChip(run.status)),
+        h('div', { className: 'me-mets' },
+          cell('完成', Math.round((t.patients ? t.done / t.patients : 0) * 100), '%', true), cell('提及', fmt(t.mentions), ''), cell('事件', fmt(t.events), ''),
+          cell('发现', fmt(t.findings), '条'), cell('待复核', fmt(t.review), '项', t.review > 0), cell('兜底率', fb == null ? '—' : (fb * 100).toFixed(1), '%')),
+        h('div', { className: 'me-panel-sec' }, h('span', {}, `病人 · ${P.length}`), h('span', {}, `${P.length - failN - revN} 通过 · ${revN} 待确认 · ${failN} 未过`)),
+        h('div', { className: 'me-pchips' }, shown.map((p) => h('button', { key: p.patient, title: p.patient, className: p.failedGates.length ? 'x' : p.review.findings ? 'w' : '', onClick: () => openPatient(p.patient) }, p.patient.split('/').pop().slice(-4))),
+          P.length > shown.length ? h('span', { className: 'me-faint' }, `+${P.length - shown.length}`) : null))
+    }
+
+    function FindingsPanel({ P, t, verdicts }) {
+      const P_ = React.useContext(ThemeCtx)
+      const vs = P.map((p) => p.counts.findings ?? 0)
+      const W = 300; const Hh = 92
+      const max = Math.max(1, ...vs); const avg = vs.length ? vs.reduce((a, b) => a + b, 0) / vs.length : 0
+      const X = (i) => (vs.length > 1 ? i / (vs.length - 1) * W : W / 2)
+      const Y = (v) => Hh - 6 - v / max * (Hh - 16)
+      const line = vs.map((v, i) => [X(i), Y(v)])
+      const top = Object.entries(verdicts).sort((a, b) => b[1] - a[1])
+      return h('div', { className: 'me-frame me-panel' },
+        h('div', { className: 'me-panel-h' }, h('b', {}, '发现'), h('span', { className: 'me-cap' }, 'FINDINGS'), h('span', { className: 'me-sp' }), h('span', { className: 'me-faint me-num' }, `均 ${avg.toFixed(1)} / 人`)),
+        h('div', { className: 'me-hero-num' }, h('span', { className: 'me-num' }, fmt(t.findings)), h('div', {}, h('small', {}, '条发现'), h('small', { className: 'me-tl' }, `▲ 待复核 ${fmt(t.review)}`))),
+        vs.length ? h('svg', { className: 'me-scene', viewBox: `-4 0 ${W + 8} ${Hh + 14}`, style: { maxHeight: 130 } },
+          h('defs', {}, h('linearGradient', { id: 'me-fa', x1: 0, x2: 0, y1: 0, y2: 1 }, h('stop', { offset: 0, stopColor: P_.teal, stopOpacity: 0.28 }), h('stop', { offset: 1, stopColor: P_.teal, stopOpacity: 0 }))),
+          h('line', { x1: 0, x2: W, y1: Y(avg), y2: Y(avg), stroke: P_.ink3, strokeDasharray: '2 4', strokeWidth: 0.8 }),
+          h('text', { x: W, y: Y(avg) - 4, textAnchor: 'end', fill: P_.ink3, fontSize: 8.5, fontFamily: MONO }, 'AVG'),
+          h('polygon', { points: pts([[0, Hh], ...line, [W, Hh]]), fill: 'url(#me-fa)' }),
+          h('polyline', { points: pts(line), fill: 'none', stroke: P_.teal, strokeWidth: 1.4, strokeLinejoin: 'round' }),
+          h('circle', { cx: line.at(-1)[0], cy: line.at(-1)[1], r: 3, fill: P_.teal, style: { filter: `drop-shadow(0 0 4px ${P_.teal})` } }),
+          [0, Math.floor((vs.length - 1) / 2), vs.length - 1].filter((v, i, a) => a.indexOf(v) === i).map((i) => h('text', { key: i, x: X(i), y: Hh + 12, textAnchor: i === 0 ? 'start' : i === vs.length - 1 ? 'end' : 'middle', fill: P_.ink3, fontSize: 8.5, fontFamily: MONO }, P[i].patient.split('/').pop().slice(-4)))) : null,
+        h('div', { className: 'me-vchips' }, top.map(([k, v]) => h('span', { key: k, className: `me-chip ${VERDICT_CLS[k] ?? ''}` }, `${k} ${v}`))))
+    }
+
+    function AlertsPanel({ run, P, t, fb, goto }) {
+      const items = []
+      const failed = P.filter((p) => p.failedGates.length)
+      if (run.error) items.push(['crit', 'S0?', '批次出错', run.error.split('\n')[0], null])
+      if (failed.length) items.push(['crit', '验收', `${failed.length} 人验收门未过`, failed.slice(0, 2).map((p) => p.patient.split('/').pop()).join('、'), 'patients'])
+      if (run.sourceCheck?.changed) items.push(['crit', '源文件', `源文件有 ${run.sourceCheck.changed} 个变化`, '只读核对不一致', null])
+      if (t.review) items.push(['warn', 'S06', `待复核 ${fmt(t.review)} 项`, `涉及 ${P.filter((p) => p.review.findings).length} 位病人`, 'review'])
+      for (const w of run.warnings ?? []) items.push(['warn', '提示', w, '', null])
+      if (fb != null && fb > 0.15) items.push(['warn', 'S03', `兜底率 ${pct(fb)}`, '超过 15%，建议抽样核对', 'improve'])
+      items.push(run.model ? ['info', '模型', `${run.model.model}${run.model.verifyModel ? ' ＋ 核验' : ''}`, `调用 ${fmt(t.modelCalls)} 次 · 建议 ${fmt(t.suggestions)} 条`, 'calls'] : ['info', '模型', '未配置模型：只跑规则', '设置 → 病历事件还原', null])
+      if (run.output) items.push(['ok', 'S07', '事件包已交付', run.output.split('/').slice(-2).join('/'), 'report'])
+      if (run.sourceCheck && !run.sourceCheck.changed) items.push(['ok', '源文件', '只读核对一致', '输入未被修改', null])
+      const crit = items.filter((x) => x[0] === 'crit').length
+      const tag = { crit: 'CRIT', warn: 'WARN', info: 'INFO', ok: 'OK' }
+      const level = { crit: 1, warn: 0.75, info: 0.4, ok: 0.15 }
+      return h('div', { className: 'me-frame me-panel' },
+        h('div', { className: 'me-panel-h' }, h('b', {}, '提醒'), h('span', { className: 'me-cap' }, 'ALERTS'), h('span', { className: 'me-sp' }), h('span', { className: 'me-faint me-num' }, `${items.length} 条`), crit ? h('span', { className: 'me-bad me-num' }, ` · ${crit} CRIT`) : null),
+        h('div', { className: 'me-alerts' }, items.map(([lv, src, title, sub, to], i) => h('div', { key: i, className: `me-al ${lv}${to ? ' click' : ''}`, onClick: to ? () => goto(to) : undefined },
+          h('span', { className: 'me-al-bar' }), h('span', { className: 'me-al-src me-num' }, src),
+          h('div', { className: 'me-al-t' }, h('b', {}, title), sub ? h('small', {}, sub) : null),
+          h(Ticks, { v: level[lv], n: 12, hot: lv === 'crit' || lv === 'warn' }),
+          h('span', { className: 'me-al-tag' }, tag[lv])))))
     }
 
     /* --------------------------------------------------------------- patients */
@@ -366,6 +1035,8 @@ window.__ModuleLoader__.load({
       const data = useAsync(() => (patient ? call('timeline', { runId: run.id, patient }) : null), [run.id, patient])
       const [cutoff, setCutoff] = useState('')
       const [sel, setSel] = useState(null) // { kind, id }
+      const [depth, setDepth] = useState(() => { try { return localStorage.getItem('me-timeline-depth') !== 'flat' } catch { return true } })
+      const toggleDepth = () => setDepth((d) => { try { localStorage.setItem('me-timeline-depth', d ? 'flat' : '2.5d') } catch {} return !d })
       useEffect(() => { if (focus?.kind === 'event' || focus?.kind === 'finding') setSel(focus) }, [focus])
       const tl = data.value
       return h('div', { className: 'me-body', style: { flex: 1 } },
@@ -382,15 +1053,16 @@ window.__ModuleLoader__.load({
                   [`片段 ${fmt(tl.counts.fragments)}`, `提及 ${fmt(tl.counts.mentions)}`, `事件 ${fmt(tl.counts.events)}`, `发现 ${fmt(tl.counts.findings)}`].map((x) => h('span', { key: x }, x)),
                   h('span', { className: 'me-sp' }),
                   h('span', { className: 'me-chip f' }, '● 事实'), h('span', { className: 'me-chip j' }, '● 判断'), h('span', { className: 'me-chip d' }, '● 决策'),
+                  h('button', { className: `me-btn sm${depth ? ' on' : ''}`, title: '切换立体（2.5D）／平面显示', onClick: toggleDepth }, depth ? '◆ 2.5D' : '▭ 平面'),
                   h('label', {}, '可见截断 ', h('input', { className: 'me-input', type: 'date', value: cutoff, onChange: (e) => setCutoff(e.target.value), style: { padding: '1px 4px' } })))),
-              h('div', { className: 'me-scroll', style: { flex: 1 } }, h(TimelineSvg, { tl, cutoff, sel, onSelect: (x) => { setSel(x); setFocus(x) } })))),
+              h('div', { className: 'me-scroll', style: { flex: 1 } }, h(TimelineSvg, { tl, cutoff, sel, depth, onSelect: (x) => { setSel(x); setFocus(x) } })))),
         h('div', { className: 'me-frame me-scroll me-pad', style: { width: 380, flex: 'none' } },
           !sel ? h('div', { className: 'me-faint' }, '点时间线上的条、点或发现标记查看详情。')
             : sel.kind === 'event' ? h(EventDetail, { run, patient, eventId: sel.id, gotoSource, onFinding: (id) => setSel({ kind: 'finding', id }), onEvent: (id) => setSel({ kind: 'event', id }) })
               : h(FindingDetail, { run, patient, findingId: sel.id, gotoSource, gotoReview })))
     }
 
-    function TimelineSvg({ tl, cutoff, sel, onSelect }) {
+    function TimelineSvg({ tl, cutoff, sel, onSelect, depth = true }) {
       const P = React.useContext(ThemeCtx)
       const VC = verdictColor(P)
       const W = 980; const L = 150; const R = W - 14
@@ -398,7 +1070,9 @@ window.__ModuleLoader__.load({
       const y0 = new Date(a0).getUTCFullYear(); const y1 = new Date(b0).getUTCFullYear() + 1
       const A = Date.UTC(y0, 0, 1); const B = Date.UTC(y1, 0, 1)
       const X = (d) => L + (toT(d) - A) / (B - A) * (R - L)
+      // 2.5D：条与标记“浮”在泳道上——柔和投影＋顶部受光
       const els = []
+      const bands = []
       let y = 22
       const C = { fact: P.fact, judge: P.judge, decide: P.decide, visit: P.visit }
       for (let yr = y0; yr <= y1; yr++) {
@@ -407,13 +1081,35 @@ window.__ModuleLoader__.load({
         if (yr < y1) els.push(h('text', { key: `t${yr}`, x: x + 4, y: 12, fill: P.ink3, fontSize: 10.5, fontFamily: 'SF Mono,Menlo' }, String(yr)))
       }
       const isSel = (kind, id) => sel && sel.kind === kind && sel.id === id
+      /** 一块条／块：平面模式画矩形；2.5D 模式加投影与顶部高光，像浮在泳道上。 */
+      const block = (key, x, by, w, hh, color, { opacity = 1, props = {}, title, selected } = {}) => {
+        const sStroke = selected ? { stroke: P.ink, strokeWidth: 1.6 } : {}
+        const r = Math.min(hh / 2, 3)
+        if (!depth) return h('rect', { key, x, y: by, width: w, height: hh, rx: 2, fill: color, opacity, ...props, ...sStroke }, title ? h('title', {}, title) : null)
+        return h('g', { key, ...props }, title ? h('title', {}, title) : null,
+          h('rect', { x: x + 0.5, y: by + 2.5, width: w, height: hh, rx: r, fill: '#000', opacity: 0.32 * opacity, filter: 'url(#me-soft)' }),
+          h('rect', { x, y: by, width: w, height: hh, rx: r, fill: color, opacity, ...sStroke }),
+          h('rect', { x, y: by, width: w, height: hh, rx: r, fill: 'url(#me-sheen)', opacity: 0.9 * opacity, pointerEvents: 'none' }))
+      }
+      /** 菱形标记：2.5D 模式带投影和上半受光面。 */
+      const gem = (key, x1, ry, color, { props = {}, title, edge, edgeW } = {}) => {
+        const d = `M${x1} ${ry - 1} l5.5 5.5 l-5.5 5.5 l-5.5 -5.5z`
+        if (!depth) return h('path', { key, d, fill: color, stroke: edge ?? 'none', strokeWidth: edgeW, ...props }, title ? h('title', {}, title) : null)
+        return h('g', { key, ...props }, title ? h('title', {}, title) : null,
+          h('path', { d: `M${x1 + 0.5} ${ry + 1.5} l5.5 5.5 l-5.5 5.5 l-5.5 -5.5z`, fill: '#000', opacity: 0.35, filter: 'url(#me-soft)' }),
+          h('path', { d, fill: color, stroke: edge ?? 'none', strokeWidth: edgeW }),
+          h('path', { d: `M${x1} ${ry - 1} l5.5 5.5 h-11z`, fill: '#fff', opacity: 0.28, pointerEvents: 'none' }))
+      }
       for (const lane of tl.lanes) {
         if (!lane.rows.length) continue
         const color = C[lane.kind] ?? P.ink2
         const top = y
+        const hgt = lane.rows.length * 20 + 12
+        if (depth) bands.push(h('rect', { key: `bd${lane.id}`, x: 0, y: top, width: W, height: hgt, fill: bands.length % 2 ? 'transparent' : P.band, opacity: 0.6 }))
         els.push(h('line', { key: `ln${lane.id}`, x1: 0, x2: W, y1: y, y2: y, stroke: P.lane }))
         lane.rows.forEach((row, ri) => {
           const ry = y + 8 + ri * 20
+          if (depth) els.push(h('line', { key: `rg${lane.id}${ri}`, x1: L, x2: R, y1: ry + 10.5, y2: ry + 10.5, stroke: P.grid, strokeOpacity: 0.7, strokeDasharray: '1 3' }))
           els.push(h('text', { key: `rl${lane.id}${ri}`, x: 34, y: ry + 9, fill: P.ink2, fontSize: 10.5 }, row.label.length > 9 ? `${row.label.slice(0, 9)}…` : row.label))
           row.items.forEach((it, ii) => {
             if (!it.a) return
@@ -423,18 +1119,14 @@ window.__ModuleLoader__.load({
             if (before) els.push(h('path', { key: `${k}<`, d: `M${L - 2} ${ry + 4} l7 -5 v10z`, fill: color, opacity: 0.8 }, h('title', {}, `${row.label}：${it.a} 起（早于时间轴）`)))
             if (before && toT(it.b ?? it.a) < A) return
             const click = it.event ? { onClick: () => onSelect({ kind: 'event', id: it.event }), style: { cursor: 'pointer' } } : {}
-            const strokeSel = it.event && isSel('event', it.event) ? { stroke: P.ink, strokeWidth: 1.6 } : {}
-            if (it.kind === 'tick') els.push(h('line', { key: k, x1, x2: x1, y1: ry, y2: ry + 10, stroke: P.tick }))
-            else if (it.kind === 'stay') els.push(h('rect', { key: k, x: x1 - 1, y: ry - 1, width: Math.max(5, x2 - x1 + 2), height: 12, rx: 2, fill: P.visit }, h('title', {}, `住院 ${it.a}～${it.b} ${it.label ?? ''}`)))
-            else if (it.kind === 'bar') els.push(h('rect', { key: k, x: x1, y: ry, width: x2 - x1, height: 9, rx: 2, fill: color, opacity: it.faint ? 0.35 : 0.85, ...click, ...strokeSel }, h('title', {}, `${row.label} ${it.a}～${it.b}${it.n ? ` · ${it.n} 条提及` : ''}`)))
-            else if (it.kind === 'stop') els.push(h('rect', { key: k, x: x1 - 1, y: ry - 2, width: 3, height: 13, fill: P.ink, ...click }, h('title', {}, `${row.label} 停用 ${it.a}`)))
-            else {
-              const d = `M${x1} ${ry - 1} l5.5 5.5 l-5.5 5.5 l-5.5 -5.5z`
-              els.push(h('path', { key: k, d, fill: color, stroke: it.conflict ? P.bad : (strokeSel.stroke ?? 'none'), strokeWidth: it.conflict ? 1.8 : 1.4, ...click }, h('title', {}, `${row.label}${it.label ? ` ${it.label}` : ''} ${it.a}${it.b && it.b !== it.a ? `～${it.b}` : ''}${it.conflict ? ' · 时间不一致' : ''}`)))
-            }
+            const selected = !!(it.event && isSel('event', it.event))
+            if (it.kind === 'tick') els.push(depth ? block(k, x1 - 0.75, ry, 1.5, 10, P.tick) : h('line', { key: k, x1, x2: x1, y1: ry, y2: ry + 10, stroke: P.tick }))
+            else if (it.kind === 'stay') els.push(block(k, x1 - 1, ry - 1, Math.max(5, x2 - x1 + 2), 12, P.visit, { title: `住院 ${it.a}～${it.b} ${it.label ?? ''}` }))
+            else if (it.kind === 'bar') els.push(block(k, x1, ry, x2 - x1, 9, color, { opacity: it.faint ? 0.35 : depth ? 0.92 : 0.85, props: click, selected, title: `${row.label} ${it.a}～${it.b}${it.n ? ` · ${it.n} 条提及` : ''}` }))
+            else if (it.kind === 'stop') els.push(block(k, x1 - 1, ry - 2, 3, 13, P.ink, { props: click, title: `${row.label} 停用 ${it.a}` }))
+            else els.push(gem(k, x1, ry, color, { props: click, edge: it.conflict ? P.bad : selected ? P.ink : undefined, edgeW: it.conflict ? 1.8 : 1.4, title: `${row.label}${it.label ? ` ${it.label}` : ''} ${it.a}${it.b && it.b !== it.a ? `～${it.b}` : ''}${it.conflict ? ' · 时间不一致' : ''}` }))
           })
         })
-        const hgt = lane.rows.length * 20 + 12
         els.push(h('rect', { key: `lb${lane.id}`, x: 0, y: top + 1, width: 3, height: hgt - 2, fill: color, opacity: 0.8 }))
         ;[...lane.name].forEach((ch, i) => els.push(h('text', { key: `lc${lane.id}${i}`, x: 16, y: top + 17 + i * 14, fill: color === P.visit ? P.ink : color, fontSize: 11.5, fontWeight: 700, textAnchor: 'middle' }, ch)))
         y += hgt
@@ -443,16 +1135,24 @@ window.__ModuleLoader__.load({
       if (tl.series.length) {
         els.push(h('line', { key: 'lnlab', x1: 0, x2: W, y1: y, y2: y, stroke: P.lane }))
         const top = y
+        const hgt = tl.series.length * 40 + 8
+        if (depth) bands.push(h('rect', { key: 'bdlab', x: 0, y: top, width: W, height: hgt, fill: bands.length % 2 ? 'transparent' : P.band, opacity: 0.6 }))
         tl.series.forEach((s, si) => {
           const sy = y + 6 + si * 40; const hh = 30
           const vs = s.points.map((p) => p.v); const lo = Math.min(...vs); const hi = Math.max(...vs)
           const Y = (v) => sy + hh - (hi === lo ? hh / 2 : (v - lo) / (hi - lo) * hh)
           els.push(h('text', { key: `sl${si}`, x: 34, y: sy + 12, fill: P.ink2, fontSize: 10.5 }, s.name))
           els.push(h('text', { key: `sr${si}`, x: 34, y: sy + 25, fill: P.ink3, fontSize: 9 }, `${lo}–${hi}`))
-          els.push(h('path', { key: `sp${si}`, d: s.points.map((p, i) => `${i ? 'L' : 'M'}${X(p.d)} ${Y(p.v)}`).join(''), stroke: P.fact, strokeWidth: 1.1, fill: 'none', opacity: 0.8 }))
-          s.points.forEach((p, i) => els.push(h('circle', { key: `sc${si}-${i}`, cx: X(p.d), cy: Y(p.v), r: 1.8, fill: P.fact, style: { cursor: 'pointer' }, onClick: () => onSelect({ kind: 'event', id: p.event }) }, h('title', {}, `${s.name} ${p.v} · ${p.d}`))))
+          const line = s.points.map((p) => [X(p.d), Y(p.v)])
+          if (depth && line.length) {
+            // 立起来的“缎带”：折线与它向纵深平移的副本之间填色；下方投一层渐隐的地面
+            // 曲线下方渐隐填充＋柔和投影
+            els.push(h('polygon', { key: `sg${si}`, points: pts([[line[0][0], sy + hh + 2], ...line, [line.at(-1)[0], sy + hh + 2]]), fill: 'url(#me-area)' }))
+            els.push(h('path', { key: `sd${si}`, d: line.map(([px, py], i) => `${i ? 'L' : 'M'}${px} ${py + 2.5}`).join(''), stroke: '#000', strokeWidth: 1.6, fill: 'none', opacity: 0.3, filter: 'url(#me-soft)' }))
+          }
+          els.push(h('path', { key: `sp${si}`, d: line.map(([px, py], i) => `${i ? 'L' : 'M'}${px} ${py}`).join(''), stroke: P.fact, strokeWidth: depth ? 1.5 : 1.1, fill: 'none', opacity: depth ? 1 : 0.8 }))
+          s.points.forEach((p, i) => els.push(h('circle', { key: `sc${si}-${i}`, cx: X(p.d), cy: Y(p.v), r: depth ? 2.4 : 1.8, fill: P.fact, stroke: depth ? P.halo : 'none', strokeWidth: 1, style: { cursor: 'pointer' }, onClick: () => onSelect({ kind: 'event', id: p.event }) }, h('title', {}, `${s.name} ${p.v} · ${p.d}`))))
         })
-        const hgt = tl.series.length * 40 + 8
         els.push(h('rect', { key: 'lblab', x: 0, y: top + 1, width: 3, height: hgt - 2, fill: P.fact, opacity: 0.8 }))
         ;['检', '验'].forEach((ch, i) => els.push(h('text', { key: `lcl${i}`, x: 16, y: top + 17 + i * 14, fill: P.fact, fontSize: 11.5, fontWeight: 700, textAnchor: 'middle' }, ch)))
         y += hgt
@@ -463,7 +1163,7 @@ window.__ModuleLoader__.load({
       tl.findings.forEach((f, i) => {
         if (!f.at) return
         const x = X(f.at)
-        els.push(h('rect', { key: `f${i}`, x: x - 3, y: y + 8 + (i % 2) * 14, width: 6, height: 12, rx: 1.5, fill: VC[f.verdict] ?? P.ink2, stroke: isSel('finding', f.id) ? P.ink : 'none', style: { cursor: 'pointer' }, onClick: () => onSelect({ kind: 'finding', id: f.id }) }, h('title', {}, `${f.verdict}·${f.subclass}：${f.why}`)))
+        els.push(block(`f${i}`, x - 3, y + 8 + (i % 2) * 14, 6, 12, VC[f.verdict] ?? P.ink2, { selected: isSel('finding', f.id), props: { style: { cursor: 'pointer' }, onClick: () => onSelect({ kind: 'finding', id: f.id }) }, title: `${f.verdict}·${f.subclass}：${f.why}` }))
       })
       y += 42
       if (cutoff) {
@@ -472,7 +1172,11 @@ window.__ModuleLoader__.load({
         els.push(h('line', { key: 'cutl', x1: cx, x2: cx, y1: 16, y2: y, stroke: P.warn, strokeDasharray: '4 3', strokeWidth: 1.3 }))
         els.push(h('text', { key: 'cutt', x: cx + 5, y: 28, fill: P.warn, fontSize: 10 }, '可见截断：之后写成的不可见（按 as-of 重跑可重算）'))
       }
-      return h('svg', { width: W, height: y, style: { display: 'block' } }, els)
+      const defs = depth ? h('defs', { key: 'defs' },
+        h('filter', { id: 'me-soft', x: '-20%', y: '-50%', width: '140%', height: '220%' }, h('feGaussianBlur', { stdDeviation: 1.6 })),
+        h('linearGradient', { id: 'me-sheen', x1: 0, y1: 0, x2: 0, y2: 1 }, h('stop', { offset: 0, stopColor: '#fff', stopOpacity: 0.32 }), h('stop', { offset: 0.45, stopColor: '#fff', stopOpacity: 0.04 }), h('stop', { offset: 1, stopColor: '#000', stopOpacity: 0.12 })),
+        h('linearGradient', { id: 'me-area', x1: 0, y1: 0, x2: 0, y2: 1 }, h('stop', { offset: 0, stopColor: P.fact, stopOpacity: 0.22 }), h('stop', { offset: 1, stopColor: P.fact, stopOpacity: 0 }))) : null
+      return h('svg', { width: W, height: y, style: { display: 'block' } }, defs, bands, els)
     }
 
     function MentionRow({ m, gotoSource }) {
@@ -747,7 +1451,7 @@ window.__ModuleLoader__.load({
     }
 
     /* --------------------------------------------------------------- settings */
-    function SettingsSection() {
+    function SettingsSection({ inModal = false } = {}) {
       const [cfg, setCfg] = useState(null)
       const [form, setForm] = useState({})
       const [state, setState] = useState('')
@@ -765,7 +1469,7 @@ window.__ModuleLoader__.load({
       }
       const check = (k, label) => h('label', { style: { display: 'flex', gap: 6, alignItems: 'center' } }, h('input', { type: 'checkbox', checked: form[k] !== false, onChange: (e) => setForm({ ...form, [k]: e.target.checked }) }), label)
       return h('div', { className: 'me-settings' }, h('style', {}, CSS),
-        h('p', { style: { margin: 0, color: 'var(--dsw-alias-label-secondary)' } }, '这里只放配置。运行批次、看时间线与复核，请到左侧栏的「病历事件还原」，或在聊天框使用 /event。'),
+        inModal ? null : h('p', { style: { margin: 0, color: 'var(--dsw-alias-label-secondary)' } }, '这里只放配置。运行批次、看时间线与复核，请到左侧栏的「病历事件还原」，或在聊天框使用 /event。'),
         h('h3', { style: { margin: '6px 0 0' } }, '模型补充（可选）'),
         h('p', { style: { margin: 0, fontSize: 12, color: 'var(--dsw-alias-label-tertiary)' } }, '规则是主体。模型只处理规则判不了的项（待定时间、兜底类型、未归一概念、需人工确认的发现），只出建议、不改规则结果。病历内容只发往这里配置的端点，Agent 不能更改。'),
         check('modelEnabled', '启用模型补充'),
