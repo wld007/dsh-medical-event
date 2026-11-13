@@ -6,3 +6,4 @@ dist/
 # 真实病历与派生结果一律不进仓库
 /data/
 /local/
+.agents/
