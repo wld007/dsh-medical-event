@@ -4,6 +4,7 @@
  * Registers agent tools, the /event command and one authenticated browser RPC
  * channel. Every caller shares the same service.
  */
+import { readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
 import { createService } from './lib/service.js'
@@ -12,6 +13,7 @@ export const name = 'medical-event'
 export const inject = ['tools']
 
 const CHANNEL = '/medical-event'
+const VERSION = (() => { try { return JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')).version } catch { return null } })()
 const ENTRY_ID = 'medical-event'
 
 const DATA_BOUNDARY = '病历内容只发往用户在插件设置中配置的模型端点（通常为本机或内网）；未配置模型时只在本机用规则处理。'
@@ -162,7 +164,7 @@ export function apply(ctx, config = {}) {
       const r = payload && typeof payload === 'object' ? payload : {}
       const value = await (async () => {
         switch (endpoint) {
-          case 'config': return service.configInfo()
+          case 'config': return { ...service.configInfo(), version: VERSION }
           case 'list': return service.list()
           case 'status': return service.status(r.runId)
           case 'report': return service.report(r.runId)
