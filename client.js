@@ -173,7 +173,8 @@ window.__ModuleLoader__.load({
 .me-hero-cap{display:flex;align-items:center;gap:10px}
 .me-live{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;color:var(--teal);display:inline-flex;align-items:center;gap:6px}
 .me-live i{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;animation:me-pulse 1.6s ease-in-out infinite}
-.me-live.ok{color:var(--ok)}
+.me-live.ok{color:var(--ok)}.me-live.bad{color:var(--bad)}
+.me-hero-err{margin:8px 0 0;align-self:flex-start;max-width:720px;font-size:12px}
 .me-hero-legend{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
 .me-bay{font-size:11px;color:var(--ink2);background:transparent;border:1px solid var(--line2);border-radius:3px;padding:2px 8px;cursor:pointer;display:flex;gap:6px;align-items:center}
 .me-bay b{font-family:var(--mono);font-weight:500;font-size:10px;color:var(--ink3)}
@@ -500,7 +501,9 @@ window.__ModuleLoader__.load({
       const fb = P.length ? sum((p) => p.fallbackRate ?? 0) / P.length : null
       // 逐站进度：当前病人所在的那一站是“运行中”，其余已开工的是“进行中”
       const stage = running ? run.current?.stage : null
-      const stOf = (no) => (!running ? 'done' : stage === no ? 'run' : 'part')
+      // 失败或取消、且一个病人都没跑完：各站都是“未开始”
+      const broken = !running && ['failed', 'cancelled'].includes(run.status) && !P.length
+      const stOf = (no) => (broken ? 'idle' : !running ? 'done' : stage === no ? 'run' : 'part')
       const reviewN = t.review
       const verdicts = {}
       for (const p of P) for (const [k, v] of Object.entries(p.verdicts ?? {})) { const vk = k.split('·')[0]; verdicts[vk] = (verdicts[vk] ?? 0) + v }
@@ -515,7 +518,7 @@ window.__ModuleLoader__.load({
         st('S03', '类型切分', '事实／判断／决策 → 细分 → 细项', typeTotal ? `${Math.round((types['事实'] ?? 0) / typeTotal * 100)}%` : '—', '事实', [['兜底率', pct(fb), '']], stOf('S03')),
         st('S04', '事件归并·印证', '同概念＋时间相容＋同就诊；前后印证', fmt(t.events), '事件', [gateRow('③')], stOf('S04')),
         st('S05', '矛盾判断', 'R1–R10；七类判定、建议采信', fmt(t.findings), '发现', [gateRow('④')], stOf('S05')),
-        st('S06', '人工复核', '需人工确认的发现、药名映射、模型分歧', fmt(reviewN), '项待办', [['模型建议', fmt(t.suggestions), '']], reviewN ? 'hold' : running ? 'part' : 'done', 1),
+        st('S06', '人工复核', '需人工确认的发现、药名映射、模型分歧', fmt(reviewN), '项待办', [['模型建议', fmt(t.suggestions), '']], reviewN ? 'hold' : broken ? 'idle' : running ? 'part' : 'done', broken ? 0 : 1),
         st('S07', '交付', '生成事件包 → 整批汇总表 → 只读核对 → 移交', run.output ? '已交付' : `${t.done}/${t.patients}`, run.output ? '' : '事件包', [['输出', run.output ? '已写出' : '未交付', run.output ? 'ok' : '']], running ? stOf('S07') : run.output ? 'done' : 'idle', run.output ? 1 : doneFrac),
       ]
       const defSel = Math.max(1, stations.findIndex((s) => s.state === 'run' || s.state === 'hold'))
@@ -529,7 +532,8 @@ window.__ModuleLoader__.load({
               h('span', { className: 'me-cap', style: { color: 'var(--ink2)' } }, '处理流程 · PLANT'),
               h('span', { className: 'me-faint me-num', style: { fontSize: 10.5 } }, run.input),
               h('span', { className: 'me-sp' }),
-              hot.length ? h('span', { className: 'me-live' }, h('i'), hot.map((s) => `${s.no} ${STATE_LABEL[s.state]}`).join(' · ')) : h('span', { className: 'me-live ok' }, h('i'), '全部完成')),
+              run.status === 'failed' ? h('span', { className: 'me-live bad' }, h('i'), '批次失败') : run.status === 'cancelled' ? h('span', { className: 'me-live bad' }, h('i'), '已取消') : hot.length ? h('span', { className: 'me-live' }, h('i'), hot.map((s) => `${s.no} ${STATE_LABEL[s.state]}`).join(' · ')) : h('span', { className: 'me-live ok' }, h('i'), '全部完成')),
+            run.status === 'failed' && run.error ? h('div', { className: 'me-err me-hero-err' }, h('b', {}, '批次失败：'), String(run.error).split('\n')[0].replace(/^Error:\s*/, '')) : null,
             h(PlantScene, {
               stations, sel: k, onSel: setSelK, running, done: t.done, total: t.patients, current: run.current,
               reviewPatients: P.filter((p) => p.review.findings > 0).length,
@@ -669,7 +673,7 @@ window.__ModuleLoader__.load({
         let gate = null
         if (g) {
           const info = gates[g]
-          const gc = g === '②' ? P.ink2 : info && info.n < info.of ? P.bad : P.ok
+          const gc = g === '②' || !info?.of ? P.ink2 : info.n < info.of ? P.bad : P.ok
           const gi = (i0 + i1) / 2
           const label = g === '②' ? `② 兜底 ${fallback}` : `${g} ${info ? `${info.n}/${info.of}` : '—'}`
           const lt = iso(gi, cj + 12, 54)
