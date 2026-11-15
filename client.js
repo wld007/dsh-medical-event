@@ -139,6 +139,7 @@ window.__ModuleLoader__.load({
 .me-stack{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:6px 0 4px;background:var(--line2)}.me-stack span{display:block;height:100%}
 .me-scene{display:block;width:100%;height:auto;overflow:visible;margin:0 auto}
 .me-scene text{pointer-events:none}
+.me-scene:focus{outline:none}.me-scene:focus-visible{outline:1px dashed color-mix(in srgb,var(--teal) 60%,transparent);outline-offset:-2px;border-radius:3px}
 .me-hero{position:relative;padding:10px 12px 8px;min-height:560px;background:radial-gradient(120% 90% at 45% 55%,var(--panel2),var(--bg) 75%);display:flex;flex-direction:column;min-height:420px}
 .me-hero .me-scene{flex:1}
 .me-hud{position:absolute;z-index:1;font-size:11px;color:var(--ink2);pointer-events:none}
@@ -175,11 +176,6 @@ window.__ModuleLoader__.load({
 .me-live i{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;animation:me-pulse 1.6s ease-in-out infinite}
 .me-live.ok{color:var(--ok)}.me-live.bad{color:var(--bad)}
 .me-hero-err{margin:8px 0 0;align-self:flex-start;max-width:720px;font-size:12px}
-.me-hero-legend{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
-.me-bay{font-size:11px;color:var(--ink2);background:transparent;border:1px solid var(--line2);border-radius:3px;padding:2px 8px;cursor:pointer;display:flex;gap:6px;align-items:center}
-.me-bay b{font-family:var(--mono);font-weight:500;font-size:10px;color:var(--ink3)}
-.me-bay.hold,.me-bay.run{border-color:color-mix(in srgb,var(--teal) 45%,transparent)}.me-bay.hold b,.me-bay.run b{color:var(--teal)}
-.me-bay.on{background:var(--tealdim);border-color:var(--teal);color:var(--ink)}
 .me-side{width:300px;flex:none;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
 .me-side-h{display:flex;align-items:center;gap:8px}.me-side-h b{font-size:14px;letter-spacing:1px}.me-side-h span:nth-child(2){font-weight:600;flex:1}
 .me-side-sub{font-family:var(--mono);font-size:10.5px;color:var(--teal);margin-top:4px;line-height:1.5}
@@ -384,7 +380,7 @@ window.__ModuleLoader__.load({
               h('span', { className: 'me-num' }, run?.id ?? '—'),
               run?.status === 'running' && run.current
                 ? h('span', { className: 'me-tl' }, `${String(run.current.patient).split('/').pop()} · ${run.current.step}`)
-                : run ? h('span', {}, [SOURCE_LABEL[run.source?.kind], run.asOf ? `截至 ${run.asOf}` : null, run.inputName ?? run.input?.split('/').pop()].filter(Boolean).join(' · ')) : null)),
+                : run ? h('span', { title: run.input }, [SOURCE_LABEL[run.source?.kind], run.asOf ? `截至 ${run.asOf}` : null, run.inputName ?? run.input?.split('/').pop()].filter(Boolean).join(' · ')) : null)),
           h('span', { className: 'me-sp' }),
           h('div', { className: 'me-clock sep' }, h('span', {}, '用时'), h('b', {}, clock(elapsed))),
           run ? h('div', { className: 'me-clock sep pct', title: `${run.totals.done} / ${run.totals.patients} 位病人` }, h('span', {}, '完成'), h('b', {}, percent == null ? '—' : String(percent), h('small', {}, '%'))) : null,
@@ -533,8 +529,7 @@ window.__ModuleLoader__.load({
         h('div', { style: { display: 'flex', gap: 8, flex: 'none' } },
           h('div', { className: 'me-frame me-hero', style: { flex: 1, minWidth: 0 } },
             h('div', { className: 'me-hero-cap' },
-              h('span', { className: 'me-cap', style: { color: 'var(--ink2)' } }, '处理流程 · PLANT'),
-              h('span', { className: 'me-faint me-num', style: { fontSize: 10.5 } }, run.input),
+              h('span', { className: 'me-cap', style: { color: 'var(--ink2)' } }, '处理流程'),
               h('span', { className: 'me-sp' }),
               run.status === 'failed' ? h('span', { className: 'me-live bad' }, h('i'), '批次失败') : run.status === 'cancelled' ? h('span', { className: 'me-live bad' }, h('i'), '已取消') : hot.length ? h('span', { className: 'me-live' }, h('i'), hot.map((s) => `${s.no} ${STATE_LABEL[s.state]}`).join(' · ')) : h('span', { className: 'me-live ok' }, h('i'), '全部完成')),
             run.status === 'failed' && run.error ? h('div', { className: 'me-err me-hero-err' }, h('b', {}, '批次失败：'), String(run.error).split('\n')[0].replace(/^Error:\s*/, '')) : null,
@@ -548,8 +543,7 @@ window.__ModuleLoader__.load({
             h('div', { className: 'me-hud br' },
               h('div', {}, h('i', { className: 'sw hot' }), '运行中／待复核'), h('div', {}, h('i', { className: 'sw clay' }), '已完成'),
               h('div', {}, h('i', { className: 'sw box' }), '箱子＝一位病人'), h('div', {}, h('i', { className: 'sw red' }), '红箱＝验收门未过，带红标交付'),
-              h('div', {}, h('i', { className: 'sw vio' }), '青灯＝模型补充（旁路）'), h('div', {}, h('i', { className: 'sw flow' }), '虚线：裁定回流，重跑沿用')),
-            h('div', { className: 'me-hero-legend' }, stations.map((s, i) => h('button', { key: s.no, className: `me-bay${i === k ? ' on' : ''} ${s.state}`, onClick: () => setSelK(i) }, h('b', {}, s.no), s.nm)))),
+              h('div', {}, h('i', { className: 'sw vio' }), '青灯＝模型补充（旁路）'), h('div', {}, h('i', { className: 'sw flow' }), '虚线：裁定回流，重跑沿用'))),
           h(StationPanel, { s: stations[k], k, patients: P, openPatient })),
         h('div', { className: 'me-grid4' },
           h(GatesPanel, { P, gatePass, fb, types, typeTotal, run }),
@@ -898,7 +892,14 @@ window.__ModuleLoader__.load({
       const xs = bb.map((p) => p[0]); const ys = bb.map((p) => p[1])
       const x0 = Math.min(...xs) - 24; const y0 = Math.min(...ys) - 16; const x1 = Math.max(...xs) + 24; const y1 = Math.max(...ys) + 16
       defs.push(h('mask', { key: 'mk', id: 'me-gridmask', maskUnits: 'userSpaceOnUse', x: x0, y: y0, width: x1 - x0, height: y1 - y0 }, h('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: 'url(#me-fade)' })))
-      return h('svg', { className: 'me-scene', viewBox: `${x0} ${y0} ${x1 - x0} ${y1 - y0}`, preserveAspectRatio: 'xMidYMin meet', style: { maxHeight: 620, overflow: 'hidden' } }, h('defs', {}, defs), els)
+      // 键盘：场景本身是一个 Tab 停靠点，←／→ 按工序顺序切换
+      const onKeyDown = (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0
+        if (!d) return
+        e.preventDefault()
+        onSel((sel + d + stations.length) % stations.length)
+      }
+      return h('svg', { className: 'me-scene', tabIndex: 0, role: 'group', 'aria-label': `处理流程，当前 ${stations[sel].no} ${stations[sel].nm}（←／→ 切换工序）`, onKeyDown, viewBox: `${x0} ${y0} ${x1 - x0} ${y1 - y0}`, preserveAspectRatio: 'xMidYMin meet', style: { maxHeight: 620, overflow: 'hidden' } }, h('defs', {}, defs), els)
     }
 
     /** 右侧：选中工序的详情——小模型、按病人的指标柱、关键数字。 */
