@@ -161,7 +161,7 @@
 
 - `plugin_manager install_bundle link:…/dist/0.1.0-dev.1` 后，Agent 工具 event_start/status/report/runs/cancel 出现在宿主工具列表。
 - 用 `event_start` 跑匿名化后的 HD-0001（仅规则）：0.8 秒，四道验收门通过，24 条发现，源文件 515 个运行前后一致，交付在输出根目录、记录在 `_records`。
-- 页面用 `scripts/preview-page.mjs` 在浏览器外以同一份 client.js 和真实服务数据验证（产线、时间线、原文标注、复核截图在仓库外 `_medical-event-data/shots/`）。
+- 页面用 `scripts/preview-page.mjs` 在浏览器外以同一份 client.js 和真实服务数据验证（流水线、时间线、原文标注、复核截图在仓库外 `_medical-event-data/shots/`）。
 
 ## 批量（阶段 5）
 

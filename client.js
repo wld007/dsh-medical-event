@@ -130,7 +130,7 @@ window.__ModuleLoader__.load({
 .me-settings .me-btn{background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-border-l2)}
 .me-settings .me-field{color:var(--dsw-alias-label-secondary)}
 .me-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-/* ---- 产线：等轴测工厂＋HUD 面板（参考工业监控大屏） ---- */
+/* ---- 流水线：等轴测工厂＋HUD 面板（参考工业监控大屏） ---- */
 .me.me-dark{--lift:0 1px 0 rgba(255,255,255,.025) inset,0 12px 26px -22px #000}
 .me.me-light{--lift:0 1px 0 rgba(255,255,255,.8) inset,0 10px 22px -20px rgba(40,20,80,.32)}
 .me-frame{box-shadow:var(--lift);border-radius:4px}
@@ -365,7 +365,7 @@ window.__ModuleLoader__.load({
       const review = run?.totals?.review ?? 0
       const dark = useHostDark()
       const heldFormats = run?.format?.held ?? 0
-      const tabs = [['line', '◈ 产线'], ...(run?.format?.kind === 'recognized' ? [['formats', '格式', heldFormats]] : []), ['patients', '患者', run?.totals?.patients], ['timeline', '时间线'], ['source', '原文标注'], ['review', '复核', review], ['improve', '规则改进'], ['calls', '模型调用'], ['rules', '规则包'], ['report', '报告']]
+      const tabs = [['line', '◈ 流水线'], ...(run?.format?.kind === 'recognized' ? [['formats', '格式', heldFormats]] : []), ['patients', '患者', run?.totals?.patients], ['timeline', '时间线'], ['source', '原文标注'], ['review', '复核', review], ['improve', '规则改进'], ['calls', '模型调用'], ['rules', '规则包'], ['report', '报告']]
       return h(ThemeCtx.Provider, { value: dark ? PAL.dark : PAL.light }, h('div', { className: `me ${dark ? 'me-dark' : 'me-light'}` },
         h('style', {}, CSS),
         // ── 顶栏（与匿名化插件同一布局）：品牌 · 批次状态 · 用时 · 完成 · 版本 · 新批次 · 记录 · 设置 ──
@@ -502,7 +502,7 @@ window.__ModuleLoader__.load({
       // 失败或取消、且一个病人都没跑完：各站都是“未开始”
       const broken = !running && ['failed', 'cancelled'].includes(run.status) && !P.length
       const stOf = (no) => (broken ? 'idle' : !running ? 'done' : stage === no || (no === 'S01' && stage === 'S00') ? 'run' : 'part')
-      // 第 4 项是产线小标签里用的短写（小标签只有 112 宽，长文字会压到大数字上）
+      // 第 4 项是流水线小标签里用的短写（小标签只有 112 宽，长文字会压到大数字上）
       const fmtRow = run.format?.kind === 'recognized' ? ['格式', `${run.format.adopted}/${run.format.tables} 表${run.format.held ? ` · 待确认 ${run.format.held}` : ''}`, run.format.held ? 'warn' : 'ok', run.format.held ? `待确认 ${run.format.held}` : `${run.format.adopted}/${run.format.tables}`] : null
       const reviewN = t.review
       const verdicts = {}
@@ -554,7 +554,7 @@ window.__ModuleLoader__.load({
 
     /* ----------------------------------------------------------- 2.5D scenes */
     // 等轴测投影：i 轴向右下、j 轴向左下、z 向上（30°）
-    // 投影（与匿名化插件的产线一致）：i 轴向右、略向下（约 15°），j 轴向左下；流程沿 i 轴，读起来接近水平
+    // 投影（与匿名化插件的流水线一致）：i 轴向右、略向下（约 15°），j 轴向左下；流程沿 i 轴，读起来接近水平
     const IX = [0.94, 0.26]; const JX = [-0.66, 0.58]
     const iso = (i, j, z = 0) => [i * IX[0] + j * JX[0], i * IX[1] + j * JX[1] - z]
     /** 地面上的远近（越大越靠前），用来排画的先后。 */
@@ -591,7 +591,7 @@ window.__ModuleLoader__.load({
     function useClay() { const P = React.useContext(ThemeCtx); return [P, P === PAL.light ? CLAY.light : CLAY.dark] }
 
     /**
-     * 产线主视图：一座黏土质感的等轴测小工厂，按阅读顺序从左上走到右下。
+     * 流水线主视图：一座黏土质感的等轴测小工厂，按阅读顺序从左上走到右下。
      * S01 进料楼 → S02–S06 主厂房的五个跨（屋顶设备：运行中的跨按进度点亮、待复核的跨整跨发光）
      * → S07 交付堆场；厂房前有管廊，运行时管廊上的灯流动。点任意一跨看右侧详情。
      */
@@ -760,7 +760,7 @@ window.__ModuleLoader__.load({
           h('text', { x: 0, y: 0, fill: P.ink3, fontSize: 9.5 }, '生成事件包 → 整批汇总表 → 只读核对 → 移交')))
       }
 
-      // 每道工序门前的排队：箱子＝病人，堆得越高等得越多（和匿名化插件的产线一致）
+      // 每道工序门前的排队：箱子＝病人，堆得越高等得越多（和匿名化插件的流水线一致）
       {
         const waiting = Math.max(0, total - done - (current ? 1 : 0))
         const loads = [waiting, 0, 0, 0, 0, reviewPatients, running ? done : 0]
