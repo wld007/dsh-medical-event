@@ -31,15 +31,15 @@ window.__ModuleLoader__.load({
     }
 
     /* ---------------------------------------------------------------- style */
-    // 主题与 2.5D 流水线与病历文书提取共用（类名前缀 me-）
+    // 主题：钴蓝（病历文书提取是薰衣草紫、匿名化与本体是青绿、HL7 是暖棕）；类名前缀 me-
     const CSS = `.me{--mono:"SF Mono","JetBrains Mono",Menlo,monospace;
   height:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);font:12.5px -apple-system,"PingFang SC","Helvetica Neue",sans-serif;display:flex;flex-direction:column;gap:8px;padding:8px 10px 10px;color-scheme:dark;overflow:hidden}
-.me.me-dark{--bg:#0c0b12;--panel:#12111b;--panel2:#181624;--panel3:#201d2e;--line:#221f31;--line2:#332e48;--ink:#ebe8f4;--ink2:#a49fba;--ink3:#6b6683;--teal:#8f6ef5;--teal2:#c9b8ff;--tealdim:rgba(143,110,245,.14);--fill:#6d4ae0;--ok:#62c27e;--warn:#f0a63a;--bad:#e5484d;--badink:#ff8a8d;--vio:#4cc9e0;--fact:#6cb4ff;--judge:#f38bc8;--decide:#4fd1a5;--visit:#8681a0;--tick:#514c68;--arrow:#423d58;--cell-ok:#62c27e;--top:#100f18;--st1:#161423;--st2:#100f18;--shade:rgba(12,11,18,.65);--sel:#ebe8f4;color-scheme:dark}
-.me.me-light{--bg:#f1eff6;--panel:#fcfbfe;--panel2:#f5f3fa;--panel3:#eae6f3;--line:#e2dfec;--line2:#cdc7dc;--ink:#221d33;--ink2:#625b78;--ink3:#958fa9;--teal:#5b3cc4;--teal2:#45289e;--tealdim:rgba(91,60,196,.1);--fill:#5b3cc4;--ok:#2f9a55;--warn:#c27a12;--bad:#cf3a3f;--badink:#b83034;--vio:#0f8ea3;--fact:#1f7fd0;--judge:#c23d8c;--decide:#0f9d78;--visit:#8a84a2;--tick:#b3adc5;--arrow:#bcb6cc;--cell-ok:#3fb27a;--top:#f8f7fb;--st1:#faf9fd;--st2:#f2f0f7;--shade:rgba(241,239,246,.72);--sel:#221d33;color-scheme:light}
+.me.me-dark{--bg:#090c13;--panel:#0e131d;--panel2:#131a27;--panel3:#1a2334;--line:#1b2331;--line2:#2a354b;--ink:#e6ebf5;--ink2:#9aa6bf;--ink3:#5f6b85;--teal:#4f7cff;--teal2:#b8caff;--tealdim:rgba(79,124,255,.14);--fill:#2f5bea;--ok:#62c27e;--warn:#f0a63a;--bad:#e5484d;--badink:#ff8a8d;--vio:#a48dff;--fact:#47c6e6;--judge:#f38bc8;--decide:#4fd1a5;--visit:#7f8aa3;--tick:#4b5670;--arrow:#3a4560;--cell-ok:#62c27e;--top:#0c111a;--st1:#111826;--st2:#0c111a;--shade:rgba(9,12,19,.65);--sel:#e6ebf5;color-scheme:dark}
+.me.me-light{--bg:#edf1f7;--panel:#fbfcfe;--panel2:#f2f5fa;--panel3:#e4eaf4;--line:#dbe2ed;--line2:#c3cddf;--ink:#16202f;--ink2:#56627a;--ink3:#8a96ac;--teal:#2a52d6;--teal2:#1c3aa6;--tealdim:rgba(42,82,214,.1);--fill:#2a52d6;--ok:#2f9a55;--warn:#c27a12;--bad:#cf3a3f;--badink:#b83034;--vio:#6a4fd6;--fact:#0a8db0;--judge:#c23d8c;--decide:#0f9d78;--visit:#8590a8;--tick:#adb7ca;--arrow:#b5bfd0;--cell-ok:#3fb27a;--top:#f7f9fc;--st1:#f9fbfe;--st2:#eff3f9;--shade:rgba(237,241,247,.72);--sel:#16202f;color-scheme:light}
 .me *{box-sizing:border-box}
 .me-frame{border:1px solid var(--line);background:var(--panel);border-radius:6px}
 .me-top{display:flex;align-items:center;gap:14px;padding:6px 12px;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 10%,transparent),transparent 40%),var(--panel);flex:none}
-.me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#9a7bff,#4a27b0);display:grid;place-items:center;flex:none}
+.me-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#6f9bff,#1f45c4);display:grid;place-items:center;flex:none}
 .me-brand{display:flex;align-items:center;gap:10px;flex:none}.me-brand b{display:block;font-size:15px;letter-spacing:2px}.me-brand span{font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:1px}
 .me-status{display:flex;align-items:center;gap:8px;height:58px;padding:4px 12px 4px 10px;border-radius:8px;border:1px solid var(--line2);min-width:170px;max-width:340px}
 .me-status>div{display:flex;flex-direction:column;line-height:16px;min-width:0}.me-status>div>*{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -134,7 +134,7 @@ window.__ModuleLoader__.load({
 .me-settings .me-field{color:var(--dsw-alias-label-secondary)}
 .me-stabs{display:flex;gap:2px;box-shadow:inset 0 -1px 0 var(--dsw-alias-border-l2,var(--line2));overflow-x:auto}
 .me-stab{position:relative;display:inline-flex;align-items:center;gap:6px;background:none;border:0;border-bottom:2px solid transparent;padding:8px 12px;font:inherit;font-size:13px;color:var(--dsw-alias-label-secondary,var(--ink2));cursor:pointer;white-space:nowrap}
-.me-stab[aria-selected="true"]{color:var(--dsw-alias-label-primary,var(--ink));font-weight:600;border-bottom-color:var(--teal,#5b3cc4)}
+.me-stab[aria-selected="true"]{color:var(--dsw-alias-label-primary,var(--ink));font-weight:600;border-bottom-color:var(--teal,#2a52d6)}
 .me-sdot{width:6px;height:6px;border-radius:50%;background:var(--warn,#c27a12)}
 .me-spanel{display:flex;flex-direction:column;gap:12px;min-height:240px}
 .me-scard{border:1px solid var(--dsw-alias-border-l2,var(--line2));border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;background:var(--dsw-alias-bg-layer-1,var(--panel))}
@@ -147,14 +147,14 @@ window.__ModuleLoader__.load({
 .me-mp{position:relative;width:100%}.me-mp-row{display:flex;gap:6px}.me-mp-row .me-input{flex:1;min-width:0}.me-mp-btn{flex:none;width:32px;padding:0}
 .me-mp-menu{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 4px);max-height:240px;overflow:auto;padding:4px;border-radius:8px;border:1px solid var(--dsw-alias-border-l2,var(--line2));background:var(--dsw-alias-bg-overlay,var(--dsw-alias-bg-layer-1,var(--panel)));box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .me-mp-item{display:block;width:100%;text-align:left;padding:6px 8px;border:0;border-radius:5px;background:none;color:var(--dsw-alias-label-primary,var(--ink));font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
-.me-mp-item:hover{background:var(--dsw-alias-bg-layer-2,var(--panel2))}.me-mp-item.on{color:var(--teal,#5b3cc4);font-weight:600}
+.me-mp-item:hover{background:var(--dsw-alias-bg-layer-2,var(--panel2))}.me-mp-item.on{color:var(--teal,#2a52d6);font-weight:600}
 .me-mp-clear{font-family:inherit;color:var(--dsw-alias-label-secondary,var(--ink2))}
 .me-mp-note{padding:6px 8px;font-size:12px;color:var(--dsw-alias-label-secondary,var(--ink2))}.me-mp-note.bad{color:var(--bad,#cf3a3f)}
 .me-grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.me-grid2>*{min-width:0}
 .me-pop .me-grid2.tm{grid-template-columns:minmax(0,1fr) max-content}
 /* ---- 流水线：等轴测工厂＋HUD 面板（参考工业监控大屏） ---- */
 .me.me-dark{--lift:0 1px 0 rgba(255,255,255,.025) inset,0 12px 26px -22px #000}
-.me.me-light{--lift:0 1px 0 rgba(255,255,255,.8) inset,0 10px 22px -20px rgba(40,20,80,.32)}
+.me.me-light{--lift:0 1px 0 rgba(255,255,255,.8) inset,0 10px 22px -20px rgba(20,35,80,.3)}
 .me-frame{box-shadow:var(--lift);border-radius:4px}
 .me-tab.on{color:var(--teal2);border-bottom-color:var(--teal)}
 .me-tab i{color:var(--ink3)}.me-tab.on i{color:var(--teal)}
@@ -576,12 +576,12 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
 
     /* -------------------------------------------------------------- helpers */
     const PAL = {
-      dark: { fact: '#6cb4ff', judge: '#f38bc8', decide: '#4fd1a5', visit: '#8681a0', grid: '#1c1a28', lane: '#2b273c', ink: '#ebe8f4', ink2: '#a49fba', ink3: '#6b6683', tick: '#514c68', bad: '#e5484d', warn: '#f0a63a', vio: '#4cc9e0', ok: '#62c27e', shade: 'rgba(12,11,18,.65)', teal: '#8f6ef5', halo: '#0c0b12', band: '#12111b' },
-      light: { fact: '#1f7fd0', judge: '#c23d8c', decide: '#0f9d78', visit: '#8a84a2', grid: '#e2dfec', lane: '#cdc7dc', ink: '#221d33', ink2: '#625b78', ink3: '#958fa9', tick: '#b3adc5', bad: '#cf3a3f', warn: '#c27a12', vio: '#0f8ea3', ok: '#2f9a55', shade: 'rgba(241,239,246,.72)', teal: '#5b3cc4', halo: '#fcfbfe', band: '#f5f3fa' },
+      dark: { fact: '#47c6e6', judge: '#f38bc8', decide: '#4fd1a5', visit: '#7f8aa3', grid: '#18202e', lane: '#263147', ink: '#e6ebf5', ink2: '#9aa6bf', ink3: '#5f6b85', tick: '#4b5670', bad: '#e5484d', warn: '#f0a63a', vio: '#a48dff', ok: '#62c27e', shade: 'rgba(9,12,19,.65)', teal: '#4f7cff', halo: '#090c13', band: '#0e131d' },
+      light: { fact: '#0a8db0', judge: '#c23d8c', decide: '#0f9d78', visit: '#8590a8', grid: '#dbe2ed', lane: '#c3cddf', ink: '#16202f', ink2: '#56627a', ink3: '#8a96ac', tick: '#adb7ca', bad: '#cf3a3f', warn: '#c27a12', vio: '#6a4fd6', ok: '#2f9a55', shade: 'rgba(237,241,247,.72)', teal: '#2a52d6', halo: '#fbfcfe', band: '#f2f5fa' },
     }
     const CLAY = {
-      dark: { top: '#d8d5e2', left: '#b0abc0', right: '#88839a', edge: 'rgba(0,0,0,.28)', top2: '#e5e2ec', left2: '#bfbacd', right2: '#9a95ab', win: '#34303f', hole: '#433e50', pad: '#24212e', padL: '#1a1822', padR: '#15131c', grid: '#e8e5f0', floorShadow: '#000', card: 'rgba(12,11,18,.88)', cardLine: '#433d58', lamp: '#ece4ff' },
-      light: { top: '#e9e6f0', left: '#c9c4d6', right: '#a8a2b8', edge: 'rgba(40,25,80,.2)', top2: '#f3f1f8', left2: '#d6d1e2', right2: '#b6b0c5', win: '#625b74', hole: '#827b96', pad: '#dcd8e5', padL: '#cac5d6', padR: '#b8b2c7', grid: '#5f5878', floorShadow: '#2c2050', card: 'rgba(253,252,255,.94)', cardLine: '#cdc7dc', lamp: '#d9c9ff' },
+      dark: { top: '#d3dae6', left: '#a9b3c6', right: '#808ba0', edge: 'rgba(0,0,0,.28)', top2: '#e1e6ef', left2: '#b8c1d2', right2: '#939db1', win: '#2c3445', hole: '#3a4357', pad: '#1d2432', padL: '#151b26', padR: '#10151e', grid: '#e2e8f2', floorShadow: '#000', card: 'rgba(9,12,19,.88)', cardLine: '#36425c', lamp: '#dfe8ff' },
+      light: { top: '#e6ebf3', left: '#c4ccdb', right: '#a2acbf', edge: 'rgba(20,35,80,.2)', top2: '#f1f4f9', left2: '#d2d9e5', right2: '#b1bacb', win: '#5a6479', hole: '#7a859a', pad: '#d7dee9', padL: '#c5cedc', padR: '#b3bdcd', grid: '#56627a', floorShadow: '#1a2a50', card: 'rgba(251,252,254,.94)', cardLine: '#c3cddf', lamp: '#cddcff' },
     }
     function shade(hex, k) {
       const m = /^#([0-9a-f]{6})$/i.exec(hex ?? ''); if (!m) return hex
@@ -902,7 +902,7 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
             : k >= 0 ? h(StationPanel, { run, s: stations[k], goto, onBack: () => setSelK(null) }) : h(Overview, { run, goto, onSel: setSelK, stations })))
     }
 
-    /* 等轴测投影（与病历事件还原一致） */
+    /* 等轴测投影 */
     const IX = [0.94, 0.26]; const JX = [-0.66, 0.58]
     const iso = (i, j, z = 0) => [i * IX[0] + j * JX[0], i * IX[1] + j * JX[1] - z]
     const depthOf = (i, j) => i * IX[1] + j * JX[1]
@@ -927,10 +927,6 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
       ]
     }
 
-    /**
-     * 流水线主视图：后方的模板塔（E0）经说明总线把字段说明下发到每道工序；
-     * E1 读入楼 → E2–E6 五栋工序楼 → E7 交付堆场；箱子＝一个数据块；提取模型挂在提取楼旁，核验模型挂在核验楼旁。
-     */
     const STATION_LABEL = { format: '格式识别', extract: '通读', verify: '核验', adjudicate: '复查' }
     const shortModel = (m) => { const x = String(m ?? ''); return x.length > 22 ? `${x.slice(0, 21)}…` : x }
     /** 模型房子：一栋＝一个模型服务。用的哪几道工序、各调用多少，按 run.models 的角色拆 */
@@ -962,181 +958,236 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
       return houses
     }
 
+    /**
+     * 流水线主视图：分拣中心。整个场地垫在三层规则包底座上（数据源层、通用医学层、专科层）；
+     * 文书从左边进料口进来（读入·片段）→ 切句 → 通读塔（通读模型）与后方的核验塔（核验模型），两塔之间的天桥是复查 →
+     * 分拣台把提及按类型分到三条滑道（事实、判断、决策，和复核页、时间线同色）→ 按时间上架的事件仓库（归并），
+     * 旁边的冲突台堆着发现 → 交付堆场。质检是路上的关卡：① 通读出口、⑤ 天桥、② 滑道口、③ 仓库门口。
+     */
     function PlantScene({ run, stations, sel, onSel, goto }) {
       const [P, C] = useClay()
       const A = P.teal
-      const t = run.totals
+      const t = run.totals ?? {}
       const running = run.status === 'running'
       const tone = (s) => (s.state === 'hold' || s.state === 'run' ? A : null)
-      const L = 150; const bw = 72; const D = 104; const H = 50
-      const h0 = 84 + (L - bw)
-      const bay0 = (k) => h0 + (k - 1) * L
-      const hallEnd = bay0(5) + bw
-      const yard = hallEnd + (L - bw)
       const els = []; const defs = []; const bb = []
       const click = (k) => ({ onClick: () => onSel(k), style: { cursor: 'pointer' } })
       const halo = { stroke: C.card, strokeWidth: 3, paintOrder: 'stroke', strokeLinejoin: 'round' }
-      const AMB = { top: shade(A, 0.3), left: A, right: shade(A, -0.32) }
+      const AMB = { top: shade(P.warn, 0.3), left: P.warn, right: shade(P.warn, -0.32) }
       const RED = { top: shade(P.bad, 0.3), left: P.bad, right: shade(P.bad, -0.35) }
       const CL = { top: C.top, left: C.left, right: C.right, edge: C.edge }
       const CL2 = { top: C.top2, left: C.left2, right: C.right2, edge: C.edge }
-      const TW = { i: 96, j: -190, a: 56, b: 56, hh: 128 }
-      const gi0 = -140; const gi1 = yard + 220; const gj0 = -280; const gj1 = D + 170
-      const grid = []
-      for (let i = gi0; i <= gi1; i += 40) { const a = iso(i, gj0); const b = iso(i, gj1); grid.push(h('line', { key: `gi${i}`, x1: a[0], y1: a[1], x2: b[0], y2: b[1] })) }
-      for (let j = gj0; j <= gj1; j += 40) { const a = iso(gi0, j); const b = iso(gi1, j); grid.push(h('line', { key: `gj${j}`, x1: a[0], y1: a[1], x2: b[0], y2: b[1] })) }
-      defs.push(h('radialGradient', { key: 'rg', id: 'me-fade', cx: '50%', cy: '55%', r: '55%' }, h('stop', { offset: 0, stopColor: '#fff', stopOpacity: 1 }), h('stop', { offset: 1, stopColor: '#fff', stopOpacity: 0 })))
+      const tint = (c, k = 0.55) => ({ top: shade(c, k + 0.15), left: shade(c, k), right: shade(c, k - 0.2), edge: C.edge })
+      const TYPE3 = [['事实', P.fact], ['判断', P.judge], ['决策', P.decide]]
+      const hasVerify = Boolean(run.model?.verifyModel)
+      // 场地：底座范围、各站位置（i 向右下，j 向左下）
+      const BASE = { i0: -90, i1: 1040, j0: -150, j1: 262 }
+      const BELT = [70, 94] // 主传送带的 j 范围
+      const ST = {
+        intake: [0, 30, 86, 100, 74], cutter: [150, 50, 74, 64, 36], read: [292, 52, 58, 58, 150], verify: [292, -104, 58, 58, 128],
+        sorter: [440, 40, 80, 84, 40], ware: [640, 18, 180, 162, 3], desk: [688, 204, 86, 34, 14], dock: [876, 20, 140, 132, 4],
+      }
+      defs.push(h('radialGradient', { key: 'rg', id: 'me-fade', cx: '50%', cy: '55%', r: '58%' }, h('stop', { offset: 0, stopColor: '#fff', stopOpacity: 1 }), h('stop', { offset: 1, stopColor: '#fff', stopOpacity: 0 })))
       defs.push(h('filter', { key: 'bl', id: 'me-blur', x: '-30%', y: '-30%', width: '160%', height: '160%' }, h('feGaussianBlur', { stdDeviation: 9 })))
       defs.push(h('filter', { key: 'gl', id: 'me-glow', x: '-50%', y: '-50%', width: '200%', height: '200%' }, h('feGaussianBlur', { stdDeviation: 3.5, result: 'b' }), h('feMerge', {}, h('feMergeNode', { in: 'b' }), h('feMergeNode', { in: 'SourceGraphic' }))))
       defs.push(h('marker', { key: 'ar', id: 'me-arr', viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto' }, h('path', { d: 'M0 0L10 5L0 10z', fill: P.ink2 })))
       defs.push(h('linearGradient', { key: 'cy', id: 'me-cyl', x1: 0, x2: 1, y1: 0, y2: 0 }, h('stop', { offset: 0, stopColor: C.left2 }), h('stop', { offset: 0.55, stopColor: C.left }), h('stop', { offset: 1, stopColor: C.right })))
-      els.push(h('g', { key: 'grid', stroke: C.grid, strokeOpacity: 0.07, strokeWidth: 0.8, mask: 'url(#me-gridmask)' }, grid))
-      const shadow = (key, i, j, a, b, push = 26) => h('polygon', { key, points: pts([iso(i + 6, j + 4), iso(i + a + push, j + 4), iso(i + a + push, j + b + push * 0.5), iso(i + 6, j + b + push * 0.5)]), fill: C.floorShadow, opacity: 0.55, filter: 'url(#me-blur)' })
-      els.push(shadow('sh1', 0, 8, 84, 100), shadow('sh3', yard, 6, 150, 130, 14), shadow('shT', TW.i, TW.j, TW.a, TW.b, 40))
-      for (let k = 1; k <= 5; k++) els.push(shadow(`sb${k}`, bay0(k), 0, bw, D, 24))
-      // 站序号 → 在场景里的位置：0=E1 楼，1–5=E2–E6，6=E7 堆场，7=E0 模板塔
-      const footprint = (k) => (k === 0 ? [0, 8, 84, 100] : k === 6 ? [yard, 6, 150, 130] : k === 7 ? [TW.i, TW.j, TW.a, TW.b] : k === 8 ? [bay0(1) + 4, D + 118, 74, 44] : k === 9 ? [bay0(4) + 92, D + 118, 74, 44] : [bay0(k), 0, bw, D])
+
+      /* ---- 规则包底座：三层叠起来，整个场地都站在上面（点底座看规则包） ---- */
+      const spec = [].concat(run.specialty ?? [])
+      const LAYERS = [['数据源层', run.format?.kind === 'recognized' ? '自动识别' : 'zj-regional', P.fact], ['通用医学层', 'general', A], ...(spec.length ? [['专科层', spec.join('·'), P.decide]] : [])]
       {
-        if (sel < 0) { /* 没选工序：不画选中框 */ } else {
-        const [fi, fj, fa, fb] = footprint(sel); const m = 10
+        const g = []
+        const n = LAYERS.length; const th = 11
+        LAYERS.forEach(([nm, id, c], li) => {
+          const z = -(n - li) * th
+          const inset = li * 6
+          g.push(...isoBox(`base${li}`, BASE.i0 + inset, BASE.j0 + inset, z, BASE.i1 - BASE.i0 - inset * 2, BASE.j1 - BASE.j0 - inset * 2, th, { top: C.pad, left: shade(c, C === CLAY.light ? 0.55 : -0.55), right: shade(c, C === CLAY.light ? 0.4 : -0.65), edge: C.edge }))
+          const [x, y] = iso(BASE.i0 + inset + 14, BASE.j1 - inset, z + 2)
+          g.push(h('g', { key: `bl${li}`, transform: `matrix(${IX[0]} ${IX[1]} 0 1 ${x.toFixed(1)} ${y.toFixed(1)})`, pointerEvents: 'none' },
+            h('text', { x: 0, y: 0, fill: C === CLAY.light ? shade(c, -0.3) : shade(c, 0.45), fontSize: 8, fontWeight: 700 }, `${li + 1} ${nm}`, h('tspan', { dx: 4, fontWeight: 400, fontFamily: MONO, opacity: 0.85 }, id))))
+        })
+        if (sel === 7) g.push(h('polygon', { key: 'basesel', points: pts([iso(BASE.i0, BASE.j0), iso(BASE.i1, BASE.j0), iso(BASE.i1, BASE.j1), iso(BASE.i0, BASE.j1)]), fill: 'none', stroke: A, strokeWidth: 1.6, strokeDasharray: '6 5' }))
+        els.push(h('g', { key: 'base', ...click(7) }, h('title', {}, `规则包（三层）：${LAYERS.map(([nm, id]) => `${nm} ${id}`).join(' → ')}\n规则是地基：读入、切句、类型、归并、矛盾判断都按它算；通读由模型做，规则补漏、投第三票\n点开看规则包`), g))
+        for (const [i, j] of [[BASE.i0, BASE.j0], [BASE.i1, BASE.j0], [BASE.i1, BASE.j1], [BASE.i0, BASE.j1]]) bb.push(iso(i, j, 0), iso(i, j, -LAYERS.length * 11))
+      }
+      // 地面网格（画在底座顶面上，向四周淡出）
+      {
+        const grid = []
+        for (let i = BASE.i0 + 20; i < BASE.i1; i += 40) { const a = iso(i, BASE.j0); const b = iso(i, BASE.j1); grid.push(h('line', { key: `gi${i}`, x1: a[0], y1: a[1], x2: b[0], y2: b[1] })) }
+        for (let j = BASE.j0 + 20; j < BASE.j1; j += 40) { const a = iso(BASE.i0, j); const b = iso(BASE.i1, j); grid.push(h('line', { key: `gj${j}`, x1: a[0], y1: a[1], x2: b[0], y2: b[1] })) }
+        els.push(h('g', { key: 'grid', stroke: C.grid, strokeOpacity: 0.07, strokeWidth: 0.8, mask: 'url(#me-gridmask)', pointerEvents: 'none' }, grid))
+      }
+      const shadow = (key, [i, j, a, b], push = 22) => h('polygon', { key, points: pts([iso(i + 6, j + 4), iso(i + a + push, j + 4), iso(i + a + push, j + b + push * 0.5), iso(i + 6, j + b + push * 0.5)]), fill: C.floorShadow, opacity: 0.45, filter: 'url(#me-blur)', pointerEvents: 'none' })
+      for (const [k, v] of Object.entries(ST)) if (k !== 'ware' && k !== 'dock') els.push(shadow(`sh-${k}`, v, k === 'read' || k === 'verify' ? 46 : 22))
+      // 选中框：站在地面的角括号
+      const FOOT = [ST.intake, ST.cutter, ST.read, ST.verify, ST.sorter, [ST.ware[0], ST.ware[1], ST.ware[2], ST.desk[1] + ST.desk[3] - ST.ware[1]], ST.dock]
+      if (sel >= 0 && sel <= 6) {
+        const [fi, fj, fa, fb] = FOOT[sel]; const m = 10
         const corners = [[fi - m, fj - m], [fi + fa + m, fj - m], [fi + fa + m, fj + fb + m], [fi - m, fj + fb + m]]
-        els.push(h('polygon', { key: 'selfloor', points: pts(corners.map(([a, b]) => iso(a, b))), fill: A, opacity: 0.07 }))
-        corners.forEach(([ci, cj], q) => {
-          const di = q === 0 || q === 3 ? 1 : -1; const dj = q < 2 ? 1 : -1
-          els.push(h('polyline', { key: `br${q}`, points: pts([iso(ci + di * 16, cj), iso(ci, cj), iso(ci, cj + dj * 16)]), fill: 'none', stroke: A, strokeWidth: 1.6, opacity: 0.9 }))
-        })
-        }
+        els.push(h('polygon', { key: 'selfloor', points: pts(corners.map(([a, b]) => iso(a, b))), fill: A, opacity: 0.08, pointerEvents: 'none' }))
+        corners.forEach(([ci, cj], q) => { const di = q === 0 || q === 3 ? 1 : -1; const dj = q < 2 ? 1 : -1; els.push(h('polyline', { key: `br${q}`, points: pts([iso(ci + di * 16, cj), iso(ci, cj), iso(ci, cj + dj * 16)]), fill: 'none', stroke: A, strokeWidth: 1.6, opacity: 0.9, pointerEvents: 'none' })) })
       }
-      // E0 模板塔：窗户＝字段（点亮＝本批提取到值的字段）
-      {
-        const { i, j, a, b, hh } = TW; const g = []
-        g.push(...isoBox('tp', i - 10, j - 10, 0, a + 20, b + 20, 4, { top: C.pad, left: C.padL, right: C.padR }))
-        g.push(...isoBox('t', i, j, 4, a, b, hh, CL))
-        g.push(...isoBox('tc', i + 8, j + 8, hh + 4, a - 16, b - 16, 12, CL2))
-        const rc0 = run.totals?.ruleCompare ?? {}
-        const litN = Math.round((rc0.matched ? rc0.type / rc0.matched : run.status === 'running' ? 0.3 : 1) * 28)
-        let q = 0
-        for (let r = 0; r < 7; r++) for (let c = 0; c < 4; c++) {
-          const z = 18 + r * 15; const ii = i + 6 + c * 12; const lit = q++ < litN
-          g.push(leftPatch(`tw${r}${c}`, ii, ii + 7, j + b, z, z + 9, { fill: lit ? C.lamp : C.win, opacity: lit ? 0.9 : 0.55 }))
-        }
-        for (let r = 0; r < 7; r++) g.push(rightPatch(`tr${r}`, i + a, j + 10, j + 46, 18 + r * 15, 18 + r * 15 + 3, { fill: C.win, opacity: 0.45 }))
-        const z0 = hh + 22
-        g.push(h('polygon', { key: 'holo', points: pts([iso(i + 6, j + 6, z0), iso(i + a - 6, j + 6, z0), iso(i + a - 6, j + b - 6, z0), iso(i + 6, j + b - 6, z0)]), fill: A, opacity: 0.16, stroke: A, strokeWidth: 1, filter: 'url(#me-glow)' }))
-        for (let r = 1; r < 4; r++) { const p1 = iso(i + 6, j + 6 + r * 11, z0); const p2 = iso(i + a - 6 - r * 6, j + 6 + r * 11, z0); g.push(h('line', { key: `hl${r}`, x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1], stroke: A, strokeWidth: 1, opacity: 0.8 })) }
-        const lp = iso(i + a / 2, j + b / 2, z0 + 2)
-        g.push(h('text', { key: 'tl', x: lp[0], y: lp[1] - 4, textAnchor: 'middle', fill: A, fontSize: 10, fontWeight: 700, fontFamily: MONO, ...halo }, [].concat(run.specialty ?? []).join('·') || '通用'))
-        els.push(h('g', { key: 'tower', ...click(7) }, h('title', {}, `${stations[7].nm}：${stations[7].sub}`), g))
-        bb.push(iso(i - 10, j - 10, 0), iso(i + a, j, z0 + 30), iso(i - 10, j + b + 10, 0))
-      }
-      // 说明总线
-      const BUSJ = -24; const BUSZ = 74
-      {
-        const g = []
-        const a = iso(TW.i + TW.a / 2, TW.j + TW.b, BUSZ + 26); const b = iso(TW.i + TW.a / 2, BUSJ, BUSZ); const c = iso(bay0(5) + bw / 2, BUSJ, BUSZ)
-        for (let k = 1; k <= 5; k++) g.push(...isoBox(`pl${k}`, bay0(k) - 30, BUSJ - 3, 0, 5, 5, BUSZ, CL2))
-        g.push(h('polyline', { key: 'bus', points: pts([a, b, c]), fill: 'none', stroke: C.left2, strokeWidth: 5, strokeLinejoin: 'round', strokeLinecap: 'round' }))
-        g.push(h('polyline', { key: 'busf', points: pts([a, b, c]), fill: 'none', stroke: A, strokeWidth: 2, strokeDasharray: '2 8', className: 'me-flow', style: { animationDuration: running ? '0.9s' : '3.2s' }, filter: 'url(#me-glow)', strokeLinecap: 'round' }))
-        for (let k = 1; k <= 5; k++) {
-          const d0 = iso(bay0(k) - 30 + 2.5, BUSJ, BUSZ); const d1 = iso(bay0(k) + 4, 4, H + 1)
-          g.push(h('path', { key: `dr${k}`, d: `M${d0[0].toFixed(1)} ${d0[1].toFixed(1)} Q${((d0[0] + d1[0]) / 2).toFixed(1)} ${(d0[1] - 6).toFixed(1)} ${d1[0].toFixed(1)} ${d1[1].toFixed(1)}`, fill: 'none', stroke: A, strokeWidth: 1.2, strokeDasharray: '2 4', opacity: 0.75 }))
-        }
-        els.push(h('g', { key: 'busg', pointerEvents: 'none' }, g))
-        // 悬停说明（原图例里「紫色流线」那条）：透明粗线只用来接住鼠标
-        els.push(h('polyline', { key: 'bushit', points: pts([a, b, c]), fill: 'none', stroke: 'transparent', strokeWidth: 12, pointerEvents: 'stroke' }, h('title', {}, '规则包：类型规则、词表、栏目与时间策略，下发到每道工序')))
-      }
-      // 复查回环：核验 → 通读。分歧由两个模型轮流复查（回到提取那一步重读原文），人工判断按稳定编号存、重跑沿用。
-      // 起止点在楼背后的空地正中（楼和总线之间、与楼左右居中），向后穿过说明总线拱起；画在总线之后、楼之前
-      {
-        const LJ = BUSJ / 2; const LZ = H + 10
-        // 在画面上和楼左右居中：往后挪（j 变小）画面会右移，用 i 抵回去
-        const shiftI = -(JX[0] * (LJ - D / 2)) / IX[0]
-        const i1 = bay0(3) + bw / 2 + shiftI; const i0 = bay0(2) + bw / 2 + shiftI
-        const a = iso(i1, LJ, LZ); const b = iso(i0, LJ, LZ)
-        const c1 = iso(i1 - 10, BUSJ - 40, BUSZ + 25); const c2 = iso(i0 + 10, BUSJ - 40, BUSZ + 25)
-        const d = `M${a[0].toFixed(1)} ${a[1].toFixed(1)} C${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`
-        const mid = [(a[0] + 3 * c1[0] + 3 * c2[0] + b[0]) / 8, (a[1] + 3 * c1[1] + 3 * c2[1] + b[1]) / 8]
-        // 整根线在画面上右移一点（离开提取标签）
-        els.push(h('g', { key: 'loop', transform: 'translate(34 0)' },
-          h('title', {}, `分歧复查：核验分歧回到通读，两个模型轮流看对方的答案和理由复查，至多 ${run.maxRounds ?? 3} 轮；仍不一致的（hybrid 先让规则投第三票）转人工\n人工判断按稳定编号保存，重跑沿用`),
-          h('circle', { cx: a[0], cy: a[1], r: 2.6, fill: P.ink2 }),
-          h('path', { d, fill: 'none', stroke: P.ink2, strokeWidth: 1.4, strokeDasharray: '5 5', markerEnd: 'url(#me-arr)' }),
-          h('path', { d, fill: 'none', stroke: 'transparent', strokeWidth: 12 }),
-          h('text', { x: mid[0], y: mid[1] - 12, textAnchor: 'middle', fill: P.ink2, fontSize: 10, ...halo }, `有分歧时复查，至多 ${run.maxRounds ?? 3} 轮 · 人工判断重跑沿用`)))
-        bb.push([mid[0] - 76, mid[1] - 26], [mid[0] + 144, mid[1] - 26])
-      }
-      // E1 读入楼：窗户＝数据块进度
-      {
-        const s = stations[0]; const g = []
-        g.push(...isoBox('ramp', -60, 44, 0, 60, 24, 8, CL))
-        g.push(...isoBox('b', 0, 8, 0, 84, 100, 88, CL))
-        g.push(...isoBox('cap', 8, 18, 88, 50, 40, 10, CL2))
-        g.push(...isoBox('vent', 56, 70, 88, 18, 22, 14, CL2))
-        const wins = []
-        for (let z = 66; z >= 14; z -= 13) for (let i = 8; i < 78; i += 12) wins.push([i, z])
-        const litN = Math.round((s.frac ?? 0) * wins.length)
-        wins.forEach(([i, z], q) => { const lit = q < litN; g.push(leftPatch(`w${z}-${i}`, i, i + 7, 108, z, z + 6, { fill: lit ? (s.state === 'run' ? A : C.lamp) : C.win, opacity: lit ? 0.95 : 0.55, filter: lit && s.state === 'run' ? 'url(#me-glow)' : undefined })) })
-        els.push(h('g', { key: 'e1', ...click(0) }, h('title', {}, s.nm), g))
-      }
-      // 走廊与质检：①在通读出口，⑤在核验出口，②在类型出口，③（及④）在归并·矛盾出口（楼的顺序：切句、通读、核验、类型、归并）
       const gateOf = (id) => run.gates?.find((x) => x.id === id)
-      const GATE_AFTER = { 3: '①', 4: '⑤', 5: '②', 6: '③' }
-      const corridor = (key, i0, i1, k) => {
-        const cj = D - 30
-        const a = iso(i0, cj + 24, 24); const b = iso(i1, cj + 24, 24)
-        let gate = null
-        const gid = GATE_AFTER[k]
-        if (gid) {
-          const g = gateOf(gid)
-          const gc = !g ? P.ink3 : g.skipped ? P.ink2 : g.pass ? P.ok : P.bad
-          // 整段传送带顶面染色（绿＝通过、红＝未过），出口接缝一个带编号的圆点；文字只在未过时出现
-          const top = pts([iso(i0, cj, 32), iso(i1, cj, 32), iso(i1, cj + 24, 32), iso(i0, cj + 24, 32)])
-          const e0 = iso(i0, cj + 24, 32); const e1 = iso(i1, cj + 24, 32)
-          const dp = iso((i0 + i1) / 2, cj + 12, 32)
-          const fail = g && !g.pass && !g.skipped
-          gate = h('g', { key: 'gate' },
-            h('title', {}, g ? `${g.label}：${g.skipped ? '跳过' : g.pass ? '通过' : '未过'}${g.detail ? `（${g.detail}）` : ''}` : '质检：批次结束时判定'),
-            h('polygon', { points: top, fill: gc, opacity: g ? 0.3 : 0.12 }),
-            h('line', { x1: e0[0], y1: e0[1], x2: e1[0], y2: e1[1], stroke: gc, strokeWidth: 2, strokeLinecap: 'round', opacity: g ? 0.95 : 0.5 }),
-            h('circle', { cx: dp[0], cy: dp[1], r: 7, fill: gc, stroke: C.card, strokeWidth: 1.5 }),
-            h('text', { x: dp[0], y: dp[1] + 3.3, textAnchor: 'middle', fill: '#fff', fontSize: 9, fontWeight: 700, fontFamily: MONO }, gid.charCodeAt(0) - 0x245f),
-            fail ? h('text', { x: dp[0] + 11, y: dp[1] - 6, fill: P.bad, fontSize: 10.5, fontWeight: 600, ...halo }, '未过') : null)
-        }
+      /** 质检关卡：一个带编号的圆点（绿＝通过、红＝未过、灰＝跳过或还没判定），未过时旁边写「未过」 */
+      const gateDot = (key, id, [i, j, z]) => {
+        const g = gateOf(id)
+        const gc = !g ? P.ink3 : g.skipped ? P.ink2 : g.pass ? P.ok : P.bad
+        const [x, y] = iso(i, j, z)
+        const fail = g && !g.pass && !g.skipped
         return h('g', { key },
-          isoBox('c', i0, cj, 14, i1 - i0, 24, 18, CL2),
-          leftPatch('cw', i0 + 2, i1 - 2, cj + 24, 19, 29, { fill: C.win, opacity: 0.6 }),
-          h('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: running ? A : P.ink3, strokeWidth: 2.4, strokeLinecap: 'round', strokeDasharray: '2 8', className: 'me-flow', style: { animationDuration: running ? '0.9s' : '3.2s' }, filter: running ? 'url(#me-glow)' : undefined, opacity: running ? 1 : 0.7 }),
-          gate)
+          h('title', {}, g ? `质检${id} ${g.label}：${g.skipped ? '跳过' : g.pass ? '通过' : '未过'}${g.detail ? `（${g.detail}）` : ''}` : `质检${id}：批次结束时判定`),
+          h('circle', { cx: x, cy: y, r: 7, fill: gc, stroke: C.card, strokeWidth: 1.5 }),
+          h('text', { x, y: y + 3.3, textAnchor: 'middle', fill: '#fff', fontSize: 9, fontWeight: 700, fontFamily: MONO }, id.charCodeAt(0) - 0x245f),
+          fail ? h('text', { x: x + 11, y: y - 6, fill: P.bad, fontSize: 10.5, fontWeight: 600, ...halo }, '未过') : null)
       }
-      for (let k = 1; k <= 5; k++) {
-        const s = stations[k]; const i0 = bay0(k)
-        const c = tone(s); const lit = !!c
-        els.push(corridor(`co${k}`, k === 1 ? 84 : bay0(k - 1) + bw, i0, k))
-        const g = []
-        g.push(...isoBox('b', i0, 0, 0, bw, D, H, CL))
-        g.push(leftPatch('plinth', i0, i0 + bw, D, 0, 5, { fill: C.right, opacity: 0.6 }))
-        for (let w = 0; w < 3; w++) { const wi = i0 + 8 + w * 20; g.push(leftPatch(`hw${w}`, wi, wi + 12, D, 20, 36, { fill: lit ? A : C.win, opacity: lit ? 0.85 : 0.6, filter: lit ? 'url(#me-glow)' : undefined })) }
-        const roof = []
-        for (let a = 0; a < 4; a++) for (let b2 = 0; b2 < 2; b2++) { if (k === 5 && b2 === 1) continue; if (k === 4 && b2 === 1 && a >= 2) continue; roof.push([b2, a]) }
-        roof.sort((p, q) => depthOf(p[0] * 30, p[1] * 24) - depthOf(q[0] * 30, q[1] * 24))
-        const litN = s.state === 'hold' ? roof.length : s.state === 'run' ? Math.max(1, Math.round((s.frac ?? 0) * roof.length)) : 0
-        roof.forEach(([b2, a], idx) => {
-          const ui = i0 + 8 + b2 * 30; const uj = 8 + a * 24; const on = idx < litN && c
-          g.push(...isoBox(`u${a}${b2}`, ui, uj, H, 20, 18, 7, on ? { top: shade(c, 0.25), left: c, right: shade(c, -0.3), props: { filter: 'url(#me-glow)' } } : CL2))
-          const f = iso(ui + 10, uj + 9, H + 7)
-          g.push(h('ellipse', { key: `f${a}${b2}`, cx: f[0], cy: f[1], rx: 7.5, ry: 4, fill: on ? shade(c, -0.45) : C.hole, opacity: 0.85 }))
-        })
-        if (k === 5) [[i0 + 50, 20], [i0 + 54, 50], [i0 + 50, 80]].forEach(([ci, cj], q) => g.push(...isoCyl(`st${q}`, ci, cj, H, 5, 30 + q * 6, C)))
-        if (k === 4) g.push(...isoBox('ctl', i0 + 36, 56, H, 26, 36, 16, CL2), leftPatch('ctlw', i0 + 39, i0 + 59, 92, H + 6, H + 12, { fill: c ?? C.win, opacity: c ? 0.9 : 0.6 }))
-        if (sel === k) g.push(h('polygon', { key: 'selroof', points: pts([iso(i0 + 2, 2, H + 0.5), iso(i0 + bw - 2, 2, H + 0.5), iso(i0 + bw - 2, D - 2, H + 0.5), iso(i0 + 2, D - 2, H + 0.5)]), fill: 'none', stroke: A, strokeWidth: 1.4, strokeDasharray: '5 4', opacity: 0.9 }))
-        els.push(h('g', { key: `bay${k}`, className: s.state === 'hold' ? 'me-breathe' : undefined, ...click(k) }, h('title', {}, `${s.nm}：${s.sub}`),
-          h('polygon', { points: pts([iso(i0, 0, H), iso(i0 + bw, 0, H), iso(i0 + bw, D, H), iso(i0 + bw, D, 0), iso(i0, D, 0), iso(i0, D, H)]), fill: 'transparent' }), g))
+      /** 传送带：一段带流动线的走廊；gate＝出口处的质检 */
+      const belt = (key, i0, i1, gate = null, j0 = BELT[0], j1 = BELT[1]) => {
+        const a = iso(i0, (j0 + j1) / 2, 22); const b = iso(i1, (j0 + j1) / 2, 22)
+        return h('g', { key, pointerEvents: 'none' },
+          isoBox('c', i0, j0, 10, i1 - i0, j1 - j0, 10, CL2),
+          h('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: running ? A : P.ink3, strokeWidth: 2.4, strokeLinecap: 'round', strokeDasharray: '2 8', className: 'me-flow', style: { animationDuration: running ? '0.9s' : '3.2s' }, filter: running ? 'url(#me-glow)' : undefined, opacity: running ? 1 : 0.6 }),
+          gate ? gateDot('g', gate, [(i0 + i1) / 2, j1 + 2, 22]) : null)
       }
-      els.push(corridor('co6', hallEnd, yard, 6))
-      // E7 交付堆场：三台出货单元＝结果表、证据长表、冲突表；箱子＝已完成的数据块
+      /** 一面墙上的窗格：亮几格按工序进度（运行中用主色发光） */
+      const windows = (key, s, i0, i1, j, z0, z1, cols, rows) => {
+        const out = []; const lit = s.state === 'hold' ? cols * rows : s.state === 'run' ? Math.max(1, Math.round((s.frac ?? 0) * cols * rows)) : s.state === 'done' ? cols * rows : 0
+        const c = tone(s); const cw = (i1 - i0) / cols; const rh = (z1 - z0) / rows
+        let q = 0
+        for (let r = rows - 1; r >= 0; r--) for (let k = 0; k < cols; k++) {
+          const on = q++ < lit
+          out.push(leftPatch(`${key}${r}-${k}`, i0 + k * cw + 2, i0 + (k + 1) * cw - 2, j, z0 + r * rh + 2, z0 + (r + 1) * rh - 2, { fill: on ? (c ?? C.lamp) : C.win, opacity: on ? 0.92 : 0.55, filter: on && c ? 'url(#me-glow)' : undefined }))
+        }
+        return out
+      }
+
+      /* ---- 核验塔（后方）与复查天桥 ---- */
       {
-        const s = stations[6]; const g = []
-        g.push(...isoBox('pad', yard, 6, 0, 150, 130, 4, { top: C.pad, left: C.padL, right: C.padR }))
+        const s = stations[3]; const [i, j, a, b, hh] = ST.verify; const g = []
+        g.push(...isoBox('v', i, j, 0, a, b, hh, CL))
+        g.push(...isoBox('vc', i + 8, j + 8, hh, a - 16, b - 16, 10, CL2))
+        g.push(...windows('vw', s, i + 4, i + a - 4, j + b, 14, hh - 10, 3, 7))
+        for (let r = 0; r < 7; r++) g.push(rightPatch(`vr${r}`, i + a, j + 10, j + b - 10, 18 + r * 15, 21 + r * 15, { fill: C.win, opacity: 0.4 }))
+        const dish = iso(i + a / 2, j + b / 2, hh + 16)
+        g.push(h('ellipse', { key: 'vd', cx: dish[0], cy: dish[1], rx: 9, ry: 4.5, fill: hasVerify ? P.vio : C.hole, opacity: 0.85 }))
+        els.push(h('g', { key: 'verify', opacity: hasVerify ? 1 : 0.45, ...click(3) }, h('title', {}, hasVerify ? `核验塔：${run.model.verifyModel} 抽查 ${Math.round((run.sampleRate ?? 0) * 100)}% 的句子` : '核验塔：未配置核验模型，不做抽样核验与复查'), g))
+        bb.push(iso(i, j, hh + 30), iso(i + a, j, hh + 30))
+        // 天桥：核验塔 ⇄ 通读塔，分歧在这里来回复查
+        const bi = i + 18; const bw2 = 22; const bz = 104
+        const bridge = []
+        bridge.push(...isoBox('br', bi, j + b, bz, bw2, ST.read[1] - (j + b), 9, CL2))
+        const p0 = iso(bi + bw2 / 2, j + b, bz + 10); const p1 = iso(bi + bw2 / 2, ST.read[1], bz + 10)
+        const disputes = t.disputes ?? 0
+        bridge.push(h('line', { key: 'brf', x1: p0[0], y1: p0[1], x2: p1[0], y2: p1[1], stroke: hasVerify && (running || disputes) ? P.vio : P.ink3, strokeWidth: 2, strokeDasharray: '3 6', className: hasVerify && running ? 'me-flow' : undefined, opacity: hasVerify ? 0.95 : 0.4 }))
+        bridge.push(gateDot('g5', '⑤', [bi + bw2 / 2, (j + b + ST.read[1]) / 2, bz + 11]))
+        const lp = iso(bi + bw2 + 8, (j + b + ST.read[1]) / 2, bz + 16)
+        bridge.push(h('text', { key: 'brt', x: lp[0] + 10, y: lp[1] - 4, fill: hasVerify ? P.vio : P.ink3, fontSize: 10, fontWeight: 600, ...halo }, hasVerify ? `复查 ≤${run.maxRounds ?? 3} 轮${disputes ? ` · 分歧 ${fmt(disputes)}` : ''}` : '复查（未配置核验模型）'))
+        els.push(h('g', { key: 'bridge', ...click(3) }, h('title', {}, `天桥＝复查：通读模型和核验模型看对方的答案和理由，坚持或改，至多 ${run.maxRounds ?? 3} 轮；仍不一致的${run.mode === 'model' ? '' : '先让规则投第三票，再'}转人工\n人工判断按稳定编号保存，重跑沿用`), bridge))
+      }
+
+      /* ---- 进料口：文书一张张进来 ---- */
+      {
+        const s = stations[0]; const [i, j, a, b, hh] = ST.intake; const g = []
+        g.push(...isoBox('ramp', i - 64, j + 44, 0, 64, 30, 6, CL2))
+        // 文书堆：一叠纸（颜色淡淡的三种，表示不同记录类型）
+        const sheets = Math.min(9, Math.max(running || t.documents ? 3 : 1, Math.ceil(Math.log2((t.documents ?? 0) + 1))))
+        for (let q = 0; q < sheets; q++) g.push(...isoBox(`pp${q}`, i - 50 + (q % 2) * 2, j + 50 + (q % 3), 6 + q * 2.6, 26, 18, 2.2, q % 3 === 0 ? CL2 : tint(TYPE3[q % 3][1], C === CLAY.light ? 0.75 : 0.45)))
+        g.push(...isoBox('b', i, j, 0, a, b, hh, CL))
+        g.push(...isoBox('cap', i + 8, j + 10, hh, 46, 40, 10, CL2))
+        g.push(...isoBox('hop', i + 56, j + 58, hh, 22, 26, 16, CL2))
+        g.push(...windows('iw', s, i + 6, i + a - 6, j + b, 12, hh - 8, 6, 4))
+        els.push(h('g', { key: 'intake', ...click(0) }, h('title', {}, `${s.nm}：${s.sub}`), g))
+      }
+      els.push(belt('b1', ST.intake[0] + ST.intake[2], ST.cutter[0]))
+      /* ---- 切句：屋顶三片刀 ---- */
+      {
+        const s = stations[1]; const [i, j, a, b, hh] = ST.cutter; const g = []
+        g.push(...isoBox('b', i, j, 0, a, b, hh, CL))
+        g.push(...windows('cw', s, i + 6, i + a - 6, j + b, 8, hh - 8, 4, 2))
+        for (let q = 0; q < 3; q++) g.push(...isoBox(`bl${q}`, i + 14 + q * 18, j + 10, hh, 4, b - 20, 14, tone(s) ? tint(A, 0.2) : CL2))
+        els.push(h('g', { key: 'cutter', ...click(1) }, h('title', {}, `${s.nm}：${s.sub}`), g))
+      }
+      els.push(belt('b2', ST.cutter[0] + ST.cutter[2], ST.read[0]))
+      const underQueue = els.length // 模型小楼的管子画在这之后、各站之前
+      /* ---- 通读塔 ---- */
+      {
+        const s = stations[2]; const [i, j, a, b, hh] = ST.read; const g = []
+        g.push(...isoBox('r', i, j, 0, a, b, hh, CL))
+        g.push(...isoBox('rc', i + 8, j + 8, hh, a - 16, b - 16, 12, CL2))
+        g.push(...windows('rw', s, i + 4, i + a - 4, j + b, 14, hh - 10, 3, 8))
+        for (let r = 0; r < 8; r++) g.push(rightPatch(`rr${r}`, i + a, j + 10, j + b - 10, 18 + r * 16, 21 + r * 16, { fill: C.win, opacity: 0.4 }))
+        const ant0 = iso(i + a / 2, j + b / 2, hh + 12); const ant1 = iso(i + a / 2, j + b / 2, hh + 34)
+        g.push(h('line', { key: 'ant', x1: ant0[0], y1: ant0[1], x2: ant1[0], y2: ant1[1], stroke: C.left, strokeWidth: 2 }), h('circle', { key: 'antl', cx: ant1[0], cy: ant1[1], r: 3, fill: running ? P.vio : C.hole, className: running ? 'me-pulse' : undefined }))
+        els.push(h('g', { key: 'read', ...click(2) }, h('title', {}, `${s.nm}：${s.sub}`), g))
+        bb.push(ant1)
+      }
+      els.push(belt('b3', ST.read[0] + ST.read[2], ST.sorter[0], '①'))
+      /* ---- 分拣台：按类型分到三条滑道 ---- */
+      {
+        const s = stations[4]; const [i, j, a, b, hh] = ST.sorter; const g = []
+        g.push(...isoBox('b', i, j, 0, a, b, hh, CL))
+        g.push(...windows('sw', s, i + 6, i + a - 6, j + b, 8, hh - 8, 5, 2))
+        g.push(...isoCyl('hop', i + a / 2, j + b / 2, hh, 14, 14, C))
+        els.push(h('g', { key: 'sorter', ...click(4) }, h('title', {}, `${s.nm}：${s.sub}`), g))
+        // 三条滑道：事实、判断、决策（和复核页、时间线同色）；宽度按本批各类提及的比例
+        const types = {}
+        for (const p of run.patients ?? []) for (const [k, n] of Object.entries(p.types ?? {})) types[k] = (types[k] ?? 0) + n
+        const sum = TYPE3.reduce((x, [k]) => x + (types[k] ?? 0), 0)
+        const x0 = i + a; const x1 = ST.ware[0] + 6
+        const chutes = []
+        TYPE3.forEach(([nm, c], q) => {
+          const cj = j + 8 + q * 26; const cw = 18
+          chutes.push(...isoBox(`ch${q}`, x0, cj, 8, x1 - x0, cw, 6, tint(c, C === CLAY.light ? 0.5 : -0.1)))
+          const pa = iso(x0 + 4, cj + cw / 2, 15); const pb = iso(x1 - 2, cj + cw / 2, 15)
+          chutes.push(h('line', { key: `cf${q}`, x1: pa[0], y1: pa[1], x2: pb[0], y2: pb[1], stroke: c, strokeWidth: 3, strokeDasharray: '4 7', className: running ? 'me-flow' : undefined, opacity: 0.95 }))
+          const lp = iso(x0 + 30, cj + cw, 16)
+          chutes.push(h('text', { key: `ct${q}`, x: lp[0], y: lp[1] + 9, fill: c, fontSize: 9.5, fontWeight: 700, ...halo }, `${nm}${sum ? ` ${Math.round(((types[nm] ?? 0) / sum) * 100)}%` : ''}`))
+        })
+        chutes.push(gateDot('g2', '②', [x0 + 10, j - 6, 16]))
+        els.push(h('g', { key: 'chutes', ...click(4) }, h('title', {}, `三条滑道：模型判定的类型直接采用，其余由规则推出${sum ? `\n${TYPE3.map(([nm]) => `${nm} ${fmt(types[nm] ?? 0)}`).join(' · ')}` : ''}`), chutes))
+      }
+      /* ---- 事件仓库：按时间上架（归并），门口质检③ ---- */
+      {
+        const s = stations[5]; const [i, j, a, b] = ST.ware; const g = []
+        g.push(...isoBox('pad', i, j, 0, a, b, 3, { top: C.pad, left: C.padL, right: C.padR }))
+        // 后墙
+        g.push(...isoBox('wall', i, j, 3, a, 6, 40, CL2))
+        const racks = 4
+        const ev = t.events ?? 0
+        const perRack = ev ? Math.min(5, Math.max(1, Math.round(Math.log2(ev + 1) / 1.8))) : 0
+        for (let r = 0; r < racks; r++) {
+          const rj = j + 20 + r * 34
+          g.push(...isoBox(`rk${r}`, i + 16, rj, 3, a - 32, 14, 22, CL))
+          for (let q = 0; q < perRack - (r % 2); q++) {
+            const ci = i + 22 + q * 24; const c = TYPE3[(q + r) % 3][1]
+            g.push(...isoBox(`cr${r}-${q}`, ci, rj + 1, 25, 18, 12, 11, tone(s) && running ? tint(A, 0.2) : tint(c, C === CLAY.light ? 0.62 : 0.1)))
+          }
+        }
+        // 时间轴：沿货架往右是更晚的时间
+        const ta = iso(i + 20, j + b - 6, 4); const tb = iso(i + a - 14, j + b - 6, 4)
+        g.push(h('line', { key: 'tax', x1: ta[0], y1: ta[1], x2: tb[0], y2: tb[1], stroke: P.ink3, strokeWidth: 1.2, markerEnd: 'url(#me-arr)' }))
+        const [tx, ty] = iso(i + 24, j + b - 2)
+        g.push(h('g', { key: 'tcap', transform: `matrix(${IX[0]} ${IX[1]} ${JX[0]} ${JX[1]} ${tx.toFixed(1)} ${ty.toFixed(1)})`, pointerEvents: 'none' }, h('text', { x: 0, y: 0, fill: P.ink3, fontSize: 9 }, '同一件事归成一箱 · 按时间上架 →')))
+        g.push(gateDot('g3', '③', [i + 4, j - 8, 26]))
+        els.push(h('g', { key: 'ware', ...click(5) }, h('title', {}, `${s.nm}：${s.sub}\n箱子＝事件（同一件事的提及归在一起），按发生时间排在货架上`), g))
+        bb.push(iso(i, j, 50), iso(i + a, j, 50))
+      }
+      /* ---- 冲突台：发现（记录之间的冲突）堆在这里 ---- */
+      {
+        const [i, j, a, b, hh] = ST.desk; const g = []
+        const nF = t.findings ?? 0
+        g.push(...isoBox('leg0', i + 4, j + 4, 0, 4, 4, hh, CL2), ...isoBox('leg1', i + a - 8, j + b - 8, 0, 4, 4, hh, CL2))
+        g.push(...isoBox('top', i, j, hh, a, b, 4, CL))
+        for (let q = 0; q < Math.min(8, nF); q++) g.push(...isoBox(`fx${q}`, i + 6 + (q % 4) * 19, j + 6 + Math.floor(q / 4) * 13, hh + 4 + (q >= 8 ? 10 : 0), 14, 10, 9, RED))
+        const lp = iso(i + a / 2, j + b, hh + 4)
+        g.push(h('text', { key: 'dt', x: lp[0] - 6, y: lp[1] + 16, textAnchor: 'middle', fill: nF ? P.bad : P.ink3, fontSize: 10, fontWeight: 600, ...halo }, nF ? `冲突台 · ${fmt(nF)} 条发现` : '冲突台'))
+        els.push(h('g', { key: 'desk', ...click(5) }, h('title', {}, `冲突台：记录之间的矛盾、改判、调整、病情变化、记录质量问题，登记为发现，不自动选边\n需人工确认的进复核`), g))
+      }
+      els.push(belt('b4', ST.ware[0] + ST.ware[2], ST.dock[0]))
+      /* ---- 交付堆场 ---- */
+      {
+        const s = stations[6]; const [i, j, a, b] = ST.dock; const g = []
+        g.push(...isoBox('pad', i, j, 0, a, b, 4, { top: C.pad, left: C.padL, right: C.padR }))
         const unit = (key, ui, uj, label) => {
           g.push(...isoBox(key, ui, uj, 4, 30, 30, 22, CL2))
           const f = iso(ui + 15, uj + 15, 26)
@@ -1144,102 +1195,81 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
           const tp = iso(ui + 15, uj + 15, 40)
           g.push(h('text', { key: `${key}t`, x: tp[0], y: tp[1], textAnchor: 'middle', fill: P.ink2, fontSize: 9, ...halo }, label))
         }
-        unit('du0', yard + 10, 14, '事件包'); unit('du1', yard + 60, 14, '导出视图'); unit('du2', yard + 110, 14, '复核项')
-        const crates = Math.min(run.shards.done, 12)
+        unit('du0', i + 8, j + 10, '事件包'); unit('du1', i + 54, j + 10, '导出视图'); unit('du2', i + 100, j + 10, '复核项')
+        const crates = Math.min(run.shards?.done ?? 0, 12)
         const cells = []
-        for (let r = 0; r < 3; r++) for (let c2 = 0; c2 < 4; c2++) cells.push([yard + 12 + c2 * 34, 58 + r * 24])
-        cells.slice(0, crates).sort((a, b) => depthOf(a[0], a[1]) - depthOf(b[0], b[1])).forEach(([ci, cj], q) => {
+        for (let r = 0; r < 3; r++) for (let c2 = 0; c2 < 4; c2++) cells.push([i + 10 + c2 * 32, j + 54 + r * 24])
+        cells.slice(0, crates).sort((p, q) => depthOf(p[0], p[1]) - depthOf(q[0], q[1])).forEach(([ci, cj], q) => {
           g.push(...isoBox(`cr${q}`, ci, cj, 4, 22, 18, 13, CL2))
-          const a = iso(ci, cj + 9, 17); const b = iso(ci + 22, cj + 9, 17)
-          g.push(h('line', { key: `ct${q}`, x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: A, strokeWidth: 1.4, opacity: 0.85 }))
+          const pa = iso(ci, cj + 9, 17); const pb = iso(ci + 22, cj + 9, 17)
+          g.push(h('line', { key: `ct${q}`, x1: pa[0], y1: pa[1], x2: pb[0], y2: pb[1], stroke: A, strokeWidth: 1.4, opacity: 0.85 }))
         })
-        if (run.output) {
-          const m = [[yard + 4, 10], [yard + 146, 10], [yard + 146, 132], [yard + 4, 132]]
-          m.forEach(([ci, cj], q) => { const di = q === 0 || q === 3 ? 1 : -1; const dj = q < 2 ? 1 : -1; g.push(h('polyline', { key: `dk${q}`, points: pts([iso(ci + di * 12, cj, 4), iso(ci, cj, 4), iso(ci, cj + dj * 12, 4)]), fill: 'none', stroke: A, strokeWidth: 1.8, filter: 'url(#me-glow)' })) })
-        }
-        els.push(h('g', { key: 'e7', opacity: s.state === 'idle' ? 0.6 : 1, ...click(6) }, h('title', {}, s.nm), g))
-        const [x, y] = iso(yard + 6, 150)
-        els.push(h('g', { key: 'yardcap', transform: `matrix(${IX[0]} ${IX[1]} ${JX[0]} ${JX[1]} ${x.toFixed(1)} ${y.toFixed(1)})`, pointerEvents: 'none' },
-          h('text', { x: 0, y: 0, fill: P.ink3, fontSize: 9.5 }, '每条提及回得到原文 · 只读核对 · 移交')))
+        if (run.output) [[i + 4, j + 4], [i + a - 4, j + 4], [i + a - 4, j + b - 4], [i + 4, j + b - 4]].forEach(([ci, cj], q) => { const di = q === 0 || q === 3 ? 1 : -1; const dj = q < 2 ? 1 : -1; g.push(h('polyline', { key: `dk${q}`, points: pts([iso(ci + di * 12, cj, 4), iso(ci, cj, 4), iso(ci, cj + dj * 12, 4)]), fill: 'none', stroke: A, strokeWidth: 1.8, filter: 'url(#me-glow)' })) })
+        els.push(h('g', { key: 'dock', opacity: s.state === 'idle' ? 0.6 : 1, ...click(6) }, h('title', {}, `${s.nm}：${s.sub}`), g))
       }
-      const underQueue = els.length // 模型小楼的连线画在排队箱子和数字下面，不压字
-      // 门前排队：箱子＝等待处理的数据块
+      /* ---- 排队与红箱 ---- */
       {
-        const waiting = Math.max(0, run.shards.total - run.shards.done - (run.shards.running ?? 0))
-        const loads = [running ? waiting : 0, 0, 0, run.totals.review && !running ? Math.min(36, Math.ceil(run.totals.review / 10)) : 0, 0, 0]
-        const label = ['等待读入（数据块）', '', '', '待复核（每箱 10 项）', '', '']
-        const pileAt = (k) => (k === 0 ? [12, 116] : [bay0(k) + 14, D + 12])
-        loads.forEach((_, k) => { const [pi, pj] = pileAt(k); bb.push(iso(pi, pj + 24), iso(pi + 39, pj, 70)) })
-        loads.forEach((n, k) => {
+        const waiting = running ? Math.max(0, (run.shards?.total ?? 0) - (run.shards?.done ?? 0) - (run.shards?.running ?? 0)) : 0
+        const review = !running ? t.review ?? 0 : 0
+        const pile = (key, n, shownN, [pi, pj], hot, label, title, k) => {
           if (!n) return
-          const [pi, pj] = pileAt(k); const hot = k === 3
-          const shown = Math.min(36, n); const g = []
-          for (let q = 0; q < shown; q++) {
-            const lv = Math.floor(q / 6); const a = q % 3; const c = Math.floor((q % 6) / 3)
-            const ci = pi + a * 13; const cj = pj + c * 12; const z = lv * 9
-            g.push(...isoBox(`p${q}`, ci, cj, z, 11, 10, 8, hot ? AMB : CL2))
-            if (!hot) { const t1 = iso(ci, cj + 5, z + 8); const t2 = iso(ci + 11, cj + 5, z + 8); g.push(h('line', { key: `pt${q}`, x1: t1[0], y1: t1[1], x2: t2[0], y2: t2[1], stroke: A, strokeWidth: 1, opacity: 0.8 })) }
-          }
+          const shown = Math.min(24, n); const g = []
+          for (let q = 0; q < shown; q++) { const lv = Math.floor(q / 6); const a = q % 3; const c = Math.floor((q % 6) / 3); g.push(...isoBox(`p${q}`, pi + a * 13, pj + c * 12, lv * 9, 11, 10, 8, hot ? AMB : CL2)) }
           const top = iso(pi + 19, pj + 11, Math.ceil(shown / 6) * 9 + 10)
-          const shownN = k === 3 ? run.totals.review : n
-          els.push(h('g', { key: `q${k}`, ...click(k) }, h('title', {}, k === 3 ? `待复核 ${fmt(run.totals.review)} 项：复查后仍不一致的通读分歧、需人工确认的发现，等人工判断\n箱子＝待复核的项，每箱 10 项\n点开核验工序，再去复核` : `等待读入的数据块 ${fmt(n)} 个，每箱一个数据块`), g,
-            h('text', { x: top[0], y: top[1], textAnchor: 'middle', fill: A, fontSize: 17, fontWeight: 700, fontFamily: MONO, stroke: C.card, strokeWidth: 3.5, paintOrder: 'stroke' }, fmt(shownN)),
-            // 待复核队列只留数字（和楼顶标签同一个数），说明在悬停提示里
-            k === 3 ? null : h('text', { x: top[0], y: top[1] + 13, textAnchor: 'middle', fill: P.ink, fontSize: 10, stroke: C.card, strokeWidth: 3, paintOrder: 'stroke' }, `排队 · ${label[k]}`)))
-        })
+          els.push(h('g', { key, ...click(k) }, h('title', {}, title), g,
+            h('text', { x: top[0], y: top[1], textAnchor: 'middle', fill: hot ? P.warn : A, fontSize: 16, fontWeight: 700, fontFamily: MONO, stroke: C.card, strokeWidth: 3.5, paintOrder: 'stroke' }, fmt(shownN)),
+            label ? h('text', { x: top[0], y: top[1] + 13, textAnchor: 'middle', fill: P.ink, fontSize: 10, stroke: C.card, strokeWidth: 3, paintOrder: 'stroke' }, label) : null))
+          bb.push(iso(pi, pj + 24), iso(pi + 39, pj, 60))
+        }
+        pile('qwait', waiting, waiting, [ST.intake[0] + 8, ST.intake[1] + ST.intake[3] + 12], false, '排队 · 等待读入', `等待读入的数据块 ${fmt(waiting)} 个，每箱一个数据块`, 0)
+        pile('qrev', review ? Math.ceil(review / 10) : 0, review, [ST.read[0] + ST.read[2] + 22, BELT[1] + 40], true, null, `待复核 ${fmt(review)} 项：复查后仍不一致的通读分歧、需人工确认的发现、需药师复核的药名\n箱子＝待复核的项，每箱 10 项\n点开看核验工序，再去复核`, 3)
+        if (t.invalid) {
+          const gi = ST.read[0] + ST.read[2] + 54; const gg = []
+          for (let q = 0; q < Math.min(4, Math.ceil(t.invalid / 50)); q++) gg.push(...isoBox(`rq${q}`, gi + (q % 2) * 15, BELT[0] - 30 - Math.floor(q / 2) * 13, 0, 13, 12, 11, RED))
+          const lp = iso(gi + 8, BELT[0] - 34, 22)
+          gg.push(h('text', { key: 't', x: lp[0], y: lp[1], textAnchor: 'middle', fill: P.bad, fontSize: 10, ...halo }, h('title', {}, '模型回答的片段在原文里找不到，或类型不在类型表里：插件拦下、不采用'), `${fmt(t.invalid)} 条无效回答已拦下`))
+          els.push(h('g', { key: 'redq' }, gg))
+        }
+        if (running && run.current?.stage && !['S00', 'S07'].includes(run.current.stage)) {
+          const at = [ST.read[0] + ST.read[2] + 20, BELT[0] + 2]; const tp = iso(at[0] + 8, at[1], 18)
+          els.push(h('g', { key: 'cur', pointerEvents: 'none' }, h('g', { filter: 'url(#me-glow)', className: 'me-pulse' }, isoBox('cc', at[0], at[1], 20, 16, 14, 12, AMB)),
+            h('text', { x: tp[0] + 4, y: tp[1] - 22, fill: A, fontSize: 10.5, fontWeight: 700, ...halo }, `处理中 · ${run.shards?.running ?? 0} 个数据块 · ${Object.keys(run.live ?? {}).length} 位病人`)))
+        }
       }
-      // 通读出口：被拦下的无效回答（红箱）
-      if (t.invalid) {
-        const gi = (bay0(2) + bw + bay0(3)) / 2 - 7; const gg = []
-        for (let q = 0; q < Math.min(4, Math.ceil(t.invalid / 50)); q++) gg.push(...isoBox(`rq${q}`, gi + (q % 2) * 15 - 4, D + 6 + Math.floor(q / 2) * 13, 0, 13, 12, 11, RED))
-        // 标签放在红箱正上方：左下是去模型旁路的斜管，下方是回 E6 的横管
-        const lp = iso(gi + 5, D + 12, 22)
-        gg.push(h('text', { key: 't', x: lp[0], y: lp[1], textAnchor: 'middle', fill: P.bad, fontSize: 10, ...halo }, h('title', {}, '模型回答的片段在原文里找不到，或类型不在类型表里：插件拦下、不采用'), `${fmt(t.invalid)} 条无效回答已拦下`))
-        els.push(h('g', { key: 'redq' }, gg))
-      }
-      // 处理中：发光的箱子
-      if (running && run.current?.stage && run.current.stage !== 'S00' && run.current.stage !== 'S07') {
-        const at = [bay0(2) + 30, D + 6]; const tp = iso(at[0] + 8, at[1] + 14, 0)
-        els.push(h('g', { key: 'cur' }, h('g', { filter: 'url(#me-glow)', className: 'me-pulse' }, isoBox('cc', at[0], at[1], 0, 16, 14, 13, AMB)),
-          // 说明放在发光箱子左侧、和箱子齐高：下方是提取模型小楼，楼顶的排队数会和它重叠
-          h('text', { x: tp[0] - 16, y: tp[1] - 4, textAnchor: 'end', fill: A, fontSize: 10.5, fontWeight: 700, ...halo }, `处理中 · ${run.shards.running ?? 0} 个数据块 · ${Object.keys(run.live ?? {}).length} 位病人`)))
-      }
-      // 模型房子：一栋＝一个模型服务（按模型名；提取、核验同端点同模型时只有一栋）。
-      // 管子只连真正调用模型的工序：读入（格式识别）、提取、核验（核验与复查）。哪道工序此刻有请求在途，那根管子就流动发光；
-      // 窗户按在途数／并发上限点亮。点房子，右侧显示这个模型的状态
+
+      /* ---- 模型小楼：通读模型在通读塔前，核验模型在核验塔后；管子按在途数流动发光 ---- */
       const houses = modelHousesOf(run)
       const last = running ? (run.series ?? []).filter((p) => p.length >= 18).at(-1) : null
-      const SPOT = { format: [42, 108, 26], extract: [bay0(2) + bw / 2, D, 20], verify: [bay0(3) + bw / 2, D, 20], adjudicate: [bay0(3) + bw / 2 - 14, D, 20] }
-      // 两栋同一排（同一条斜线），各自正对所服务的楼：通读模型在通读楼前，核验模型在核验楼前，管子顺着地面网格笔直连过去；
-      // 说明在房子左边：右下方的说明会把场景底边往下撑，整幅画就被缩小
-      const HOUSE_MA = 74
-      const HOUSE_AT = [[SPOT.extract[0] - HOUSE_MA / 2, D + 118], [SPOT.verify[0] - HOUSE_MA / 2, D + 118]]
+      const HOUSE_MA = 74; const HOUSE_MB = 44
+      const towerFront = [ST.read[0] + ST.read[2] / 2, ST.read[1] + ST.read[3], 20]
+      const towerBack = [ST.verify[0] + ST.verify[2], ST.verify[1] + ST.verify[3] / 2, 20]
+      const spotOf = (hs, st) => (st === 'format' ? [ST.intake[0] + 40, hs.roles.includes('verify') && !hs.roles.includes('extract') ? ST.intake[1] : ST.intake[1] + ST.intake[3], 26] : hs.roles.includes('extract') ? towerFront : towerBack)
+      const HOUSE_AT = (hs, hi) => (hs.roles.includes('extract') || hi === 0 ? [towerFront[0] - HOUSE_MA / 2, ST.read[1] + ST.read[3] + 104] : [ST.verify[0] + ST.verify[2] + 70, ST.verify[1] + ST.verify[3] / 2 - HOUSE_MB / 2])
+      const isBack = (hs, hi) => !(hs.roles.includes('extract') || hi === 0)
       houses.forEach((hs, hi) => {
         const V = P.vio; const on = !!hs.model
-        const [mi, mj] = HOUSE_AT[Math.min(hi, 1)]; const ma = HOUSE_MA; const mb = 44; const mh = 30
+        const [mi, mj] = HOUSE_AT(hs, hi); const ma = HOUSE_MA; const mb = HOUSE_MB; const mh = 30
         const live = last ? { inflight: last[2 + hs.slot] ?? 0, waiting: last[4 + hs.slot] ?? 0, st: last.slice(10 + hs.slot * 4, 14 + hs.slot * 4) } : null
-        // 最近 10 秒有调用失败（含重试后仍失败）：一扇窗闪红
         const recentFail = (() => { if (!running) return false; const ps = (run.series ?? []).filter((p) => p.length >= 20); if (ps.length < 2) return false; const z = ps.at(-1); const old = ps.filter((p) => z[0] - p[0] <= 10000)[0] ?? ps.at(-2); return (z[18 + hs.slot] ?? 0) > (old[18 + hs.slot] ?? 0) })()
         const g = []; const pipes = []
-        g.push(...isoBox('mp', mi - 6, mj - 6, -3, ma + 12, mb + 12, 3, { top: C.pad, left: C.padL, right: C.padR }))
-        // 管子（画在排队箱子和数字下面，不压字）：这个模型用在哪几道工序（格式识别只在通用文件、做了格式识别时画）
+        g.push(...isoBox('mp', mi - 6, mj - 6, -1, ma + 12, mb + 12, 1, { top: C.pad, left: C.padL, right: C.padR }))
         const uses = hs.stations.filter((x) => x !== 'format' || hs.didFormat)
-        const seenSpot = new Set()
+        const seen = new Set()
         uses.forEach((st) => {
-          const sp = st === 'verify' && uses.includes('adjudicate') ? SPOT.verify : SPOT[st]
-          const key = sp.join(','); if (seenSpot.has(key) && st !== 'adjudicate') return; seenSpot.add(key)
+          const sp = spotOf(hs, st); const key = sp.join(','); if (seen.has(key)) return; seen.add(key)
           const stI = ['format', 'extract', 'verify', 'adjudicate'].indexOf(st)
-          const hot = on && live && (live.st[stI] ?? 0) > 0
-          const used = on && (hs.calls[st] ?? 0) > 0
-          // 管子：从房子直接拉一条斜线到它服务的楼（正对的楼就是顺着网格的那条斜线；房子这头取和楼同一个 i，落在房子宽度内）
+          const hot = on && live && uses.filter((u) => spotOf(hs, u).join(',') === key).some((u) => (live.st[['format', 'extract', 'verify', 'adjudicate'].indexOf(u)] ?? 0) > 0)
+          const used = on && uses.filter((u) => spotOf(hs, u).join(',') === key).some((u) => (hs.calls[u] ?? 0) > 0)
+          const front = sp[1] < mj // 目标在房子后方（j 更小）：从房子后边出管
           const bi = Math.max(mi + 6, Math.min(mi + ma - 6, sp[0]))
-          const z = sp[2]
-          const d = 'M' + [[bi, mj + 4], [sp[0], sp[1]]].map(([i, j]) => iso(i, j, z).map((v) => v.toFixed(1)).join(' ')).join(' L')
-          pipes.push(h('path', { key: `h${hi}p${st}`, d, strokeLinejoin: 'round', fill: 'none', stroke: hot || used ? V : C.left2, strokeWidth: hot ? 2.4 : used ? 1.7 : 1.3, strokeDasharray: hot ? '3 5' : '2 5', className: hot ? 'me-flow' : undefined, filter: hot ? 'url(#me-glow)' : undefined, opacity: hot ? 1 : used ? 0.7 : 0.4 }, h('title', {}, `${STATION_LABEL[st]}${on ? `：调用 ${fmt(hs.calls[st] ?? 0)} 次${live ? ` · 在途 ${live.st[stI] ?? 0}` : ''}` : ''}`)))
+          // 核验模型的小楼在核验塔右边：从房子左侧出管
+          const start = isBack(hs, hi) && sp[0] < mi ? [mi + 4, Math.max(mj + 6, Math.min(mj + mb - 6, sp[1]))] : [bi, front ? mj + 4 : mj + mb - 4]
+          const d = 'M' + [start, [sp[0], sp[1]]].map(([i, j]) => iso(i, j, sp[2]).map((v) => v.toFixed(1)).join(' ')).join(' L')
+          const names = uses.filter((u) => spotOf(hs, u).join(',') === key).map((u) => STATION_LABEL[u]).join('、')
+          pipes.push(h('path', { key: `h${hi}p${st}`, d, fill: 'none', stroke: hot || used ? V : C.left2, strokeWidth: hot ? 2.4 : used ? 1.7 : 1.3, strokeDasharray: hot ? '3 5' : '2 5', className: hot ? 'me-flow' : undefined, filter: hot ? 'url(#me-glow)' : undefined, opacity: hot ? 1 : used ? 0.7 : 0.4 }, h('title', {}, `${names}${on ? `：调用 ${fmt(uses.filter((u) => spotOf(hs, u).join(',') === key).reduce((x, u) => x + (hs.calls[u] ?? 0), 0))} 次` : ''}`)))
+          void stI
         })
         g.push(...isoBox('mb', mi, mj, 0, ma, mb, mh, on ? CL : CL2))
-        // 窗户＝并发名额：一扇窗一个名额（上限多时两排；再多则一扇窗代表几个名额），亮几扇＝在途几个
-        // 当前上限：自动调并发会改，取最新的采样点
         const cap = on ? Math.max(1, last?.length >= 22 && last[20 + hs.slot] > 0 ? last[20 + hs.slot] : run.autoTune?.[hs.slot]?.limit ?? hs.max) : 8
         const per = cap <= 32 ? 1 : Math.ceil(cap / 32)
         const nWin = Math.ceil(cap / per); const rowsW = nWin > 12 ? 2 : 1; const perRow = Math.ceil(nWin / rowsW)
@@ -1251,37 +1281,36 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
           const isLit = k2 < litWin; const isRed = recentFail && k2 === Math.max(0, litWin - 1)
           g.push(leftPatch(`mw${k2}`, wi, wi + ww - wGap, mj + mb, z0, z0 + wh, { fill: isRed ? P.bad : isLit ? V : C.win, opacity: isLit || isRed ? 0.95 : 0.55, filter: isLit || isRed ? 'url(#me-glow)' : undefined, className: isRed ? 'me-pulse' : undefined }))
         }
-        // 屋顶的箱子＝排队的请求：一箱一个，从中间往外、一层层往上堆，最多 12 箱，多的在箱堆上方写数字
         const nQ = on && live ? live.waiting : 0
-        const QMAX = 12; const shownQ = Math.min(QMAX, nQ)
         const QA = { top: shade(P.warn, 0.35), left: P.warn, right: shade(P.warn, -0.3), edge: shade(P.warn, -0.45) }
         const slots2 = [[2, 1], [1, 1], [3, 1], [2, 0], [1, 0], [3, 0], [0, 1], [4, 1], [0, 0], [4, 0]]
-        const qb = []
-        for (let q = 0; q < shownQ; q++) {
-          const lv = q < 10 ? 0 : 1; const [cx, cy] = lv === 0 ? slots2[q] : [[2, 1], [2, 0]][q - 10]
-          qb.push({ ci: mi + 6 + cx * 13, cj: mj + 6 + cy * 16, z: mh + lv * 8, q })
-        }
-        qb.sort((x, y) => x.z - y.z || depthOf(x.ci, x.cj) - depthOf(y.ci, y.cj)).forEach(({ ci, cj, z, q }) => g.push(...isoBox(`qb${q}`, ci, cj, z, 10, 12, 7, QA)))
-        if (nQ > QMAX || (nQ > 0 && nQ > shownQ)) { const tp = iso(mi + ma / 2, mj + mb / 2, mh + 26); g.push(h('text', { key: 'qn', x: tp[0], y: tp[1], textAnchor: 'middle', fill: P.warn, fontSize: 13, fontWeight: 700, fontFamily: MONO, ...halo }, fmt(nQ))) }
-        if (on && per > 1) { const tp = iso(mi + ma, mj + mb, 4); g.push(h('text', { key: 'per', x: tp[0] + 4, y: tp[1], fill: P.ink3, fontSize: 8.5, ...halo }, `每窗＝${per} 个`)) }
+        for (let q = 0; q < Math.min(10, nQ); q++) { const [cx, cy] = slots2[q]; g.push(...isoBox(`qb${q}`, mi + 6 + cx * 13, mj + 6 + cy * 16, mh, 10, 12, 7, QA)) }
+        if (nQ > 10) { const tp = iso(mi + ma / 2, mj + mb / 2, mh + 26); g.push(h('text', { key: 'qn', x: tp[0], y: tp[1], textAnchor: 'middle', fill: P.warn, fontSize: 13, fontWeight: 700, fontFamily: MONO, ...halo }, fmt(nQ))) }
         if (sel === 8 + hi) g.push(h('polygon', { key: 'selroof', points: pts([iso(mi + 2, mj + 2, mh + 0.5), iso(mi + ma - 2, mj + 2, mh + 0.5), iso(mi + ma - 2, mj + mb - 2, mh + 0.5), iso(mi + 2, mj + mb - 2, mh + 0.5)]), fill: 'none', stroke: A, strokeWidth: 1.4, strokeDasharray: '5 4' }))
-        const lt = iso(mi - 8, mj + mb + 12)
+        const back = isBack(hs, hi)
+        const lt = back ? iso(mi + ma + 10, mj + mb / 2, 6) : iso(mi - 8, mj + mb + 12)
+        const anchorT = back ? 'start' : 'end'
         const name = hs.model ? shortModel(hs.model) : hs.label
         const sub = !on ? hs.why : live ? `在途 ${live.inflight}／${cap}${live.waiting ? ` · 排队 ${live.waiting}` : ''}` : `调用 ${big(hs.total)}${hs.failed ? ` · 失败 ${fmt(hs.failed)}` : ''}`
-        g.push(h('text', { key: 't1', x: lt[0], y: lt[1] + 4, textAnchor: 'end', fill: on ? V : P.ink3, fontSize: 11, fontWeight: 700, fontFamily: MONO, ...halo }, name),
-          h('text', { key: 't2', x: lt[0], y: lt[1] + 17, textAnchor: 'end', fill: P.ink2, fontSize: 9.5, ...halo }, hs.roleText),
-          h('text', { key: 't3', x: lt[0], y: lt[1] + 30, textAnchor: 'end', fill: live?.inflight ? V : P.ink3, fontSize: 9.5, fontWeight: live?.inflight ? 600 : 400, ...halo }, sub))
+        g.push(h('text', { key: 't1', x: lt[0], y: lt[1] + 4, textAnchor: anchorT, fill: on ? V : P.ink3, fontSize: 11, fontWeight: 700, fontFamily: MONO, ...halo }, name),
+          h('text', { key: 't2', x: lt[0], y: lt[1] + 17, textAnchor: anchorT, fill: P.ink2, fontSize: 9.5, ...halo }, hs.roleText),
+          h('text', { key: 't3', x: lt[0], y: lt[1] + 30, textAnchor: anchorT, fill: live?.inflight ? V : P.ink3, fontSize: 9.5, ...halo }, sub))
         els.splice(underQueue, 0, ...pipes)
-        els.push(h('g', { key: `house${hi}`, ...click(8 + hi), style: { cursor: 'pointer' } }, h('title', {}, `${hs.model ?? hs.label}（${hs.roleText}）\n窗户＝并发名额（共 ${cap} 个${per > 1 ? `，每窗 ${per} 个` : ''}），亮着的＝在途${live ? ` ${live.inflight}` : ''}\n屋顶的箱子＝排队的请求${live ? ` ${live.waiting}` : ''}${recentFail ? '\n红窗＝最近 10 秒有调用失败' : ''}\n点开看模型状态`), g))
-        bb.push(iso(mi - 6, mj + mb + 6), iso(mi - 170, mj + mb + 44), iso(mi + ma + 6, mj + mb + 6))
+        els.push(h('g', { key: `house${hi}`, ...click(8 + hi) }, h('title', {}, `${hs.model ?? hs.label}（${hs.roleText}）\n窗户＝并发名额（共 ${cap} 个），亮着的＝在途${live ? ` ${live.inflight}` : ''}\n屋顶的箱子＝排队的请求${recentFail ? '\n红窗＝最近 10 秒有调用失败' : ''}\n点开看模型状态`), g))
+        bb.push(iso(mi - 6, mj + mb + 6), back ? iso(mi + ma + 180, mj + mb / 2, -30) : iso(mi - 170, mj + mb + 44), iso(mi + ma + 6, mj + mb + 6), iso(mi, mj, mh + 30))
       })
-      // 屋顶标签：贴在每栋楼顶上方的胶囊，不用引线；只放两字工序名＋关键数＋单位，质检一个色点；选中＝实心
-      // 细节（阶段名、说明、各行数）在悬停提示和右侧阶段面板里
+
+      /* ---- 屋顶标签：两字工序名＋关键数＋单位，质检一个色点；选中＝实心 ---- */
       const textW = (str, fs, mono) => [...String(str)].reduce((w, ch) => w + (/[\u2E80-\uFFFF]/.test(ch) ? fs : fs * (mono ? 0.62 : 0.56)), 0)
-      const gateDot = { ok: P.ok, warn: P.bad, '': P.ink3 }
-      const anchor = (k) => (k === 0 ? iso(42, 58, 122) : k === 6 ? iso(yard + 75, 40, 66) : k === 7 ? iso(TW.i + TW.a / 2, TW.j + TW.b / 2, TW.hh + 46) : iso(bay0(k) + bw / 2, D / 2, H + 36))
+      const gateDotColor = { ok: P.ok, warn: P.bad, '': P.ink3 }
+      const ANCHOR = [
+        iso(ST.intake[0] + 43, ST.intake[1] + 50, ST.intake[4] + 34), iso(ST.cutter[0] + 37, ST.cutter[1] + 32, ST.cutter[4] + 34),
+        iso(ST.read[0] + 29, ST.read[1] + 29, ST.read[4] + 50), iso(ST.verify[0] + 29, ST.verify[1] + 29, ST.verify[4] + 40),
+        iso(ST.sorter[0] + 40, ST.sorter[1] + 84, ST.sorter[4] + 34), iso(ST.ware[0] + 90, ST.ware[1] + 20, 66),
+        iso(ST.dock[0] + 70, ST.dock[1] + 20, 78), iso(BASE.i0 + 120, BASE.j1 - 10, 2),
+      ]
       stations.forEach((s, k) => {
-        const [x, y] = anchor(k)
+        const [x, y] = ANCHOR[k]
         const on = k === sel; const hotS = s.state === 'hold' || s.state === 'run'
         const g = s.rows.find((r) => /^(验收|质检)/.test(r[0]))
         const w = 9 + textW(s.ab, 10.5) + 6 + textW(s.big, 12.5, true) + (s.unit ? textW(s.unit, 9.5) + 3 : 0) + (g ? 13 : 0) + 9
@@ -1296,15 +1325,12 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
           h('text', { x: x0 + 9, y: y0 + 14.5, fill: on ? '#fff' : hotS ? A : P.ink2, fontSize: 10.5, fontWeight: 600 }, s.ab,
             h('tspan', { dx: 6, fill: on ? '#fff' : P.ink, fontSize: 12.5, fontWeight: 700, fontFamily: MONO }, s.big),
             s.unit ? h('tspan', { dx: 3, fill: on ? 'rgba(255,255,255,.75)' : P.ink3, fontSize: 9.5, fontWeight: 400 }, s.unit) : null),
-          g ? h('circle', { cx: x0 + w - 12, cy: y0 + hh / 2, r: 3.6, fill: gateDot[g[2]] ?? P.ink3, stroke: on ? '#fff' : 'none', strokeWidth: 1 }) : null))
+          g ? h('circle', { cx: x0 + w - 12, cy: y0 + hh / 2, r: 3.6, fill: gateDotColor[g[2]] ?? P.ink3, stroke: on ? '#fff' : 'none', strokeWidth: 1 }) : null))
       })
-      for (const [i, j, a, b, z] of [[-60, 44, 60, 24, 8], [0, 8, 84, 100, 112], [h0, 0, hallEnd - h0, D, H + 70], [yard, 6, 150, 160, 30]]) {
-        for (const [di, dj] of [[0, 0], [a, 0], [a, b], [0, b]]) bb.push(iso(i + di, j + dj, 0), iso(i + di, j + dj, z))
-      }
       const xs = bb.map((p) => p[0]); const ys = bb.map((p) => p[1])
-      const x0 = Math.min(...xs) - 24; const y0 = Math.min(...ys) - 16; const x1 = Math.max(...xs) + 24; const y1 = Math.max(...ys) + 16
+      const x0 = Math.min(...xs) - 20; const y0 = Math.min(...ys) - 14; const x1 = Math.max(...xs) + 20; const y1 = Math.max(...ys) + 14
       defs.push(h('mask', { key: 'mk', id: 'me-gridmask', maskUnits: 'userSpaceOnUse', x: x0, y: y0, width: x1 - x0, height: y1 - y0 }, h('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: 'url(#me-fade)' })))
-      // 键盘：场景本身是一个 Tab 停靠点，←／→ 按工序顺序（模板塔在前）切换
+      // 键盘：场景本身是一个 Tab 停靠点，←／→ 按流程顺序（规则底座在前）切换
       const ORDER = [7, 0, 1, 2, 3, 4, 5, 6, ...houses.map((_, i) => 8 + i)]
       const onKeyDown = (e) => {
         if (e.key === 'Escape') { onSel(null); return }
