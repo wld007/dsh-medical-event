@@ -16,7 +16,8 @@ const stateDir = process.argv[2]
 const port = Number(process.argv[3] ?? 18767)
 const umd = process.env.REACT_UMD_DIR
 if (!stateDir || !umd) { console.error('usage: REACT_UMD_DIR=<node_modules> node scripts/preview-page.mjs <stateDir> [port]'); process.exit(1) }
-const service = createService({ stateDir })
+// PREVIEW_CONFIG：插件设置（JSON），录 README 动画时指向本机假模型端点；PREVIEW_VERSION：页头显示的版本
+const service = createService({ stateDir, config: process.env.PREVIEW_CONFIG ? JSON.parse(process.env.PREVIEW_CONFIG) : {} })
 
 const page = `<!doctype html><meta charset="utf-8"><title>preview</title>
 <style>html,body,#root{margin:0;height:100%}
@@ -52,9 +53,12 @@ body{background:var(--dsw-alias-bg-base)}</style>
 </script>`
 
 const handlers = {
-  config: () => ({ ...service.configInfo(), version: 'preview' }),
+  config: () => ({ ...service.configInfo(), version: process.env.PREVIEW_VERSION ?? 'preview' }),
+  start: (p) => service.start({ ...p, source: { kind: 'panel' } }),
+  cancel: (p) => service.cancel(p.runId),
   list: () => service.list(),
-  status: (p) => service.status(p.runId),
+  // PREVIEW_HIDE_HOST：录 README 动画时不显示本机的磁盘、内存（录制机器的状况不是插件的事）
+  status: async (p) => { const v = await service.status(p.runId); if (process.env.PREVIEW_HIDE_HOST && v.run) v.run = { ...v.run, disk: undefined, memory: undefined }; return v },
   report: (p) => service.report(p.runId),
   calls: (p) => service.calls(p.runId),
   files: (p) => service.files(p.runId, p),
@@ -87,3 +91,4 @@ http.createServer(async (req, res) => {
     res.statusCode = 404; res.end()
   } catch (error) { res.statusCode = 500; res.end(String(error)) }
 }).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/`))
+process.on('SIGTERM', async () => { await service.dispose(); process.exit(0) })

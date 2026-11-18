@@ -12,9 +12,9 @@ A DeepSeek Harness plugin · model reading + two-model cross-checking + rule com
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![node](https://img.shields.io/badge/node-%E2%89%A522.5-339933)
 
-![Medical event reconstruction pipeline: the sorting hub](https://raw.githubusercontent.com/wld007/dsh-medical-event/main/assets/pipeline.png)
+![Medical event reconstruction pipeline: one batch from intake to delivery, then the rule pack, review, timeline and report](https://raw.githubusercontent.com/wld007/dsh-medical-event/main/assets/demo.webp)
 
-<sub>Generated with fictional patients (`test/fixtures`) and a local mock model endpoint: three-layer rule-pack base → intake → sentence cutter → reading tower and verification tower (the bridge is the review loop) → three type chutes → time-shelved event warehouse and conflict desk → delivery. The UI is in Chinese.</sub>
+<sub>Recorded from a real batch on 8 fictional patients (`test/fixtures`) against a local mock model endpoint: in the sorting hub, three-layer rule-pack base → intake → sentence cutter → reading and verification towers (the bridge is the review loop) → three type chutes → time-shelved event warehouse and conflict desk → delivery; then the Rule pack, Review, Timeline and Report tabs. Re-record with `scripts/readme-demo.mjs`. The UI is in Chinese.</sub>
 
 </div>
 
@@ -163,6 +163,10 @@ Shared with the dsh-medical plugin family ([docs/family.md](docs/family.md)):
 npm test                                  # tests (fictional patients + mock models, no network)
 node scripts/build.mjs 0.3.0-dev.N        # build dist/<version>, then install from the profile
 REACT_UMD_DIR=<node_modules with react/umd> node scripts/preview-page.mjs <stateDir>   # preview the page outside DSH
+
+# re-record the README animation (fictional patients + local mock endpoint; uses local Chrome, no Playwright)
+REACT_UMD_DIR=… node scripts/readme-demo.mjs /tmp/me-demo
+python3 scripts/readme-demo.py /tmp/me-demo assets/demo.webp      # needs Pillow
 ```
 
 ## License

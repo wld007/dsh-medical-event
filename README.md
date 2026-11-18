@@ -12,9 +12,9 @@ DeepSeek Harness 插件 · 模型通读＋双模型交叉核验＋规则对照 �
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![node](https://img.shields.io/badge/node-%E2%89%A522.5-339933)
 
-![病历事件还原流水线：分拣中心](https://raw.githubusercontent.com/wld007/dsh-medical-event/main/assets/pipeline.png)
+![病历事件还原流水线：一个批次从读入到交付，再看规则包、复核、时间线、报告](https://raw.githubusercontent.com/wld007/dsh-medical-event/main/assets/demo.webp)
 
-<sub>截图用虚构病人（`test/fixtures`）和本机假模型端点生成：三层规则包底座 → 进料口 → 切句 → 通读塔与核验塔（天桥是复查）→ 三条类型滑道 → 按时间上架的事件仓库与冲突台 → 交付。</sub>
+<sub>动画用虚构病人（`test/fixtures`，8 位）和本机假模型端点真跑一批录制：分拣中心里依次是三层规则包底座 → 进料口 → 切句 → 通读塔与核验塔（天桥是复查）→ 三条类型滑道 → 按时间上架的事件仓库与冲突台 → 交付；之后看规则包、复核、时间线、报告。用 `scripts/readme-demo.mjs` 可重录。</sub>
 
 </div>
 
@@ -168,6 +168,10 @@ npm test                                  # 测试（虚构病人＋假模型，
 node scripts/build.mjs 0.3.0-dev.N        # 生成 dist/<版本>，再从 profile 安装
 node scripts/llm-experiment.mjs <outDir> <病人目录>… --a <url>@<模型> --b <url>@<模型>   # 通读与规则基线对照（输出不进仓库）
 REACT_UMD_DIR=<含 react/umd 的 node_modules> node scripts/preview-page.mjs <stateDir>   # 在 DSH 之外预览页面
+
+# 重录 README 动画（虚构病人＋本机假模型端点；用本机 Chrome，不需要 Playwright）
+REACT_UMD_DIR=… node scripts/readme-demo.mjs /tmp/me-demo
+python3 scripts/readme-demo.py /tmp/me-demo assets/demo.webp      # 需要 Pillow
 ```
 
 ## 许可
