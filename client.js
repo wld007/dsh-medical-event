@@ -555,6 +555,23 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
 .me-mk.on{outline:2px solid var(--teal);outline-offset:1px}
 .me-dc-swatch i.fact{background:var(--fact)}.me-dc-swatch i.judge{background:var(--judge)}.me-dc-swatch i.decide{background:var(--decide)}.me-dc-swatch i.todo{background:var(--warn)}
 .me-dc-rv.on{border-style:solid}
+.me-tpl.warn{border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:color-mix(in srgb,var(--warn) 10%,transparent)}.me-tpl.warn span{color:var(--warn)}
+.me-rank-r.click{cursor:pointer;border-radius:3px}.me-rank-r.click:hover{background:var(--panel2)}
+.me-rl-top{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:12px;margin-top:10px}
+.me-rl-layers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.me-rl-layer{border:1px solid var(--line2);border-radius:6px;padding:9px 10px;background:var(--panel2);border-top:3px solid var(--teal)}
+.me-rl-layer.l-source{border-top-color:var(--fact)}.me-rl-layer.l-general{border-top-color:var(--teal)}.me-rl-layer.l-specialty{border-top-color:var(--decide)}
+.me-rl-lh{display:flex;align-items:baseline;gap:6px;margin-bottom:3px}.me-rl-lh em{font-style:normal;font-family:var(--mono);font-size:10px;color:var(--ink3)}.me-rl-lh b{font-size:13px}.me-rl-lh span{margin-left:auto;font-size:10.5px;color:var(--ink3)}
+.me-rl-items{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:7px;font-size:11px;color:var(--ink2)}.me-rl-items b{color:var(--ink);margin-right:3px}
+.me-rl-hit{margin-top:8px;padding-top:6px;border-top:1px dashed var(--line2);font-size:11px;color:var(--ink2)}.me-rl-hit b{font-size:15px;color:var(--teal2);margin-right:5px}
+.me-rl-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;align-content:start}
+.me-rl-st{border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:11.5px}.me-rl-st.model{border-color:color-mix(in srgb,var(--vio) 50%,transparent)}
+.me-rl-st>div{display:flex;gap:3px;margin-top:4px;flex-wrap:wrap}.me-rl-st small{display:block;margin-top:3px;font-size:10px;color:var(--ink3)}
+.me-rl-dot{font-size:10px;padding:0 5px;border-radius:3px;color:#fff;line-height:16px}.me-rl-dot.l-source{background:var(--fact)}.me-rl-dot.l-general{background:var(--teal)}.me-rl-dot.l-specialty{background:var(--decide)}
+.me-rl-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:6px 0 10px}
+.me-rl-kpi{border:1px solid var(--line);border-radius:6px;padding:7px 9px;display:flex;flex-direction:column;gap:2px}.me-rl-kpi span{font-size:10.5px;color:var(--ink3)}.me-rl-kpi b{font-size:18px}.me-rl-kpi small{font-size:10px;color:var(--ink3)}
+.me-rl-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.me-rl-ex{margin-top:10px;border:1px solid var(--line2);border-radius:6px;padding:8px 10px;background:var(--panel2)}
 `
 
     /* -------------------------------------------------------------- helpers */
@@ -709,7 +726,9 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
               h('span', { className: 'me-num' }, run?.id ?? '—'),
               run?.status === 'running' && run.current ? h('span', { className: 'me-tl' }, `${run.current.patient ? `${run.current.patient} · ` : ''}${run.current.step}`)
                 : run ? h('span', { title: run.input }, [modeLabel(run.mode), run.asOf ? `截至 ${run.asOf}` : null, run.inputName].filter(Boolean).join(' · ')) : null)),
-          run ? h('div', { className: 'me-tpl', title: '规则包：数据源层 → 通用医学层 → 专科层' }, h('span', { style: { fontSize: 15, color: 'var(--teal)' } }, '▤'), h('div', {}, h('b', {}, `规则包 ${spec.length ? spec.join('、') : '通用'}`), h('span', {}, `${run.format?.kind === 'recognized' ? '自动识别' : '区域平台'} · 复查 ≤${run.maxRounds ?? 3} 轮${run.sampleRate != null ? ` · 核验 ${Math.round(run.sampleRate * 100)}%` : ''}`))) : null,
+          run ? h('div', { className: `me-tpl${run.model?.verifyModel || !run.version ? '' : ' warn'}`, title: `通读模型 ${run.model?.model ?? '—'}${run.model?.verifyModel ? `\n核验模型 ${run.model.verifyModel}（抽查 ${Math.round((run.sampleRate ?? 0) * 100)}% 的句子，分歧至多复查 ${run.maxRounds ?? 3} 轮）` : '\n未配置核验模型：不做抽样核验和复查'}\n${modeLabel(run.mode)}` },
+            h('span', { style: { fontSize: 15, color: 'var(--teal)' } }, '◇'),
+            h('div', {}, h('b', {}, run.version ? `通读 ${run.model?.model ?? '—'}` : '旧版本（规则为主）'), h('span', {}, run.model?.verifyModel ? `核验 ${run.model.verifyModel} · ${Math.round((run.sampleRate ?? 0) * 100)}% · ≤${run.maxRounds ?? 3} 轮` : run.version ? '未配置核验模型' : '模型只给建议'))) : null,
           h('span', { className: 'me-sp' }),
           h('div', { className: 'me-clock sep' }, h('span', {}, '用时'), h('b', {}, clock(elapsed))),
           run ? h('div', { className: 'me-clock sep pct', title: `${run.shards?.done ?? 0} / ${run.shards?.total ?? 0} 个数据块` }, h('span', {}, '完成'), h('b', {}, percent == null ? '—' : String(percent), h('small', {}, '%'))) : null,
@@ -1309,10 +1328,10 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
         h('div', { className: 'me-ring-bar', 'aria-hidden': 'true' }, h('i', { style: { width: `${x * 100}%`, background: hot ? 'var(--warn)' : 'var(--teal)' } })))
     }
 
-    /** 带名字的横条：rows = [[名称, 数, 显示文本?, 颜色?, 提示?]] */
+    /** 带名字的横条：rows = [[名称, 数, 显示文本?, 颜色?, 提示?, 点击?]] */
     function RankBars({ rows, max }) {
       const m = max ?? Math.max(1, ...rows.map((r) => r[1]))
-      return h('div', { className: 'me-rank' }, rows.map(([name, n, txt, color, tip], i) => h('div', { key: `${name}${i}`, className: 'me-rank-r', title: tip ?? `${name}：${txt ?? fmt(n)}` },
+      return h('div', { className: 'me-rank' }, rows.map(([name, n, txt, color, tip, onClick], i) => h('div', { key: `${name}${i}`, className: `me-rank-r${onClick ? ' click' : ''}`, title: tip ?? `${name}：${txt ?? fmt(n)}`, onClick },
         h('span', {}, name), h('div', {}, h('i', { style: { width: `${Math.max(2, (n / m) * 100)}%`, background: color ?? 'var(--teal)' } })), h('b', { className: 'me-num' }, txt ?? big(n)))))
     }
 
@@ -1889,32 +1908,110 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
     }
 
     /* ------------------------------------------------------------- rulepack */
+    /**
+     * 规则包页：上半部三块图——三层结构（每层管哪些工序、各多少条）、这一批规则实际干了多少（补漏、第三票、
+     * 与模型的一致率、类型规则与概念的命中排行）、点一条规则看命中的例子；下半部是原来的明细表。
+     */
+    const LAYER_INFO = {
+      source: { nm: '数据源层', tip: '换医院、换平台时改这一层', does: ['读入·片段', '切句'], what: ['表', 'tables'], items: [['表', 'tables'], ['文书栏目', 'sections'], ['噪声行', 'noise']] },
+      general: { nm: '通用医学层', tip: '与病种无关：类型规则、常见概念、归并与矛盾判断参数', does: ['类型·对照', '归并', '矛盾判断'], items: [['类型规则', 'classify'], ['概念', 'concepts'], ['词表正则', 'vocab'], ['上位概念', 'hypernyms'], ['参数', 'params']] },
+      specialty: { nm: '专科层', tip: '可选；换病种时改这一层。不装也能跑，只是专科概念归不了一', does: ['类型·对照', '归并', '矛盾判断'], items: [['类型规则', 'classify'], ['概念', 'concepts'], ['词表正则', 'vocab'], ['互斥组', 'exclusive'], ['候选同义', 'candidateSynonyms']] },
+    }
+    const EXTRACT_NM = { model: '模型通读', STRUCT: '结构化记录', 规则补漏: '规则补漏', manual: '人工补充' }
     function Rules({ run }) {
-      const d = useAsync(() => call('rulepack', { specialty: run?.specialty }), [run?.id])
+      const d = useAsync(() => call('rulepack', { specialty: run?.specialty, runId: run?.id }), [run?.id])
       const [view, setView] = useState('taxonomy')
+      const [pick, setPick] = useState(null) // { kind, id, label }
+      const ex = useAsync(() => (pick && run ? call('ruleExamples', { runId: run.id, kind: pick.kind, id: pick.id, limit: 8 }) : null), [run?.id, pick?.kind, pick?.id])
       const v = d.value
       if (!v) return h('div', { className: 'me-frame me-empty', style: { flex: 1 } }, d.error ?? '加载中…')
       const groups = {}
       for (const c of v.concepts) (groups[c.group] ??= []).push(c)
-      return h('div', { className: 'me-frame me-col', style: { flex: 1 } },
-        h('div', { className: 'me-pad', style: { borderBottom: '1px solid var(--line)' } },
-          h('div', { className: 'me-h' }, h('b', {}, '规则包'), h('span', { className: 'me-cap' }, 'RULEPACK'), h('span', { className: 'me-faint' }, '规则与引擎分开：引擎只写“怎么做”，规则包写“认什么”。改规则 → 升版本 → 重跑。')),
-          h('div', {}, v.layers.map((l) => h('span', { key: l.id, className: 'me-chip' }, `${l.layer} · ${l.id} v${l.version}${l.basedOn ? ` · 基于 ${Object.entries(l.basedOn).map(([k, x]) => `${k} ${x}`).join(' ')}` : ''}`))),
-          h('div', { style: { display: 'flex', gap: 4, marginTop: 8 } }, [['taxonomy', `类型表 ${v.taxonomy?.length ?? 0}`], ['classify', `类型规则 ${v.classify.length}`], ['concepts', `概念词表 ${v.concepts.length}`], ['vocab', `词表正则 ${Object.keys(v.vocab).length}`], ['sections', '栏目与时间策略'], ['params', '参数与互斥组']].map(([k, l]) => h('button', { key: k, className: `me-btn sm${view === k ? ' on' : ''}`, onClick: () => setView(k) }, l)))),
+      const U = run?.ruleUse ?? null
+      const T = run?.totals ?? {}
+      const sum = (o) => Object.values(o ?? {}).reduce((a, n) => a + n, 0)
+      const ruleById = new Map(v.classify.map((r) => [r.id, r]))
+      const layerOfConcept = new Map(v.concepts.map((c) => [`${c.group}\u0000${c.name}`, c.layer]))
+      const layers = v.layers.map((l) => ({ ...l, info: LAYER_INFO[l.layer] ?? { nm: l.layer, does: [], items: [] } }))
+      // 每层这一批实际命中：类型规则命中次数、概念（按事件）
+      const hitsOf = (l) => {
+        if (!U) return null
+        if (l.layer === 'source') return { main: sum(U.extract) - (U.extract?.model ?? 0) - (U.extract?.manual ?? 0), label: '条提及由规则抽出（结构化、补漏、无栏目配置）' }
+        const cls = Object.entries(U.classify ?? {}).filter(([id]) => ruleById.get(id)?.layer === l.id).reduce((a, [, n]) => a + n, 0)
+        const con = Object.entries(U.concepts ?? {}).filter(([k]) => layerOfConcept.get(k) === l.id).reduce((a, [, n]) => a + n, 0)
+        return { main: cls + con, label: `次命中（类型规则 ${fmt(cls)} · 概念归一 ${fmt(con)} 个事件）` }
+      }
+      const STAGES = ['读入·片段', '切句', '通读', '类型·对照', '归并', '矛盾判断']
+      const layerCard = (l, i) => {
+        const hit = hitsOf(l)
+        return h('div', { key: l.id, className: `me-rl-layer l-${l.layer}` },
+          h('div', { className: 'me-rl-lh' }, h('em', {}, String(i + 1)), h('b', {}, l.info.nm), h('span', { className: 'me-num' }, `${l.id} v${l.version}`)),
+          h('div', { className: 'me-faint', style: { fontSize: 11 } }, l.layer === 'source' && run?.format?.kind === 'recognized' ? '由格式识别组装（每张表两个模型起草、一致才采用）' : l.info.tip),
+          h('div', { className: 'me-rl-items' }, l.info.items.filter(([, k]) => l.counts?.[k]).map(([nm, k]) => h('span', { key: k }, h('b', { className: 'me-num' }, fmt(l.counts[k])), nm))),
+          hit ? h('div', { className: 'me-rl-hit' }, h('b', { className: 'me-num' }, big(hit.main)), h('span', {}, hit.label)) : null,
+          l.basedOn ? h('div', { className: 'me-faint', style: { fontSize: 10.5, marginTop: 4 } }, `基于 ${Object.entries(l.basedOn).map(([k, x]) => `${k} ${x}`).join(' · ')}`) : null)
+      }
+      // 三层 → 工序：哪层管哪道工序（通读由模型做，规则只对照）
+      const flow = h('div', { className: 'me-rl-flow' },
+        STAGES.map((st) => {
+          const by = layers.filter((l) => l.info.does.includes(st))
+          return h('div', { key: st, className: `me-rl-st${st === '通读' ? ' model' : ''}` }, h('b', {}, st),
+            h('div', {}, st === '通读' ? h('span', { className: 'me-chip v' }, '模型') : null, by.map((l) => h('span', { key: l.id, className: `me-rl-dot l-${l.layer}`, title: l.info.nm }, l.info.nm.slice(0, 2)))),
+            st === '通读' ? h('small', {}, run?.mode === 'model' ? '规则只作对照统计' : '规则补漏、投第三票') : null)
+        }))
+      // 这一批：规则在通读里的作用
+      const rc = T.ruleCompare ?? {}
+      const cov = T.coverage ?? {}
+      const fb = sum(Object.fromEntries(Object.entries(U?.classify ?? {}).filter(([id]) => ruleById.get(id)?.fallback)))
+      const ruleTyped = sum(U?.classify) - (U?.classify?.model ?? 0)
+      const kpi = (label, val, sub, tone) => h('div', { className: 'me-rl-kpi' }, h('span', {}, label), h('b', { className: `me-num${tone ? ` me-${tone}` : ''}` }, val), sub ? h('small', {}, sub) : null)
+      const usage = !U ? h('p', { className: 'me-snote' }, run ? '这个批次没有记录规则用量（旧版本跑的或还没跑完），重跑后显示' : '还没有批次') : h(React.Fragment, {},
+        h('div', { className: 'me-rl-kpis' },
+          kpi('与模型大类一致', rc.matched ? pct(rc.type / rc.matched) : '—', rc.matched ? `${fmt(rc.matched)} 条位置对得上` : '没有可比的提及'),
+          kpi('发生时间一致', rc.timeComparable ? pct(rc.time / rc.timeComparable) : '—'),
+          kpi('规则补漏', fmt(cov.filled ?? 0), '模型漏掉、规则补上的提及', cov.filled ? null : null),
+          kpi('规则第三票', fmt(T.byRule ?? 0), '复查仍不一致时由规则定'),
+          kpi('规则定类型', fmt(ruleTyped), `兜底 ${fmt(fb)}（${ruleTyped ? pct(fb / ruleTyped) : '—'}）`, ruleTyped && fb / ruleTyped > 0.03 ? 'warn' : null)),
+        h('div', { className: 'me-rl-cols' },
+          h('div', {}, h('div', { className: 'me-ssec-h' }, h('span', {}, '类型规则命中'), h('span', {}, '点一条看例子')),
+            h(RankBars, { rows: Object.entries(U.classify).filter(([id]) => id !== 'model').sort((a, b) => b[1] - a[1]).slice(0, 10).map(([id, n]) => { const r = ruleById.get(id); return [`${id} ${r?.name ?? ''}`, n, fmt(n), r?.fallback ? 'var(--warn)' : `var(--${TYPE_KIND[r?.type] ?? 'teal'})`, `${id} ${r?.name ?? ''}（${r?.type ?? ''}·${r?.subclass ?? ''}${r?.fallback ? '，兜底' : ''}）：${fmt(n)} 条\n点击看例子`, () => setPick({ kind: 'classify', id, label: `${id} ${r?.name ?? ''}` })] }) }),
+            U.classify.model ? h('p', { className: 'me-snote' }, `另有 ${fmt(U.classify.model)} 条提及的类型由模型判定，不走类型规则`) : null),
+          h('div', {}, h('div', { className: 'me-ssec-h' }, h('span', {}, '概念归一（按事件）'), h('span', {}, `未归一 ${fmt(sum(U.unnormalized))}`)),
+            h(RankBars, { rows: Object.entries(U.concepts).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([k, n], _i, all) => { const [g, c] = k.split('\u0000'); const l = layerOfConcept.get(k); const dup = all.filter(([k2]) => k2.split('\u0000')[1] === c).length > 1; return [dup ? `${g.slice(0, 2)}·${c}` : c, n, fmt(n), l && l !== 'general' ? 'var(--decide)' : 'var(--teal)', `${g} · ${c}（${l ?? ''}）：${fmt(n)} 个事件\n点击看例子`, () => setPick({ kind: 'concept', id: k, label: `${g} · ${c}` })] }) })),
+          h('div', {}, h('div', { className: 'me-ssec-h' }, h('span', {}, '归并与矛盾判断')),
+            h(RankBars, { rows: [...Object.entries(U.merge).filter(([k]) => k && k !== 'null').sort((a, b) => b[1] - a[1]).slice(0, 6).map(([k, n]) => [k, n, fmt(n), 'var(--fact)', `归并：${k}，${fmt(n)} 条提及\n点击看例子`, () => setPick({ kind: 'merge', id: k, label: `归并 ${k}` })]),
+              ...Object.entries(U.finding).sort((a, b) => b[1] - a[1]).map(([k, n]) => [`矛盾 ${k}`, n, fmt(n), 'var(--warn)', `矛盾判断 ${k}：${fmt(n)} 条发现\n点击看例子`, () => setPick({ kind: 'finding', id: k, label: `矛盾判断 ${k}` })])] }))))
+      const examples = pick ? h('div', { className: 'me-rl-ex' },
+        h('div', { className: 'me-ssec-h' }, h('span', {}, `命中例子 · ${pick.label}`), h('button', { className: 'me-link', onClick: () => setPick(null) }, '收起')),
+        !ex.value ? h('p', { className: 'me-snote' }, ex.error ?? '加载中…') : !ex.value.items.length ? h('p', { className: 'me-snote' }, '这一批里没有找到') :
+          ex.value.items.map((x, i) => h('div', { key: i, className: 'me-mrow' },
+            h('div', { style: { display: 'flex', gap: 8, alignItems: 'baseline' } }, h('span', { className: 'me-num me-muted' }, x.patient), x.writtenAt ? h('span', { className: 'me-num me-faint' }, String(x.writtenAt).slice(0, 10)) : null, x.recordType ? h('span', { className: 'me-faint' }, `${x.recordType}${x.section ? `／${x.section}` : ''}`) : null, x.verdict ? h('span', { className: `me-chip ${VERDICT_CLS[x.verdict] ?? ''}` }, `${x.verdict}·${x.subclass ?? ''}`) : null),
+            h('div', { style: { margin: '3px 0' } }, x.text),
+            x.type ? h('div', { className: 'me-faint', style: { fontSize: 10.5 } }, `${x.type}›${x.subdivision ?? ''}›${x.item ?? ''}${x.negative ? '·否定' : ''} · ${x.occurFrom ?? '?'}${x.aliases?.length ? ` · 写法：${x.aliases.join('、')}` : ''}${x.mentionCount ? ` · ${x.mentionCount} 条提及` : ''}`) : null))) : null
+      return h('div', { className: 'me-frame me-col', style: { flex: 1, minHeight: 0 } },
         h('div', { className: 'me-scroll', style: { flex: 1 } },
+          h('div', { className: 'me-pad', style: { borderBottom: '1px solid var(--line)' } },
+            h('div', { className: 'me-h' }, h('b', {}, '规则包'), h('span', { className: 'me-cap' }, 'RULEPACK'), h('span', { className: 'me-faint' }, '规则写“认什么”，引擎写“怎么做”。每批不用选：数据源层跟着输入格式走，专科层在设置里定。改规则 → 升版本 → 重跑。')),
+            h('div', { className: 'me-rl-top' }, h('div', { className: 'me-rl-layers' }, layers.map(layerCard)), flow),
+            h('div', { className: 'me-sec' }, h('b', {}, run ? '这一批规则干了多少' : '规则用量'), h('span', { className: 'me-cap' }, run ? `${run.id} · ${modeLabel(run.mode)}` : '')),
+            h('div', { className: 'me-rl-usage' }, usage),
+            examples),
+          h('div', { className: 'me-pad', style: { paddingBottom: 0 } },
+            h('div', { style: { display: 'flex', gap: 4 } }, [['taxonomy', `类型表 ${v.taxonomy?.length ?? 0}`], ['classify', `类型规则 ${v.classify.length}`], ['concepts', `概念词表 ${v.concepts.length}`], ['vocab', `词表正则 ${Object.keys(v.vocab).length}`], ['sections', '栏目与时间策略'], ['params', '参数与互斥组']].map(([k, l]) => h('button', { key: k, className: `me-btn sm${view === k ? ' on' : ''}`, onClick: () => setView(k) }, l)))),
           view === 'taxonomy' ? h('div', { className: 'me-pad' }, h('div', { className: 'me-faint', style: { marginBottom: 6 } }, '通读模型只能从这张表里选类型代码；人工改类型、补提及也用它。'), h('table', {}, h('thead', {}, h('tr', {}, ['代码', '类型', '细分', '细项'].map((x) => h('th', { key: x }, x)))),
             h('tbody', {}, (v.taxonomy ?? []).map((c) => h('tr', { key: c.code }, h('td', { className: 'me-num' }, c.code), h('td', {}, h('span', { className: `me-chip ${TYPE_CLS[c.t]}` }, c.t)), h('td', {}, c.sd), h('td', {}, c.it))))))
-          : view === 'classify' ? h('table', {}, h('thead', {}, h('tr', {}, ['顺序', '编号', '名称', '类型', '子类', '条件'].map((x) => h('th', { key: x }, x)))),
-            h('tbody', {}, v.classify.map((r, i) => h('tr', { key: r.id }, h('td', { className: 'me-num me-faint' }, i + 1), h('td', { className: 'me-num' }, r.id, r.fallback ? h('span', { className: 'me-chip w', style: { marginLeft: 4 } }, '兜底') : null), h('td', {}, r.name), h('td', {}, h('span', { className: `me-chip ${TYPE_CLS[r.type]}` }, r.type)), h('td', {}, r.subclass), h('td', { className: 'me-num me-faint', style: { fontSize: 11, wordBreak: 'break-all' } }, JSON.stringify(r.when))))))
-            : view === 'concepts' ? h('div', { className: 'me-pad' }, Object.entries(groups).map(([g, cs]) => h('div', { key: g }, h('div', { className: 'me-sec' }, h('b', {}, g), h('span', { className: 'me-cap' }, String(cs.length))),
-              h('table', {}, h('tbody', {}, cs.map((c) => h('tr', { key: c.name }, h('td', { style: { width: 180 } }, c.name, c.once ? h('span', { className: 'me-chip v', style: { marginLeft: 4 } }, '一次性') : null), h('td', { className: 'me-muted' }, c.aliases.join('、')), h('td', { className: /需药师|需医生/.test(c.nature ?? '') ? 'me-warn' : 'me-faint' }, c.nature ?? ''))))))))
-              : view === 'vocab' ? h('table', {}, h('tbody', {}, Object.entries(v.vocab).map(([k, re]) => h('tr', { key: k }, h('td', { className: 'me-num', style: { width: 120 } }, k), h('td', { className: 'me-num me-muted', style: { fontSize: 11, wordBreak: 'break-all' } }, String(re))))))
-                : view === 'sections' ? h('table', {}, h('tbody', {}, Object.entries(v.sections).flatMap(([doc, cfg]) => (cfg.list ?? [{ name: cfg.whole, time: cfg.time, label: cfg.label }]).map((s) => h('tr', { key: doc + s.name }, h('td', {}, doc), h('td', {}, s.name), h('td', { className: 'me-num me-faint' }, s.re ?? ''), h('td', {}, s.time), h('td', { className: 'me-muted' }, s.label ?? ''))))))
-                  : h('div', { className: 'me-pad' }, h('table', {}, h('tbody', {}, Object.entries(v.params).map(([k, x]) => h('tr', { key: k }, h('td', { className: 'me-num' }, k), h('td', { className: 'me-num' }, String(x)))))),
-                    h('div', { className: 'me-sec' }, h('b', {}, '互斥用药组')), v.exclusive.map((g) => h('div', { key: g.name }, `${g.name}：${g.drugs.join('、')}`, h('div', { className: 'me-faint' }, g.note))),
-                    h('div', { className: 'me-sec' }, h('b', {}, '否认上位概念')), v.hypernyms.map((x) => h('div', { key: x.name }, `${x.name} ⊇ ${x.children.join('、')}`)),
-                    h('div', { className: 'me-sec' }, h('b', {}, '候选同义（不合并）')), v.candidateSynonyms.map((x) => h('div', { key: x.name }, `${x.name}：${x.members.join('／')}`)))))
+            : view === 'classify' ? h('table', {}, h('thead', {}, h('tr', {}, ['顺序', '编号', '名称', '类型', '子类', '层', '本批命中', '条件'].map((x) => h('th', { key: x }, x)))),
+              h('tbody', {}, v.classify.map((r, i) => h('tr', { key: r.id, className: U ? 'click' : '', onClick: U ? () => setPick({ kind: 'classify', id: r.id, label: `${r.id} ${r.name}` }) : undefined }, h('td', { className: 'me-num me-faint' }, i + 1), h('td', { className: 'me-num' }, r.id, r.fallback ? h('span', { className: 'me-chip w', style: { marginLeft: 4 } }, '兜底') : null), h('td', {}, r.name), h('td', {}, h('span', { className: `me-chip ${TYPE_CLS[r.type]}` }, r.type)), h('td', {}, r.subclass), h('td', { className: 'me-faint' }, r.layer ?? ''), h('td', { className: 'me-num' }, U ? fmt(U.classify[r.id] ?? 0) : '—'), h('td', { className: 'me-num me-faint', style: { fontSize: 11, wordBreak: 'break-all' } }, JSON.stringify(r.when))))))
+              : view === 'concepts' ? h('div', { className: 'me-pad' }, Object.entries(groups).map(([g, cs]) => h('div', { key: g }, h('div', { className: 'me-sec' }, h('b', {}, g), h('span', { className: 'me-cap' }, String(cs.length))),
+                h('table', {}, h('tbody', {}, cs.map((c) => h('tr', { key: c.name, className: U ? 'click' : '', onClick: U ? () => setPick({ kind: 'concept', id: `${g}\u0000${c.name}`, label: `${g} · ${c.name}` }) : undefined }, h('td', { style: { width: 180 } }, c.name, c.once ? h('span', { className: 'me-chip v', style: { marginLeft: 4 } }, '一次性') : null), h('td', { className: 'me-muted' }, c.aliases.join('、')), h('td', { className: 'me-faint', style: { width: 90 } }, c.layer ?? ''), h('td', { className: 'me-num', style: { width: 70 } }, U ? fmt(U.concepts[`${g}\u0000${c.name}`] ?? 0) : ''), h('td', { className: /需药师|需医生/.test(c.nature ?? '') ? 'me-warn' : 'me-faint' }, c.nature ?? ''))))))))
+                : view === 'vocab' ? h('table', {}, h('tbody', {}, Object.entries(v.vocab).map(([k, re]) => h('tr', { key: k }, h('td', { className: 'me-num', style: { width: 120 } }, k), h('td', { className: 'me-num me-muted', style: { fontSize: 11, wordBreak: 'break-all' } }, String(re))))))
+                  : view === 'sections' ? h('table', {}, h('tbody', {}, Object.entries(v.sections).flatMap(([doc, cfg]) => (cfg.list ?? [{ name: cfg.whole, time: cfg.time, label: cfg.label }]).map((s) => h('tr', { key: doc + s.name }, h('td', {}, doc), h('td', {}, s.name), h('td', { className: 'me-num me-faint' }, s.re ?? ''), h('td', {}, s.time), h('td', { className: 'me-muted' }, s.label ?? ''))))))
+                    : h('div', { className: 'me-pad' }, h('table', {}, h('tbody', {}, Object.entries(v.params).map(([k, x]) => h('tr', { key: k }, h('td', { className: 'me-num' }, k), h('td', { className: 'me-num' }, String(x)))))),
+                      h('div', { className: 'me-sec' }, h('b', {}, '互斥用药组')), v.exclusive.map((g) => h('div', { key: g.name }, `${g.name}：${g.drugs.join('、')}`, h('div', { className: 'me-faint' }, g.note))),
+                      h('div', { className: 'me-sec' }, h('b', {}, '否认上位概念')), v.hypernyms.map((x) => h('div', { key: x.name }, `${x.name} ⊇ ${x.children.join('、')}`)),
+                      h('div', { className: 'me-sec' }, h('b', {}, '候选同义（不合并）')), v.candidateSynonyms.map((x) => h('div', { key: x.name }, `${x.name}：${x.members.join('／')}`)))))
     }
+
 
 
     /* ---------------------------------------------------------------- files */

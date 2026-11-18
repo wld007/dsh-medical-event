@@ -203,6 +203,14 @@ test('批次：识别新格式（两模型一致自动采用）→ 事件包；�
   for (const x of r3.patients) assert.deepEqual(x.failedGates, [], `${x.patient} 验收门`)
   const drug = (await readFile(join(r3.output, '证件-AAA111', 'exports', 'drug_exposure.csv'), 'utf8'))
   assert.match(drug, /阿司匹林/)
+  // 识别出的格式：「更新事件包」从规划文件读回数据源层（含正则），结果与批次一致
+  const before = (await svc.status(r3.id)).run.totals.mentions
+  const applied = await svc.applyDecisions(r3.id)
+  assert.equal(applied.patients, 2)
+  assert.equal((await svc.status(r3.id)).run.totals.mentions, before)
+  const rp = await svc.rulepack(null, r3.id)
+  assert.equal(rp.layers[0].layer, 'source')
+  assert.notEqual(rp.layers[0].id, 'zj-regional')
 })
 
 test('没配模型不能开始；输入不是数据文件时开批次就报错，不留空批次', async () => {

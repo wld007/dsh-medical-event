@@ -66,7 +66,8 @@ const handlers = {
   formats: (p) => service.formats(p.runId),
   documents: (p) => service.documents(p.runId, p.patient),
   fragment: (p) => service.fragment(p.runId, p.patient, p.fragmentId),
-  rulepack: (p) => service.rulepack(p.specialty),
+  rulepack: (p) => service.rulepack(p.specialty, p.runId),
+  ruleExamples: (p) => service.ruleExamples(p.runId, p),
 }
 
 http.createServer(async (req, res) => {
