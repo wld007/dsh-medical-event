@@ -10,21 +10,28 @@ lib/
     text.js           切句、分句、顿号、规范化
     source.js         读导出 → 记录（按数据源层规则包映射；识别出的格式按表名匹配，嵌入文书在此解码）
     s01-fragments.js  记录 → 片段（可见时间、就诊）
-    s02-mentions.js   片段 → 提及（工序1）
-    s03-classify.js   提及 → 类型（工序2）
+    s02-mentions.js   片段 → 提及（工序1 规则；结构化记录、规则对照与补漏用）
+    read.js           通读：切句·去重 → 通读模型 → 核验模型（抽样）→ 复查 → 规则第三票 → 转人工；片段定位与日期换算
+    taxonomy.js       类型表（三类 → 细分 → 细项，代码 F01…D16）
+    manual.js         人工判断落到提及上（去掉、改类型、改时间、补漏提）
+    s03-classify.js   提及 → 类型与属性（模型判定的类型直接采用）
     s04-merge.js      提及 → 事件（工序3）
+    s04-links.js      印证关系
     s05-judge.js      事件 → 发现（工序4）
-    gates.js          验收门
-    asof.js           截至时刻 T 的重算
-    pipeline.js       串联：runPatient(dir, rulepack, {until, asOf})
+    pipeline.js       串联：runStages(raw, rulepack, { asOf, llm, decisions })
+    gate.js           模型并发闸门（SharedArrayBuffer，所有线程共用）、自动调并发、推理服务器探针
+    shard.js          一个数据块：若干位病人 → 事件包（暂存区）＋复核单
+    worker.js         工作线程
   recognize/          S00 格式识别（非内置格式）
     canon.js          标准记录类别、栏目、角色（识别层与规则层的契约）
     read.js           通用读入：json/ndjson/csv/tsv/xlsx；表名；base64 XML/HTML 文书解码
     profile.js        画像（字段统计、截短样例、栏目标签）；病人分组
-    draft.js          规则草稿、模型提示词、规格规范化／校验／比较
+    draft.js          规则方案、模型提示词（含复查提示）、读法规范化／校验／比较
     library.js        本机格式库（按表签名复用）
-    build.js          已采用的规格 → 数据源层规则包
-    index.js          编排：画像 → 复用 → 起草 → 核验 → 采用／暂扣
+    build.js          已采用的读法 → 数据源层规则包
+    index.js          编排：抽样画像 → 复用／借用 → 起草 → 核验 → 复查 → 采用／暂扣
+  records/store.js    记录库（node:sqlite）：批次、数据块、模型缓存、调用统计、人工判断
+  service.js          批次：规划 → 数据块（并行、续跑）→ 质检 → 交付 → 报告；复核、更新事件包、清空
   rulepack/
     load.js           合并三层、校验（只允许纯数据）、编译正则
   package/
@@ -41,14 +48,14 @@ test/
   *.test.mjs          node --test
 ```
 
-阶段 2 再加 `index.js`、`lib/service.js`（批次、取消、继续、_records、报告）、`client.js`。
+插件外壳：`index.js`（Agent 工具、/event、页面 RPC）、`client.js`（页面）。
 
 ## 原则
 
-- 每个环节是纯函数：输入上一环节结果＋规则包，输出本环节结果；不读写文件、不读时钟。文件读写只在 `source.js` 与 `package/write.js`。
+- 每个环节是纯函数：输入上一环节结果＋规则包，输出本环节结果；不读写文件、不读时钟。文件读写只在 `source.js` 与 `package/write.js`；模型调用由调用方（shard.js）注入 `ask`，引擎只管提示与解析。
 - 每条结果记命中的规则编号。
 - 规则包与引擎分开：引擎只写“怎么做”（时间来源的优先级级联、并查集归并等过程），规则包写“认什么”（正则、词表、规则顺序、条件、参数）。
-- 零运行时依赖（与匿名化插件一致）。测试用 `node --test`。
+- 零运行时依赖（与匿名化插件一致；记录库用运行时自带的 node:sqlite）。测试用 `node --test`，模型用假模型。
 
 ## 规则包格式
 
@@ -94,6 +101,7 @@ export default {
 | 提及 | `M` | 片段编号＋s＋e |
 | 事件 | `E` | 排序后的成员提及编号 |
 | 发现 | `F` | 子类＋排序后的涉及事件编号 |
+| 复核项（通读分歧） | `R` | 句子单位（内容派生）＋问题类型＋双方片段 |
 
 ## 时间
 

@@ -1,7 +1,7 @@
 {
   "name": "dsh-medical-event",
-  "version": "0.2.1",
-  "description": "病历事件还原：把病历变成可计算的事件（提及、两个时间、类型、事件归并、记录冲突）。DeepSeek Harness 插件。",
+  "version": "0.3.0",
+  "description": "病历事件还原：把病历变成可计算的事件——通读模型逐句读出提及、两个时间与类型，核验模型抽查、分歧复查后转人工，规则对照；归并成事件、登记记录冲突。DeepSeek Harness 插件。",
   "type": "module",
   "license": "MIT",
   "author": "wld007",
@@ -14,7 +14,7 @@
     "url": "https://github.com/wld007/dsh-medical-event/issues"
   },
   "engines": {
-    "node": ">=20",
+    "node": ">=22.5",
     "dsh": ">=0.2.1-0"
   },
   "scripts": {

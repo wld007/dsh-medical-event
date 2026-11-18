@@ -1,8 +1,8 @@
 /**
- * 模型优先 S02＋S03 实验：对若干病人分别跑“规则基线”和“模型优先”，输出对照统计与分歧样本。
+ * 通读（模型优先 S02＋S03）实验：对若干病人分别跑“规则基线”和“通读”，输出对照统计与分歧样本（不走批次服务）。
  *
  *   node scripts/llm-experiment.mjs <outDir> <patientDir>... \
- *     --a <baseURL>@<model> --b <baseURL>@<model> [--width 8]
+ *     --a <baseURL>@<model> --b <baseURL>@<model> [--width 8] [--sample 1] [--rounds 3] [--mode hybrid|model]
  *
  * 跨病人共用缓存（<outDir>/cache），重跑只补没问过的句子。输出不进仓库（病历派生内容）。
  */
@@ -13,18 +13,20 @@ import { readPatient } from '../lib/engine/source.js'
 import { runStages, countBy } from '../lib/engine/pipeline.js'
 import { loadRulepack } from '../lib/rulepack/load.js'
 import { createLlm } from '../lib/llm.js'
-import { createCache } from '../lib/llm/first.js'
+import { SYSTEM } from '../lib/engine/read.js'
+import { openRecords } from '../lib/records/store.js'
 
 const args = process.argv.slice(2)
 const flag = (n, d) => { const i = args.indexOf(n); return i >= 0 ? args.splice(i, 2)[1] : d }
-const A = flag('--a'); const B = flag('--b'); const width = Number(flag('--width', 8))
+const A = flag('--a'); const B = flag('--b'); const width = Number(flag('--width', 8)); const sampleRate = Number(flag('--sample', 1)); const maxRounds = Number(flag('--rounds', 3)); const mode = flag('--mode', 'hybrid')
 const [outDir, ...dirs] = args
 if (!outDir || !dirs.length || !A || !B) { console.error('usage: node scripts/llm-experiment.mjs <outDir> <patientDir>... --a url@model --b url@model'); process.exit(1) }
 const repo = fileURLToPath(new URL('..', import.meta.url))
 if (resolve(outDir).startsWith(resolve(repo))) { console.error('outDir 不能在仓库里'); process.exit(1) }
 const mk = (spec) => { const i = spec.lastIndexOf('@'); return createLlm({ baseURL: spec.slice(0, i), model: spec.slice(i + 1), timeoutMs: 300000 }) }
 const models = { a: mk(A), b: mk(B) }
-const cache = createCache(join(outDir, 'cache'))
+const store = await openRecords(join(outDir, '_records'))
+const ask = async (role, llm, prompt) => { try { return (await llm.chat([{ role: 'system', content: SYSTEM }, { role: 'user', content: prompt }], { maxTokens: 6000 })).content } catch { return null } }
 const pack = await loadRulepack()
 await mkdir(outDir, { recursive: true })
 
@@ -66,15 +68,16 @@ for (const dir of dirs) {
   const raw = await readPatient(dir, pack.source)
   const t0 = Date.now()
   let calls = 0; let failed = 0
-  const r = await runStages(raw, pack, { llm: { models, cache, width, onCall: (c) => { calls++; if (!c.ok) failed++ } } })
+  const counted = async (role, llm, prompt) => { calls++; const c = await ask(role, llm, prompt); if (c == null) failed++; return c }
+  const r = await runStages(raw, pack, { llm: { models, ask: counted, store, width, sampleRate, maxRounds, mode } })
   const ms = Date.now() - t0
   const cmp = compare(r.tables.mentions, r.baseline)
   const s = r.summary
   const row = {
     patient: name, ms, calls, failed,
     gates: Object.fromEntries(Object.entries(s.gates).map(([k, g]) => [k, g.pass])),
-    units: s.llm.units, unique: s.llm.unique, cached: s.llm.cached, tokens: s.llm.tokens, invalid: s.llm.invalid,
-    tally: s.llm.tally, coverage: s.llm.coverage, by: s.llm.by,
+    units: s.read.units, unique: s.read.unique, cached: s.read.cached, invalid: s.read.invalid, agreement: s.read.agreement,
+    tally: s.read.tally, coverage: s.read.coverage, by: s.read.by, reviews: r.reviews.length,
     mentions: s.mentions, events: s.events, findings: s.findings, verdicts: s.verdicts,
     compare: { ...cmp, samples: undefined },
     timeSources: Object.fromEntries(Object.entries(s.timeSources).slice(0, 15)),
@@ -82,7 +85,7 @@ for (const dir of dirs) {
   report.push(row)
   await writeFile(join(outDir, `${name}.samples.json`), JSON.stringify(cmp.samples, null, 1))
   await writeFile(join(outDir, `${name}.mentions.jsonl`), r.tables.mentions.filter((m) => m.kind === '文书').map((m) => JSON.stringify({ id: m.id, recordType: m.recordType, section: m.section, text: m.text, type: m.type, subdivision: m.subdivision, item: m.item, subclass: m.subclass, negative: m.negative, occurFrom: m.occurFrom, occurTo: m.occurTo, timeSource: m.timeSource, by: m.by })).join('\n') + '\n')
-  console.log(`${name}: ${(ms / 1000).toFixed(0)}s calls ${calls} failed ${failed} unique ${s.llm.unique}/${s.llm.units} cached ${JSON.stringify(s.llm.cached)} gates ${JSON.stringify(row.gates)} type ${(cmp.type / Math.max(1, cmp.exact + cmp.overlap) * 100).toFixed(1)}% time ${(cmp.time / Math.max(1, cmp.timeComparable) * 100).toFixed(1)}%`)
+  console.log(`${name}: ${(ms / 1000).toFixed(0)}s calls ${calls} failed ${failed} unique ${s.read.unique}/${s.read.units} cached ${JSON.stringify(s.read.cached)} gates ${JSON.stringify(row.gates)} type ${(cmp.type / Math.max(1, cmp.exact + cmp.overlap) * 100).toFixed(1)}% time ${(cmp.time / Math.max(1, cmp.timeComparable) * 100).toFixed(1)}%`)
   await writeFile(join(outDir, 'report.json'), JSON.stringify({ models: { a: models.a.model, b: models.b.model }, totalMs: Date.now() - t00, patients: report }, null, 1))
 }
 console.log('done', ((Date.now() - t00) / 1000).toFixed(0), 's')

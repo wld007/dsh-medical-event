@@ -2,27 +2,41 @@
     - id: medical-event
       name: 'dsh-medical-event'
       config:
-        # 输出根目录；空 = 输入目录旁的 _medical-event
+        # 输出根目录；空 = 输入目录旁的 _medical-event。交付放在它下面的 output/<输入名>，记录放 _records
         outputRoot: ''
         # 专科层规则包（rules/specialty/<名>），可多个；不装专科包也能跑
         specialty:
           - hemodialysis
-        # 模型补充（可选）：只处理规则判不了的项，只出建议，不改规则结果。
-        # 病历内容只发往这里配置的端点（通常为本机或内网）。
-        modelEnabled: true
+        # hybrid：模型通读＋规则对照（模型漏的规则补上，复查仍不一致时规则投第三票）；model：只用模型，仍不一致直接转人工
+        readMode: hybrid
+        # 通读模型（必填）：病历内容只发往这里配置的端点（通常为本机或内网）；没有配置不能开始批次
         baseURL: ''
         model: ''
-        # 独立核验模型；空 = 不核验（建议一律进人工复核）
+        # 核验模型：抽查句子背靠背再读，分歧两个模型轮流复查；空 = 不做抽样核验
         verifyBaseURL: ''
         verifyModel: ''
         disableThinking: true
         timeoutMs: 120000
-        # 每个模型同时处理的请求数
-        modelConcurrency: 4
-        # 每位病人每类候选最多送模型的条数
-        modelLimit: 200
-        showSidebarEntry: true
-        # 事件包的大表（片段、提及、事件、抽取样本）gzip 压缩：每位病人约 5MB，不压缩约 40MB
+        # 并发：两个模型各自同时进行的请求数（所有工作线程与格式识别共用）
+        modelConcurrency: 8
+        verifyConcurrency: 8
+        # 自动调并发：上面两个只是起始值，每 30 秒按吞吐加减（最多 64）
+        autoConcurrency: true
+        # 复查轮次上限（1–6）
+        maxRounds: 3
+        # 核验抽查的句子比例（按句子内容稳定抽样；1 = 全部核验）
+        verifySampleRate: 0.1
+        # 质检⑤：核验一致率（复查前）阈值
+        verifyThreshold: 0.9
+        # 工作线程数；0 = 自动（CPU 数 - 1，最多 8）
+        workers: 0
+        # 每个数据块的病人数（数据块是断点续跑的单位）
+        shardUnits: 4
+        # 格式识别：数据元对照表（编码→中文名；csv／xlsx／json 两列）；借用病历文书提取插件已采用的识别结果
+        elementDict: ''
+        borrowFormats: true
+        # 事件包的大表 gzip 压缩：每位病人约 5MB，不压缩约 40MB
         compress: true
-        # 每位病人另导出一份 结果.xlsx（提及明细、事件表、发现表…）；约 15MB/人、每人多 2 秒，默认关
+        # 每位病人另导出一份 结果.xlsx；约 15MB/人，默认关
         xlsx: false
+        showSidebarEntry: true

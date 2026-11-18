@@ -1,13 +1,13 @@
-# 事件包格式（草案 v0）
+# 事件包格式（v1）
 
 > `dsh-medical-event` 的交付物，`dsh-medical-ontology`、`dsh-medical-eval` 及其他下游读取。
-> 状态：**v0 已实现**（`lib/package/write.js`）。字段来自工序 1–4 设计文档的“输出字段”，补上了稳定编号、版本与复核状态。实现与本文有出入时以实现为准，并回写本文。
+> 状态：**v1 已实现**（`lib/package/write.js`，插件 0.3.0 起；v0 是 0.2.x 及以前）。v0→v1 只增字段、改了交付位置，见文末「v1 的改动」。字段来自工序 1–4 设计文档的“输出字段”，补上了稳定编号、版本与复核状态。实现与本文有出入时以实现为准，并回写本文。
 > 定稿后遵守：字段只增不改；改动升 `format` 版本；消费者声明支持的版本。
 
 ## 目录结构（每位病人一个）
 
 ```
-<outputRoot>/<输入名>/<patient>/
+<outputRoot>/output/<输入名>/<patient>/
   manifest.json
   fragments.jsonl
   encounters.jsonl
@@ -17,6 +17,7 @@
   clues.jsonl            # S04 交 S05 的线索
   links.jsonl            # 印证关系（跨类型，只连不并）
   stage-changes.json     # 病情变化（分期分级）
+  reviews.jsonl          # 复核项：通读分歧（含复查后一致的）及其处理情况（v1）
   exports/               # 便于复用的视图，可再生
     结果-工序1..4.xlsx
     drug_exposure.csv
@@ -28,7 +29,7 @@
 
 | 字段 | 含义 |
 |---|---|
-| `format` | 事件包格式版本，如 `event-package/0` |
+| `format` | 事件包格式版本，如 `event-package/1` |
 | `producer` | 插件名与版本 |
 | `rulepacks` | 各层规则包及版本：数据源层、通用医学层、专科层；以及工序 1–4 设计版本 |
 | `runId` | 产生它的批次 |
@@ -37,7 +38,8 @@
 | `anchor` | D+0 锚点及其定义 |
 | `counts` | 片段、提及、事件、发现数 |
 | `gates` | 四道验收门结果 |
-| `review` | 复核进度：各类待复核/已裁定数 |
+| `review` | 复核进度：各类待复核/已判断数（`read`＝通读分歧待人工，v1） |
+| `read` | 通读统计（v1）：模型、模式（hybrid／model）、句子单位与去重、抽查数、按问题（边界／分类／时间）的核验一致率（复查前）、分歧与去向（复查第 N 轮一致／规则第三票／待人工／人工）、覆盖率、人工改动、与规则的对照 |
 
 ## fragments.jsonl（片段）
 
@@ -77,7 +79,8 @@
 | `action`、`execStatus` | 决策的动作（启动、维持、调整、停止、计划；是否同句沿用）与执行状态 |
 | `certainty` | 判断的确定程度 |
 | `adherence` | 依从描述 |
-| `rules` | 命中规则：`{extract, classify}`，如 `{"classify":"P1"}` |
+| `rules` | 命中规则：`{extract, classify}`。`extract`：`model`（模型通读）、`STRUCT`（结构化记录）、`规则补漏`、`manual`（人工补充，v1）或规则抽取的规则号；`classify`：`model`（类型由模型判定）或类型规则号 |
+| `by` | 通读的出处（v1，模型通读的提及才有）：`{span, type, time}` 各取 双模型一致／单模型（没抽到核验）／复查第 N 轮／规则第三票／待人工／人工／规则补漏／规则纠正 |
 | `review` | 复核状态（见 family.md §4.5） |
 
 ## events.jsonl（事件，工序3）
@@ -139,9 +142,9 @@
 
 ## 已定
 
-- 交付位置：`<outputRoot>/<输入名>/<病人相对路径>/`；单个病人输入时直接是 `<outputRoot>/<输入名>/`。
+- 交付位置（v1）：`<outputRoot>/output/<输入名>/<病人相对路径>/`；单个病人输入时直接是 `<outputRoot>/output/<输入名>/`。同一输入重跑时以最新结果替换。下游只读 `output`。
 - 片段全文放进包里（下游不回读病历）。
-- 人工裁定放 `_records/records.sqlite` 的 `decisions` 表（按稳定编号；每次改动另记 `decision_log`），读取时合并到 `findings[].review`。旧版的 `_records/decisions.json` 在第一次打开记录库时并入。运行时没有 `node:sqlite` 时仍用 `decisions.json`。
+- 人工判断放 `_records/records.sqlite` 的 `decisions` 表（按稳定编号；每次改动另记 `decision_log`）：`review`（通读分歧）、`mention`（去掉／改类型／改时间）、`add`（人工补充的提及）、`finding`、`mapping`。重跑或「更新事件包」时生效，发现的判断写进 `findings[].review`。旧版的 `_records/decisions.json` 在第一次打开记录库时并入。
 - as-of：以批次参数 `asOf` 产出整包（manifest.asOf 记录），引擎内 `runStages(raw, pack, { asOf })` 可按需重算。
 
 ## 输入格式与记录类别（0.2.0 起）
@@ -149,6 +152,25 @@
 - 输入不是区域平台导出时，数据源层由 S00 格式识别组装（`manifest.rulepacks` 中 `layer: source` 的那一项是 `recognized@<版本>`）。格式本身不变。
 - `recordType` 的完整取值见 `lib/recognize/canon.js`：结构化（基本信息、就诊登记、诊断记录、检验、生命体征、医嘱、处方、用药记录、治疗记录、申请单、手术记录、收费、其他结构化）、文书（入院记录、门诊病历、出院记录、检查报告、病程记录、会诊记录、手术麻醉记录、护理记录、转诊记录、其他文书）。内置区域平台格式的“门诊收费”保留原名。
 - 识别后暂扣（未确认）的表不进事件包。
+
+## reviews.jsonl（复核项，v1）
+
+| 字段 | 含义 |
+|---|---|
+| `id` | 稳定编号：句子单位（内容派生）＋问题类型＋双方片段。同一句在别的文书、别的病人出现时编号相同，判断一起生效 |
+| `dispute` | 边界／分类／时间／遗漏 |
+| `a`、`b`、`aText`、`bText` | 通读模型、核验模型的答案（片段、类型代码、否定、时间短语） |
+| `current`、`by` | 当前采用哪一方（甲＝通读、乙＝核验）及依据 |
+| `rounds` | 每一轮复查双方坚持还是改用对方，及理由 |
+| `resolved` | 复查或规则第三票已解决的（不需人工，可抽查）；空＝转人工 |
+| `decided` | 人工判断（confirm 维持／useVerify 改用另一方／reject 去掉） |
+| `occurrences` | 这一句在本病人里出现的片段与位置 |
+
+## v1 的改动（0.3.0）
+
+- 交付位置改到输出根目录的 `output/` 下（同匿名化、病历文书提取插件）。
+- 提及改为模型优先（通读）：`mentions[].by`、`rules.extract = model|manual`、`rules.classify = model`；新增 `reviews.jsonl`、`manifest.read`、`counts.reviews`。
+- 其余字段不变；读 v0 的消费者只要改交付路径。
 
 ## 待定
 

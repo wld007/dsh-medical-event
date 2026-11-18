@@ -7,6 +7,7 @@ import { readFileSync } from 'node:fs'
 const gunzipSyncLines = (f) => gz(readFileSync(f)).toString('utf8').trim().split('\n').map((l) => JSON.parse(l))
 import { join } from 'node:path'
 import { createService } from '../lib/service.js'
+import { withFormat } from './helpers.mjs'
 import { decodeEmbedded, tableKeyOf, parseDelimited } from '../lib/recognize/read.js'
 import { profileTables, walkData, groupPatients } from '../lib/recognize/profile.js'
 import { ruleDraft, checkSpec, compareSpecs, normalizeSpec, briefOf } from '../lib/recognize/draft.js'
@@ -151,7 +152,7 @@ test('批次：识别新格式（两模型一致自动采用）→ 事件包；�
   const a = mockFormatModel('fmt-a'); const b = mockFormatModel('fmt-b', { wrong: { R05_住院医嘱记录: { recordType: '处方', roles: { item: 'F_ORDER' } } } })
   const svc = createService({
     config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state'),
-    chatImpl: { format: { suggest: a, verify: b } },
+    chatImpl: withFormat(a, b),
   })
   const { runId } = await svc.start({ inputDir: input })
   const run = await waitDone(svc, runId)
@@ -173,7 +174,7 @@ test('批次：识别新格式（两模型一致自动采用）→ 事件包；�
   // 交付的事件包：入院记录栏目、门诊嵌入文书、检验
   const pkg = join(run.output, '证件-AAA111')
   const manifest = JSON.parse(await readFile(join(pkg, 'manifest.json'), 'utf8'))
-  assert.equal(manifest.format, 'event-package/0')
+  assert.equal(manifest.format, 'event-package/1')
   assert.ok(manifest.rulepacks.some((r) => r.id === 'recognized'))
   const { gunzipSync } = await import('node:zlib')
   const mentions = gunzipSync(await readFile(join(pkg, 'mentions.jsonl.gz'))).toString('utf8').trim().split('\n').map((l) => JSON.parse(l))
@@ -204,19 +205,16 @@ test('批次：识别新格式（两模型一致自动采用）→ 事件包；�
   assert.match(drug, /阿司匹林/)
 })
 
-test('没配模型：只有规则草稿，全部暂扣、不交付；输入不是数据文件时开批次就报错', async () => {
+test('没配模型不能开始；输入不是数据文件时开批次就报错，不留空批次', async () => {
   const base = await realpath(await mkdtemp(join(tmpdir(), 'event-rec-')))
   const input = join(base, 'one')
   await writeFormatB(input, 1)
-  const svc = createService({ config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state') })
-  const run = await waitDone(svc, (await svc.start({ inputDir: input })).runId)
-  assert.equal(run.status, 'review')
-  assert.equal(run.output, undefined)
-  assert.ok(run.recognition.tables.every((t) => t.status === 'pending'))
-  assert.equal(run.patients.length, 0)
+  const none = createService({ config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state') })
+  await assert.rejects(none.start({ inputDir: input }), /没有配置通读模型/)
+  const svc = createService({ config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state'), chatImpl: withFormat(mockFormatModel('fmt-a'), null) })
   const empty = join(base, 'empty'); await mkdir(empty); await writeFile(join(empty, 'readme.pdf'), 'x')
   await assert.rejects(svc.start({ inputDir: empty }), /没有能读的数据文件/)
-  assert.deepEqual((await readdir(join(base, 'out'))).filter((x) => x !== '_records'), [])
+  assert.deepEqual((await svc.list()).runs, [])
 })
 
 test('栏目默认时间晚于写成（如检查日期晚于报告日期）：按写成日封顶并写明，不让验收门①失败', async () => {
@@ -240,7 +238,7 @@ test('换一批病人（同一张表字段略有出入）：沿用识别结果�
   const f2 = join(input, '证件-BBB222', '病历', 'R02_住院入院记录.json')
   const rows = JSON.parse(await readFile(f2, 'utf8')); rows[0].F_EXTRA = ''; await writeFile(f2, JSON.stringify(rows))
   const a = mockFormatModel('fmt-a'); const b = mockFormatModel('fmt-b', { wrong: { R05_住院医嘱记录: { recordType: '处方', roles: { item: 'F_ORDER' } } } })
-  const svc = createService({ config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state'), chatImpl: { format: { suggest: a, verify: b } } })
+  const svc = createService({ config: { outputRoot: join(base, 'out') }, defaultDirectory: base, stateDir: join(base, 'state'), chatImpl: withFormat(a, b) })
   const r1 = await waitDone(svc, (await svc.start({ inputDir: join(input, '证件-AAA111') })).runId)
   const order1 = (await svc.formats(r1.id)).entries.find((e) => e.table === 'R05_住院医嘱记录')
   assert.equal(order1.status, 'disputed')

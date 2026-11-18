@@ -52,15 +52,17 @@ body{background:var(--dsw-alias-bg-base)}</style>
 </script>`
 
 const handlers = {
-  config: () => service.configInfo(),
+  config: () => ({ ...service.configInfo(), version: 'preview' }),
   list: () => service.list(),
   status: (p) => service.status(p.runId),
   report: (p) => service.report(p.runId),
   calls: (p) => service.calls(p.runId),
+  files: (p) => service.files(p.runId, p),
+  patients: (p) => service.patients(p.runId, p),
   timeline: (p) => service.timeline(p.runId, p.patient),
   event: (p) => service.eventDetail(p.runId, p.patient, p.eventId),
   finding: (p) => service.findingDetail(p.runId, p.patient, p.findingId),
-  reviewQueue: (p) => service.reviewQueue(p.runId),
+  reviewQueue: (p) => service.reviewQueue(p.runId, p),
   formats: (p) => service.formats(p.runId),
   documents: (p) => service.documents(p.runId, p.patient),
   fragment: (p) => service.fragment(p.runId, p.patient, p.fragmentId),
