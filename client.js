@@ -726,9 +726,6 @@ button.me-ob-mh{background:none;border:0;border-bottom:1px solid var(--line);fon
               h('span', { className: 'me-num' }, run?.id ?? '—'),
               run?.status === 'running' && run.current ? h('span', { className: 'me-tl' }, `${run.current.patient ? `${run.current.patient} · ` : ''}${run.current.step}`)
                 : run ? h('span', { title: run.input }, [modeLabel(run.mode), run.asOf ? `截至 ${run.asOf}` : null, run.inputName].filter(Boolean).join(' · ')) : null)),
-          run ? h('div', { className: `me-tpl${run.model?.verifyModel || !run.version ? '' : ' warn'}`, title: `通读模型 ${run.model?.model ?? '—'}${run.model?.verifyModel ? `\n核验模型 ${run.model.verifyModel}（抽查 ${Math.round((run.sampleRate ?? 0) * 100)}% 的句子，分歧至多复查 ${run.maxRounds ?? 3} 轮）` : '\n未配置核验模型：不做抽样核验和复查'}\n${modeLabel(run.mode)}` },
-            h('span', { style: { fontSize: 15, color: 'var(--teal)' } }, '◇'),
-            h('div', {}, h('b', {}, run.version ? `通读 ${run.model?.model ?? '—'}` : '旧版本（规则为主）'), h('span', {}, run.model?.verifyModel ? `核验 ${run.model.verifyModel} · ${Math.round((run.sampleRate ?? 0) * 100)}% · ≤${run.maxRounds ?? 3} 轮` : run.version ? '未配置核验模型' : '模型只给建议'))) : null,
           h('span', { className: 'me-sp' }),
           h('div', { className: 'me-clock sep' }, h('span', {}, '用时'), h('b', {}, clock(elapsed))),
           run ? h('div', { className: 'me-clock sep pct', title: `${run.shards?.done ?? 0} / ${run.shards?.total ?? 0} 个数据块` }, h('span', {}, '完成'), h('b', {}, percent == null ? '—' : String(percent), h('small', {}, '%'))) : null,
